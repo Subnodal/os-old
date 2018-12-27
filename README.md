@@ -1,2 +1,2 @@
 # os
-SubOS, Subnodal's operating system built for the web.
+subOS, Subnodal's operating system built for the web.
