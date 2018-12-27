@@ -6,3 +6,55 @@ html, body {
     background-color: black;
     overflow: hidden;
 }
+
+* {
+    font-family: "Overpass", "Roboto", sans-serif;
+}
+
+h1, code {
+    font-family: "Overpass Mono", "Roboto Mono", sans-serif;
+}
+
+span, strong, em {
+    font-family: inherit;
+}
+
+section {
+    margin: 8px;
+    padding: 8px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+button {
+    padding: 8px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--uiColour);
+    color: var(--uiTextColour);
+    font-size: 1em;
+    transition: 0.5s;
+}
+
+button:hover {
+    background-color: var(--uiHoverColour);
+    cursor: pointer;
+}
+
+.left {
+    text-align: left;
+}
+
+.center {
+    text-align: center;
+}
+
+.right {
+    text-align: right;
+}
+
+.noMargin {
+    margin: 0;
+}

@@ -1,0 +1,10 @@
+:root {
+    --backgroundColour: #f8f8f8;
+    --textColour: black;
+    --coverTextColour: #404040;
+    --uiColour: #4688f2;
+    --uiTextColour: white;
+    --uiHoverColour: #5c97f5;
+    --uiInputColour: #e5e5e5;
+    --uiCardBorderColour: #e5e5e5;
+}
