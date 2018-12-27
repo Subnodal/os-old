@@ -1,0 +1,27 @@
+#sReader {
+    display: none;
+    position: absolute;
+    bottom: 60px;
+    left: 40px;
+    width: 500px;
+    height: 110px;
+    padding: 10px;
+    z-index: 99999;
+    overflow-y: hidden;
+    border: 2px solid white;
+    border-radius: 5px;
+    font-size: 20px;
+    background-color: black;
+    color: white;
+}
+
+#sReaderBlackout {
+    display: none;
+    position: absolute;
+    z-index: 1000000;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: black;
+}

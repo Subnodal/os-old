@@ -1,3 +1,3 @@
 $(function() {
-    screens.show("signin");
+    screens.show("signIn");
 });

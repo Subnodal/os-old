@@ -6,20 +6,62 @@
         <link rel="stylesheet" href="font/import.css">
         <link rel="stylesheet" href="funcs/fontSizes/style.css">
         <link rel="stylesheet" href="funcs/colours/style.css">
+        <link rel="stylesheet" href="funcs/sReader/style.css">
         <link rel="stylesheet" href="funcs/screens/style.css">
         <link rel="stylesheet" href="style.css">
         <script src="lib/jquery.min.js"></script>
+        <script src="funcs/sReader/script.js"></script>
         <script src="funcs/screens/script.js"></script>
         <script src="script.js"></script>
     </head>
     <body>
-        <screen name="signin">
+        <screen name="signIn" data-readable="sign in page">
             <section>
+                <h1>subOS Tests</h1>
                 <p>
                     Hi! This is very proof-of-concept.
                 </p>
-                <button onclick="alert('Hi!');">Click Me!</button>
+                <p data-no-sreader>
+                    <label>Enter some text!</label> <input data-readable="a random input box">
+                    <button onclick="alert($('input').val());">Click Me!</button>
+                </p>
+                <h2>subReader</h2>
+                <p data-no-sreader>
+                    <button onclick="sReader.switchState();">Switch on/off subReader (Ctrl+F12)</button>
+                    <button onclick="screens.fade('sReaderHelp');">subReader Help</button>
+                </p>
             </section>
         </screen>
+        <screen name="sReaderHelp" data-readable="subReader Help">
+            <section>
+                <h1>subReader Help</h1>
+                <p>
+                    To turn the reader on and off, press Ctrl+F12. To turn
+                    on/off blackout mode for security, press Alt+F12. Blackout
+                    mode can help keep documents that you type private by
+                    blanking the screen but still giving a representation of
+                    the screen by voice. The keyboard can allow for navigation.
+                </p>
+                <p>
+                    To focus on the next object, press Tab. You should then
+                    get a description of the highlighted object. To read the
+                    content of the object again, press Ctrl+Alt. To read it
+                    again slowly, press Ctrl+Shift+Alt. Press Enter to press
+                    the object.
+                </p>
+                <p>
+                    To get the spelling of the last word in the object, press
+                    Ctrl+Alt+S.
+                </p>
+                <button onclick="screens.fade('signIn');">Go Back</button>
+            </section>
+        </screen>
+        <div class="card grey darken-1 white-text left-align" id="sReader">
+            <div class="card-content" id="sReaderContent"></div>
+        </div>
+        <div>
+            <div id="sReaderBlackout"></div>
+            <style id="sReaderStyle"></style>
+        </div>
     </body>
 </html>
