@@ -1,0 +1,8 @@
+* {
+    font-family: "Overpass", sans-serif;
+}
+
+html, body {
+    background-color: black;
+    overflow: hidden;
+}
