@@ -258,20 +258,16 @@ $(function() {
             if (sReader.reading) {
                 sReader.switchBlackout();
             }
+        } else if (e.keyCode == 83 && e.altKey) {
+            if (sReader.reading) {
+                sReader.reRead(true, true);
+            }
         } else if (e.ctrlKey && e.altKey) {
             if (sReader.reading) {
                 if (e.shiftKey) {
-                    if (e.keyCode == 83) {
-                        sReader.reRead(true, true);
-                    } else {
-                        sReader.reRead(true);
-                    }     
+                    sReader.reRead(true);
                 } else {
-                    if (e.keyCode == 83) {
-                        sReader.reRead(false, true);
-                    } else {
-                        sReader.reRead();
-                    } 
+                    sReader.reRead();
                 }
             }
         }
