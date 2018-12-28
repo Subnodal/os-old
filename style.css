@@ -10,6 +10,8 @@ html, body {
 
 * {
     font-family: "Overpass", "Roboto", sans-serif;
+    cursor: default;
+    user-select: none;
 }
 
 h1, code {
@@ -35,13 +37,11 @@ button {
     border: none;
     background-color: var(--uiColour);
     color: var(--uiTextColour);
-    font-size: 1em;
     transition: 0.5s;
 }
 
 button:hover {
     background-color: var(--uiHoverColour);
-    cursor: pointer;
 }
 
 input {
@@ -52,8 +52,9 @@ input {
     border: none;
     background-color: var(--uiInputColour);
     color: var(--uiInputTextColour);
-    font-size: 1em;
     transition: 0.5s;
+    cursor: text;
+    user-select: unset;
 }
 
 .left {
@@ -70,4 +71,10 @@ input {
 
 .noMargin {
     margin: 0;
+}
+
+.infoBar {
+    background-color: black;
+    color: white;
+    padding: 5px;
 }

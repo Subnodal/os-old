@@ -43,11 +43,11 @@ $(function() {
                     }
                 `);
 
-                $("h1:not([data-no-sreader]), h2:not([data-no-sreader]), h3:not([data-no-sreader]), h4:not([data-no-sreader]), h5:not([data-no-sreader]), h6:not([data-no-sreader]), p:not([data-no-sreader])").attr("tabindex", "0");
+                $("h1:not([data-no-sreader]), h2:not([data-no-sreader]), h3:not([data-no-sreader]), h4:not([data-no-sreader]), h5:not([data-no-sreader]), h6:not([data-no-sreader]), p:not([data-no-sreader]), .readableText, .readableButton").attr("tabindex", "0");
             } else {
                 $("#sReaderStyle").html("");
 
-                $("h1:not([data-no-sreader]), h2:not([data-no-sreader]), h3:not([data-no-sreader]), h4:not([data-no-sreader]), h5:not([data-no-sreader]), h6:not([data-no-sreader]), p:not([data-no-sreader])").removeAttr("tabindex");
+                $("h1:not([data-no-sreader]), h2:not([data-no-sreader]), h3:not([data-no-sreader]), h4:not([data-no-sreader]), h5:not([data-no-sreader]), h6:not([data-no-sreader]), p:not([data-no-sreader]), .readableText, .readableButton").removeAttr("tabindex");
             }
         },
 
@@ -96,30 +96,30 @@ $(function() {
                 });
             }
 
-            $(".readableButton").focusin(function (event) {
+            $(".readableButton").focus(function (event) {
                 $(window).one("keyup", function (e) {
                     var code = (e.keyCode ? e.keyCode : e.which);
                     if (code == 9) {
-                        if (sReader.reading) {sReader.speak($("#" + event.target.id).attr("data-readable") + ": Button");}
+                        if (sReader.reading) {sReader.speak($(document.activeElement).attr("data-readable") + ": Button");}
                     }
                 });
             });
 
             $(".readableButton").mouseover(function (event) {
-                if (sReader.reading) {sReader.speak($("#" + event.target.id).attr("data-readable") + ": Button");}
+                if (sReader.reading) {sReader.speak($(document.activeElement).attr("data-readable") + ": Button");}
             });
 
-            $(".readableText").focusin(function (event) {
+            $(".readableText").focus(function (event) {
                 $(window).one("keyup", function (e) {
                     var code = (e.keyCode ? e.keyCode : e.which);
                     if (code == 9) {
-                        if (sReader.reading) {sReader.speak($("#" + event.target.id).attr("data-readable"));}
+                        if (sReader.reading) {sReader.speak($(document.activeElement).attr("data-readable"));}
                     }
                 });
             });
 
             $(".readableText").mouseover(function (event) {
-                if (sReader.reading) {sReader.speak($("#" + event.target.id).attr("data-readable"));}
+                if (sReader.reading) {sReader.speak($(document.activeElement).attr("data-readable"));}
             });
 
             $("button").mouseover(function (event) {
