@@ -25,7 +25,7 @@
                     Hi! This is very proof-of-concept.
                 </p>
                 <p data-no-sreader>
-                    <label>Enter some text!</label> <input data-readable="a random input box">
+                    <label for="random">Enter some text!</label> <input id="random" data-readable="a random input box">
                     <button onclick="alert($('input').val());">Click Me!</button>
                 </p>
                 <h2>subReader</h2>
@@ -42,21 +42,21 @@
             <section>
                 <h1>subReader Help</h1>
                 <p>
-                    To turn the reader on and off, press Ctrl+F12. To turn
-                    on/off blackout mode for security, press Alt+F12. Blackout
+                    To turn the reader on and off press Ctrl+F12. To turn
+                    on/off blackout mode for security press Alt+F12. Blackout
                     mode can help keep documents that you type private by
                     blanking the screen but still giving a representation of
                     the screen by voice. The keyboard can allow for navigation.
                 </p>
                 <p>
-                    To focus on the next object, press Tab. You should then
+                    To focus on the next object press Tab. You should then
                     get a description of the highlighted object. To read the
-                    content of the object again, press Ctrl+Alt. To read it
-                    again slowly, press Ctrl+Shift+Alt. Press Enter to press
+                    content of the object again press Ctrl+Alt. To read it
+                    again slowly press Ctrl+Shift+Alt. Press Enter to press
                     the object.
                 </p>
                 <p>
-                    To get the spelling of the last word in the object, press
+                    To get the spelling of the last word in the object press
                     Alt+S.
                 </p>
                 <button onclick="screens.fade('signIn');">Go Back</button>

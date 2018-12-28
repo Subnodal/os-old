@@ -24,4 +24,5 @@
     top: 0;
     left: 0;
     background-color: black;
+    pointer-events: none;
 }

@@ -21,9 +21,41 @@ $(function() {
         speak: function(text, slow = false, spell = false) {
             window.speechSynthesis.cancel();
 
-            setTimeout(function () {
+            setTimeout(function() {
                 if (spell) {
-                    var message = new SpeechSynthesisUtterance(text.trim().split(" ")[text.trim().split(" ").length - 1].split("").join(" ").replace(/\s\s\s/g, " Space "));
+                    var listing = text.trim().split(" ")[text.trim().split(" ").length - 1].split("");
+
+                    for (var i = 0; i < listing.length; i++) {
+                        if (listing[i] == listing[i].toLowerCase()) {
+                            listing[i] = listing[i].toUpperCase();
+                        } else {
+                            listing[i] = "Capital " + listing[i].toUpperCase();
+                        }
+                    }
+
+                    var message = new SpeechSynthesisUtterance(listing.join(" ")
+                        .replace(/\s\s\s/g, " space ")
+                        .replace(/!/g, " exclamation mark")
+                        .replace(/\?/g, " question mark ")
+                        .replace(/\./g, " dot ")
+                        .replace(/"/g, " quote ")
+                        .replace(/'/g, " single quote ")
+                        .replace(/,/g, " comma ")
+                        .replace(/\//g, " slash ")
+                        .replace(/\\/g, " backslash ")
+                        .replace(/\|/g, " pipe ")
+                        .replace(/:/g, " colon ")
+                        .replace(/;/g, " semicolon ")
+                        .replace(/\(/g, " opening parenthesis ")
+                        .replace(/\)/g, " closing parenthesis ")
+                        .replace(/\[/g, " opening square bracket ")
+                        .replace(/\]/g, " closing square bracket ")
+                        .replace(/\{/g, " opening brace bracket ")
+                        .replace(/\}/g, " closing brace bracket ")
+                        .replace(/\</g, " less than ")
+                        .replace(/\>/g, " greater than ")
+                        .replace(/-/g, " dash ")
+                    );
                 } else {
                     var message = new SpeechSynthesisUtterance(text.replace(/subReader/g, " sub reader ").replace(/subOS/g, " sub OS "));
                 }
@@ -64,8 +96,8 @@ $(function() {
 
             $("#sReaderContent").text("");
 
-            $("button").focus(function (event) {
-                $(window).one("keyup", function (e) {
+            $("button:not([data-no-sreader])").focus(function(event) {
+                $(window).one("keyup", function(e) {
                     var code = (e.keyCode ? e.keyCode : e.which);
                     if (code == 9) {
                         if (sReader.reading) {sReader.speak(event.target.innerHTML + ": Button");}
@@ -73,8 +105,8 @@ $(function() {
                 });
             });
 
-            $("p").focus(function (event) {
-                $(window).one("keyup", function (e) {
+            $("p:not([data-no-sreader])").focus(function(event) {
+                $(window).one("keyup", function(e) {
                     var code = (e.keyCode ? e.keyCode : e.which);
                     if (code == 9) {
                         if (sReader.reading) {sReader.speak("Paragraph: " + event.target.innerHTML);}
@@ -86,8 +118,8 @@ $(function() {
                 var levels = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth"];
                 var iPass = i;
 
-                $("h" + i).focus(function (event) {
-                    $(window).one("keyup", function (e) {
+                $("h" + i + ":not([data-no-sreader])").focus(function(event) {
+                    $(window).one("keyup", function(e) {
                         var code = (e.keyCode ? e.keyCode : e.which);
                         if (code == 9) {
                             if (sReader.reading) {sReader.speak(levels[Number($(event.target).get(0).tagName[1]) - 1] + "-level heading: " + event.target.innerHTML);}
@@ -96,8 +128,21 @@ $(function() {
                 });
             }
 
-            $(".readableButton").focus(function (event) {
-                $(window).one("keyup", function (e) {
+            $("p:not([data-no-sreader])").mouseover(function(event) {
+                if (sReader.reading) {sReader.speak("Paragraph: " + event.target.innerHTML);}
+            });
+
+            for (var i = 1; i <= 6; i++) {
+                var levels = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth"];
+                var iPass = i;
+
+                $("h" + i + ":not([data-no-sreader])").mouseover(function(event) {
+                    if (sReader.reading) {sReader.speak(levels[Number($(event.target).get(0).tagName[1]) - 1] + "-level heading: " + event.target.innerHTML);}
+                });
+            }
+
+            $(".readableButton").focus(function(event) {
+                $(window).one("keyup", function(e) {
                     var code = (e.keyCode ? e.keyCode : e.which);
                     if (code == 9) {
                         if (sReader.reading) {sReader.speak($(document.activeElement).attr("data-readable") + ": Button");}
@@ -105,12 +150,12 @@ $(function() {
                 });
             });
 
-            $(".readableButton").mouseover(function (event) {
-                if (sReader.reading) {sReader.speak($(document.activeElement).attr("data-readable") + ": Button");}
+            $(".readableButton").mouseover(function(event) {
+                if (sReader.reading) {sReader.speak($(this).attr("data-readable") + ": Button");}
             });
 
-            $(".readableText").focus(function (event) {
-                $(window).one("keyup", function (e) {
+            $(".readableText").focus(function(event) {
+                $(window).one("keyup", function(e) {
                     var code = (e.keyCode ? e.keyCode : e.which);
                     if (code == 9) {
                         if (sReader.reading) {sReader.speak($(document.activeElement).attr("data-readable"));}
@@ -118,15 +163,15 @@ $(function() {
                 });
             });
 
-            $(".readableText").mouseover(function (event) {
-                if (sReader.reading) {sReader.speak($(document.activeElement).attr("data-readable"));}
+            $(".readableText").mouseover(function(event) {
+                if (sReader.reading) {sReader.speak($(this).attr("data-readable"));}
             });
 
-            $("button").mouseover(function (event) {
+            $("button").mouseover(function(event) {
                 if (sReader.reading) {sReader.speak(event.target.innerHTML + ": Button");}
             });
 
-            $("button, a").keypress(function (event) {
+            $("button, a").keypress(function(event) {
                 if (sReader.reading) {
                     event.preventDefault();
 
@@ -140,15 +185,39 @@ $(function() {
                 }
             });
 
-            $("input").focusin(function (event) {
+            $("input").focusin(function(event) {
                 if ($(this).attr("data-readable") == undefined) {
-                    if (sReader.reading) {sReader.speak("Editing: Text Input");}
+                    if ($(this).attr("id") != undefined && $("label[for=" + $(this).attr("id") + "]").length > 0) {
+                        if (sReader.reading) {sReader.speak("Editing " + $("label[for=" + $(this).attr("id") + "]:first").text() + ": Text Input");}
+                    } else {
+                        if ($(this).attr("placeholder") != undefined) {
+                            if (sReader.reading) {sReader.speak("Editing " + $(this).attr("placeholder") + ": Text Input");}
+                        } else {
+                            if (sReader.reading) {sReader.speak("Editing: Text Input");}
+                        }
+                    }
                 } else {
                     if (sReader.reading) {sReader.speak("Editing " + $(this).attr("data-readable") + ": Text Input");}
                 }
             });
 
-            $("input").keypress(function (event) {
+            $("input").focusout(function(event) {
+                if ($(this).attr("data-readable") == undefined) {
+                    if (sReader.reading) {sReader.speak("Editing stopped");}
+                } else {
+                    if (sReader.reading) {sReader.speak("Editing stopped");}
+                }
+            });
+
+            $("input").mouseover(function(event) {
+                if ($(this).attr("data-readable") == undefined) {
+                    if (sReader.reading) {sReader.speak("Text Input, press to edit");}
+                } else {
+                    if (sReader.reading) {sReader.speak($(this).attr("data-readable") + ": Text Input, press to edit");}
+                }
+            });
+
+            $("input").keypress(function(event) {
                 if (sReader.reading) {
                     if (event.which == 8) {
                         sReader.speak("Backspace");
@@ -170,7 +239,7 @@ $(function() {
                 }
             });
 
-            $("input").keydown(function (event) {
+            $("input").keydown(function(event) {
                 if (sReader.reading) {
                     if (event.which == 8) {
                         sReader.speak("Backspace. " + getClosestWord($(document.activeElement).val().substring(0, $(document.activeElement).val().length - 1), $(document.activeElement).val().length));
