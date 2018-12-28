@@ -1,3 +1,5 @@
+var inFullscreen = false;
+
 $(function() {
     if ($("body").width() < 500) {
         window.location.href = "notSupported.html";
@@ -20,23 +22,42 @@ $(function() {
     $("main").css("height", "calc(100vh - " + $(".infoBar").height() + "px)");
 });
 
-function toggleFullScreen() {
-    if ((document.fullScreenElement && document.fullScreenElement !== null) ||    
-     (!document.mozFullScreen && !document.webkitIsFullScreen)) {
-      if (document.documentElement.requestFullScreen) {  
-        document.documentElement.requestFullScreen();  
-      } else if (document.documentElement.mozRequestFullScreen) {  
-        document.documentElement.mozRequestFullScreen();  
-      } else if (document.documentElement.webkitRequestFullScreen) {  
-        document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);  
-      }  
-    } else {  
-      if (document.cancelFullScreen) {  
-        document.cancelFullScreen();  
-      } else if (document.mozCancelFullScreen) {  
-        document.mozCancelFullScreen();  
-      } else if (document.webkitCancelFullScreen) {  
-        document.webkitCancelFullScreen();  
-      }  
-    }  
-  }
+function toggleFullscreen() {
+    if (!inFullscreen) {
+        try {
+            document.body.requestFullscreen();
+        } catch (e) {}
+
+        try {
+            document.body.webkitRequestFullScreen();
+        } catch (e) {}
+
+        try {
+            document.body.mozRequestFullScreen();
+        } catch (e) {}
+
+        try {
+            document.body.msRequestFullScreen();
+        } catch (e) {}
+
+        inFullscreen = true;
+    } else {
+        try {
+            document.exitFullscreen();
+        } catch (e) {}
+
+        try {
+            document.webkitCancelFullScreen();
+        } catch (e) {}
+
+        try {
+            document.mozCancelFullScreen();
+        } catch (e) {}
+
+        try {
+            document.msExitFullScreen();
+        } catch (e) {}
+
+        inFullscreen = false;
+    }
+}

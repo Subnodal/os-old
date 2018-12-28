@@ -21,6 +21,7 @@
             <div class="infoBar">
                 <span class="infoTime readableText" data-readable="The time is unavailable">--:--</span>
                 <div class="infoBarRight">
+                    <button onclick="toggleFullscreen();" class="infoButton readableButton" data-readable="Toggle fullscreen"><i>fullscreen</i></button>
                     <button onclick="menus.show('#accessibilityMenu', 0, $('.infoBar').outerHeight(), true);" class="infoButton readableButton" data-readable="Accessibility options"><i>accessibility</i><i>arrow_drop_down</i></button>
                     <button onclick="menus.show('#powerMenu', 0, $('.infoBar').outerHeight(), true);" class="infoButton readableButton" data-readable="Power options"><i>power_settings_new</i><i>arrow_drop_down</i></button>
                     <menu id="accessibilityMenu">
@@ -38,7 +39,6 @@
                     <input type="password" placeholder="Password" class="fillWidth">
                 </div>
                 <div class="cardButtons greeter">
-                    <input type="button" value="Click to toggle fullscreen" onclick="toggleFullScreen()" class="fullscreen">
                     <button onclick="screens.fade('tests');" class="flat">Help</button>
                     <button>Sign In</button>
                 </div>
