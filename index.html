@@ -8,14 +8,42 @@
         <link rel="stylesheet" href="funcs/colours/style.css">
         <link rel="stylesheet" href="funcs/sReader/style.css">
         <link rel="stylesheet" href="funcs/screens/style.css">
+        <link rel="stylesheet" href="funcs/menus/style.css">
         <link rel="stylesheet" href="style.css">
         <script src="lib/jquery.min.js"></script>
         <script src="funcs/sReader/script.js"></script>
         <script src="funcs/screens/script.js"></script>
+        <script src="funcs/menus/script.js"></script>
         <script src="script.js"></script>
     </head>
     <body>
-        <screen name="signIn" data-readable="sign in page">
+        <screen name="signIn" class="signInBackground" data-readable="sign in page">
+            <div class="infoBar">
+                <span class="infoTime readableText" data-readable="The time is unavailable">--:--</span>
+                <div class="infoBarRight">
+                    <button onclick="menus.show('#accessibilityMenu', 0, $('.infoBar').outerHeight(), true);" class="infoButton readableButton" data-readable="Accessibility options"><i>accessibility</i><i>arrow_drop_down</i></button>
+                    <button onclick="menus.show('#powerMenu', 0, $('.infoBar').outerHeight(), true);" class="infoButton readableButton" data-readable="Power options"><i>power_settings_new</i><i>arrow_drop_down</i></button>
+                    <menu id="accessibilityMenu">
+                        <button onclick="sReader.switchState();" class="menuItem">subReader</button>
+                    </menu>
+                    <menu id="powerMenu">
+                        <button onclick="window.location.href = 'https://subnodal.com';" class="menuItem">Exit session</button>
+                    </menu>
+                </div>
+            </div>
+            <div class="card greeter">
+                <div class="cardContent center">
+                    <h1>Sign into subOS</h1>
+                    <input placeholder="Username" class="fillWidth">
+                    <input type="password" placeholder="Password" class="fillWidth">
+                </div>
+                <div class="cardButtons greeter">
+                    <button onclick="screens.fade('tests');" class="flat">Help</button>
+                    <button>Sign In</button>
+                </div>
+            </div>
+        </screen>
+        <screen name="tests" data-readable="tests page">
             <div class="infoBar">
                 <span class="readableText infoTime" data-readable="The time is unavailable">--:--</span>
             </div>
@@ -27,6 +55,7 @@
                 <p data-no-sreader>
                     <label for="random">Enter some text!</label> <input id="random" data-readable="a random input box">
                     <button onclick="alert($('input').val());">Click Me!</button>
+                    <button onclick="screens.fade('signIn');">Sign In</button>
                 </p>
                 <h2>subReader</h2>
                 <p data-no-sreader>
@@ -59,7 +88,7 @@
                     To get the spelling of the last word in the object press
                     Alt+S.
                 </p>
-                <button onclick="screens.fade('signIn');">Go Back</button>
+                <button onclick="screens.fade('tests');">Go Back</button>
             </section>
         </screen>
         <div class="card grey darken-1 white-text left-align" id="sReader">

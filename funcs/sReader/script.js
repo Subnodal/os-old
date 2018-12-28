@@ -18,10 +18,14 @@ $(function() {
         reading: false,
         blackout: false,
 
-        speak: function(text, slow = false, spell = false) {
+        speak: function(text, slow = false, spell = false, code = false) {
             window.speechSynthesis.cancel();
 
             setTimeout(function() {
+                if (!code) {
+                    text = text.replace(/(<i>.*?<\/i>)/g, "")
+                }
+
                 if (spell) {
                     var listing = text.trim().split(" ")[text.trim().split(" ").length - 1].split("");
 
@@ -75,11 +79,11 @@ $(function() {
                     }
                 `);
 
-                $("h1:not([data-no-sreader]), h2:not([data-no-sreader]), h3:not([data-no-sreader]), h4:not([data-no-sreader]), h5:not([data-no-sreader]), h6:not([data-no-sreader]), p:not([data-no-sreader]), .readableText, .readableButton").attr("tabindex", "0");
+                $("h1:not([data-no-sreader]), h2:not([data-no-sreader]), h3:not([data-no-sreader]), h4:not([data-no-sreader]), h5:not([data-no-sreader]), h6:not([data-no-sreader]), p:not([data-no-sreader]), .readableText, .readableButton, .menuItem").attr("tabindex", "0");
             } else {
                 $("#sReaderStyle").html("");
 
-                $("h1:not([data-no-sreader]), h2:not([data-no-sreader]), h3:not([data-no-sreader]), h4:not([data-no-sreader]), h5:not([data-no-sreader]), h6:not([data-no-sreader]), p:not([data-no-sreader]), .readableText, .readableButton").removeAttr("tabindex");
+                $("h1:not([data-no-sreader]), h2:not([data-no-sreader]), h3:not([data-no-sreader]), h4:not([data-no-sreader]), h5:not([data-no-sreader]), h6:not([data-no-sreader]), p:not([data-no-sreader]), .readableText, .readableButton, .menuItem").removeAttr("tabindex");
             }
         },
 
@@ -167,8 +171,34 @@ $(function() {
                 if (sReader.reading) {sReader.speak($(this).attr("data-readable"));}
             });
 
+            $(".menuItem").focus(function(event) {
+                if (sReader.reading) {
+                    if ($(document.activeElement).attr("data-readable") == undefined) {
+                        sReader.speak($(document.activeElement).text() + ": Menu Item");
+                    } else {
+                        sReader.speak($(document.activeElement).attr("data-readable") + ": Menu Item");
+                    }
+                }
+            });
+
+            $(".menuItem").mouseover(function(event) {
+                if (sReader.reading) {
+                    if ($(this).attr("data-readable") == undefined) {
+                        sReader.speak($(this).text() + ": Menu Item");
+                    } else {
+                        sReader.speak($(this).attr("data-readable") + ": Menu Item");
+                    }
+                }
+            });
+
             $("button").mouseover(function(event) {
-                if (sReader.reading) {sReader.speak(event.target.innerHTML + ": Button");}
+                if (sReader.reading) {
+                    if ($(this).attr("data-readable") == undefined) {
+                        sReader.speak(event.target.innerHTML + ": Button");
+                    } else {
+                        sReader.speak($(this).attr("data-readable") + ": Button");
+                    }
+                }
             });
 
             $("button, a").keypress(function(event) {
@@ -211,7 +241,15 @@ $(function() {
 
             $("input").mouseover(function(event) {
                 if ($(this).attr("data-readable") == undefined) {
-                    if (sReader.reading) {sReader.speak("Text Input, press to edit");}
+                    if ($(this).attr("id") != undefined && $("label[for=" + $(this).attr("id") + "]").length > 0) {
+                        if (sReader.reading) {sReader.speak($("label[for=" + $(this).attr("id") + "]:first").text() + ": Text Input, press to edit");}
+                    } else {
+                        if ($(this).attr("placeholder") != undefined) {
+                            if (sReader.reading) {sReader.speak($(this).attr("placeholder") + ": Text Input, press to edit");}
+                        } else {
+                            if (sReader.reading) {sReader.speak("Text Input, press to edit");}
+                        }
+                    }
                 } else {
                     if (sReader.reading) {sReader.speak($(this).attr("data-readable") + ": Text Input, press to edit");}
                 }

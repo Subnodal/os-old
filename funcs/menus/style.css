@@ -1,0 +1,36 @@
+menu {
+    display: none;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    min-width: 150px;
+    max-width: 300px;
+    border-radius: 5px;
+    background-color: var(--backgroundColour);
+    color: var(--textColour);
+}
+
+.menuItem {
+    display: block;
+    margin: 0;
+    padding: 8px;
+    width: 100%;
+    border-radius: 0;
+    text-align: left;
+    background-color: transparent;
+    color: var(--textColour);
+}
+
+.menuItem:first-child {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.menuItem:last-child {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.menuItem:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}

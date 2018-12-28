@@ -30,6 +30,7 @@ section {
 }
 
 button {
+    margin: 4px;
     padding: 8px;
     padding-left: 10px;
     padding-right: 10px;
@@ -44,7 +45,13 @@ button:hover {
     background-color: var(--uiHoverColour);
 }
 
+button.flat {
+    background-color: inherit;
+    color: var(--uiFlatTextColour);
+}
+
 input {
+    margin: 4px;
     padding: 8px;
     padding-left: 10px;
     padding-right: 10px;
@@ -55,6 +62,40 @@ input {
     transition: 0.5s;
     cursor: text;
     user-select: unset;
+}
+
+input.fillWidth {
+    width: calc(100% - 28px)!important;
+}
+
+div.card {
+    margin: 5px;
+    padding-top: 10px;
+    border-radius: 5px;
+    background-color: var(--backgroundColour);
+    color: var(--textColour);
+}
+
+div.card.greeter {
+    margin-left: calc(50vw - 200px);
+    margin-right: calc(50vw - 200px);
+    margin-top: 100px;
+    margin-bottom: 100px;
+    max-height: calc(100vh - 275px);
+    overflow: auto;
+}
+
+div.cardContent {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+div.cardButtons {
+    margin: -10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: right;
 }
 
 .left {
@@ -73,8 +114,35 @@ input {
     margin: 0;
 }
 
+.fillWidth {
+    width: fit-content;
+}
+
 .infoBar {
     background-color: black;
     color: white;
     padding: 5px;
+}
+
+.infoBarRight {
+    float: right;
+    height: 100%;
+}
+
+.infoButton {
+    margin: 0;
+    padding: 0;
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: transparent;
+    color: white;
+}
+
+.infoButton:hover {
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.signInBackground {
+    background: var(--desktopBackground);
 }

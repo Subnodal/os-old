@@ -5,7 +5,9 @@
     --uiColour: #4688f2;
     --uiTextColour: white;
     --uiHoverColour: #5c97f5;
+    --uiFlatTextColour: #4688f2;
     --uiInputColour: #e5e5e5;
     --uiInputTextColour: black;
     --uiCardBorderColour: #e5e5e5;
+    --desktopBackground: linear-gradient(130deg, #0fd89c 0%, #3997ef 100%);
 }
