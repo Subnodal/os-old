@@ -18,31 +18,36 @@
     </head>
     <body>
         <screen name="signIn" class="signInBackground" data-readable="sign in page">
-            <div class="infoBar">
-                <span class="infoTime readableText" data-readable="The time is unavailable">--:--</span>
-                <div class="infoBarRight">
-                    <button onclick="toggleFullscreen();" class="infoButton readableButton" data-readable="Toggle fullscreen"><i>fullscreen</i></button>
-                    <button onclick="menus.show('#accessibilityMenu', 0, $('.infoBar').outerHeight(), true);" class="infoButton readableButton" data-readable="Accessibility options"><i>accessibility</i><i>arrow_drop_down</i></button>
-                    <button onclick="menus.show('#powerMenu', 0, $('.infoBar').outerHeight(), true);" class="infoButton readableButton" data-readable="Power options"><i>power_settings_new</i><i>arrow_drop_down</i></button>
-                    <menu id="accessibilityMenu">
-                        <button onclick="sReader.switchState();" class="menuItem">subReader</button>
-                    </menu>
-                    <menu id="powerMenu">
-                        <button onclick="window.location.href = 'https://subnodal.com';" class="menuItem">Exit session</button>
-                    </menu>
+            <main>
+                <div class="infoBar">
+                    <span class="infoTime readableText" data-readable="The time is unavailable">--:--</span>
+                    <div class="infoBarRight">
+                        <button onclick="toggleFullscreen();" class="infoButton readableButton" data-readable="Toggle fullscreen"><i>fullscreen</i></button>
+                        <button onclick="menus.show('#accessibilityMenu', 0, $('.infoBar').outerHeight(), true);" class="infoButton readableButton" data-readable="Accessibility options"><i>accessibility</i><i>arrow_drop_down</i></button>
+                        <button onclick="menus.show('#powerMenu', 0, $('.infoBar').outerHeight(), true);" class="infoButton readableButton" data-readable="Power options"><i>power_settings_new</i><i>arrow_drop_down</i></button>
+                        <menu id="accessibilityMenu">
+                            <button onclick="sReader.switchState();" class="menuItem">subReader</button>
+                        </menu>
+                        <menu id="powerMenu">
+                            <button onclick="window.location.href = 'https://subnodal.com';" class="menuItem">Exit session</button>
+                        </menu>
+                    </div>
                 </div>
-            </div>
-            <div class="card greeter">
-                <div class="cardContent center">
-                    <h1>Sign into subOS</h1>
-                    <input placeholder="Username" class="fillWidth">
-                    <input type="password" placeholder="Password" class="fillWidth">
+                <div class="card greeter">
+                    <div class="cardContent center">
+                        <h1>Sign into subOS</h1>
+                        <div class="signInPersonal"></div>
+                        <div class="signInNetwork">
+                            <input placeholder="Username" class="fillWidth">
+                        </div>
+                        <input type="password" placeholder="Password" class="fillWidth">
+                    </div>
+                    <div class="cardButtons greeter">
+                        <button onclick="screens.fade('tests');" class="flat">Help</button>
+                        <button>Sign In</button>
+                    </div>
                 </div>
-                <div class="cardButtons greeter">
-                    <button onclick="screens.fade('tests');" class="flat">Help</button>
-                    <button>Sign In</button>
-                </div>
-            </div>
+            </main>
         </screen>
         <screen name="tests" data-readable="tests page">
             <div class="infoBar">
@@ -51,7 +56,7 @@
             <section>
                 <h1>subOS Tests</h1>
                 <p>
-                    Hi! This is very proof-of-concept.
+                    Hi! This is very proof-of-concept. The account names are placeholders only.
                 </p>
                 <p data-no-sreader>
                     <label for="random">Enter some text!</label> <input id="random" data-readable="a random input box">
@@ -69,28 +74,30 @@
             <div class="infoBar">
                 <span class="readableText infoTime" data-readable="The time is unavailable">--:--</span>
             </div>
-            <section>
-                <h1>subReader Help</h1>
-                <p>
-                    To turn the reader on and off press Ctrl+F12. To turn
-                    on/off blackout mode for security press Alt+F12. Blackout
-                    mode can help keep documents that you type private by
-                    blanking the screen but still giving a representation of
-                    the screen by voice. The keyboard can allow for navigation.
-                </p>
-                <p>
-                    To focus on the next object press Tab. You should then
-                    get a description of the highlighted object. To read the
-                    content of the object again press Ctrl+Alt. To read it
-                    again slowly press Ctrl+Shift+Alt. Press Enter to press
-                    the object.
-                </p>
-                <p>
-                    To get the spelling of the last word in the object press
-                    Alt+S.
-                </p>
-                <input type="button" value="click to toggle fullscreen" onclick="toggleFullScreen()" class="fullscreen">
-            </section>
+            <main>
+                <section>
+                    <h1>subReader Help</h1>
+                    <p>
+                        To turn the reader on and off press Ctrl+F12. To turn
+                        on/off blackout mode for security press Alt+F12. Blackout
+                        mode can help keep documents that you type private by
+                        blanking the screen but still giving a representation of
+                        the screen by voice. The keyboard can allow for navigation.
+                    </p>
+                    <p>
+                        To focus on the next object press Tab. You should then
+                        get a description of the highlighted object. To read the
+                        content of the object again press Ctrl+Alt. To read it
+                        again slowly press Ctrl+Shift+Alt. Press Enter to press
+                        the object.
+                    </p>
+                    <p>
+                        To get the spelling of the last word in the object press
+                        Alt+S.
+                    </p>
+                    <button onclick="screens.fade('tests');">Go back</button>
+                </section>
+            </main>
         </screen>
         <div class="card grey darken-1 white-text left-align" id="sReader">
             <div class="card-content" id="sReaderContent"></div>

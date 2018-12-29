@@ -22,6 +22,24 @@ span, strong, em {
     font-family: inherit;
 }
 
+a {
+    color: var(--uiFlatTextColour);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a.hidden {
+    color: unset;
+    text-decoration: unset;
+}
+
+a.hidden:hover {
+    text-decoration: unset;
+}
+
 section {
     margin: 8px;
     padding: 8px;
@@ -145,6 +163,41 @@ div.cardButtons {
 
 .signInBackground {
     background: var(--desktopBackground);
+}
+
+.signInPersonal {
+    padding-top: 5px;
+    white-space: nowrap;
+    overflow-x: scroll;
+}
+
+.signInPersonalItem {
+    display: inline-block;
+}
+
+.signInPersonalPicture {
+    width: 60px;
+    height: 60px;
+    margin: 5px;
+    border: 0px solid transparent;
+    border-radius: 60px;
+    transition: 0.5s;
+}
+
+.signInPersonalPicture.selected {
+    border: 5px solid var(--uiColour);
+    margin: 0px;
+}
+
+.signInPersonalText {
+    width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.signInNetwork {
+    display: none;
 }
 
 .fullscreen {

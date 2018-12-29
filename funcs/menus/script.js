@@ -29,6 +29,10 @@ var menus = {
 
         if (!menus.cancel) {
             setTimeout(function() {
+                if (menus.openedMenu != null) {
+                    if (sReader.reading) {sReader.speak("Menu closed");}
+                }
+
                 menus.openedMenu = null;
 
                 $("menu").css({
@@ -37,12 +41,18 @@ var menus = {
                     "top": "unset",
                     "bottom": "unset"
                 });
-
-                if (sReader.reading) {sReader.speak("Menu closed");}
             }, 500);
         }
     }
 };
+
+$(function() {
+    $(document.body).keydown(function(e) {
+        if (e.keyCode == 27) {
+            menus.hideAll();
+        }
+    });
+});
 
 $(document).click(function(event) {
     if ((!$(event.target).is("menu") && !$(event.target).parents().is("menu")) || $(event.target).is(".menuItem:not(.disallowClose)")) {

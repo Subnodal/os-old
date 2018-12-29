@@ -100,20 +100,47 @@ $(function() {
 
             $("#sReaderContent").text("");
 
-            $("button:not([data-no-sreader])").focus(function(event) {
+            $(document).on("focus", "button:not([data-no-sreader]), a.button", function(event) {
                 $(window).one("keyup", function(e) {
                     var code = (e.keyCode ? e.keyCode : e.which);
                     if (code == 9) {
-                        if (sReader.reading) {sReader.speak(event.target.innerHTML + ": Button");}
+                        if (sReader.reading) {
+                            if ($(event.target).attr("data-readable") == undefined) {
+                                sReader.speak($(event.target).text() + ": Button");
+                            } else {
+                                sReader.speak($(event.target).attr("data-readable") + ": Button");
+                            }
+                        }
                     }
                 });
             });
 
-            $("p:not([data-no-sreader])").focus(function(event) {
+            $(document).on("focus", "a:not(.button)", function(event) {
                 $(window).one("keyup", function(e) {
                     var code = (e.keyCode ? e.keyCode : e.which);
                     if (code == 9) {
-                        if (sReader.reading) {sReader.speak("Paragraph: " + event.target.innerHTML);}
+                        if (sReader.reading) {
+                            if ($(event.target).attr("data-readable") == undefined) {
+                                sReader.speak($(event.target).text() + ": Link");
+                            } else {
+                                sReader.speak($(event.target).attr("data-readable") + ": Link");
+                            }
+                        }
+                    }
+                });
+            });
+
+            $(document).on("focus", "p:not([data-no-sreader])", function(event) {
+                $(window).one("keyup", function(e) {
+                    var code = (e.keyCode ? e.keyCode : e.which);
+                    if (code == 9) {
+                        if (sReader.reading) {
+                            if ($(event.target).attr("data-readable") == undefined) {
+                                sReader.speak("Paragraph: " + $(event.target).text());
+                            } else {
+                                sReader.speak("Paragraph: " + $(event.target).attr("data-readable"));
+                            }
+                        }
                     }
                 });
             });
@@ -122,30 +149,42 @@ $(function() {
                 var levels = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth"];
                 var iPass = i;
 
-                $("h" + i + ":not([data-no-sreader])").focus(function(event) {
+                $(document).on("focus", "h" + i + ":not([data-no-sreader])", function(event) {
                     $(window).one("keyup", function(e) {
                         var code = (e.keyCode ? e.keyCode : e.which);
                         if (code == 9) {
-                            if (sReader.reading) {sReader.speak(levels[Number($(event.target).get(0).tagName[1]) - 1] + "-level heading: " + event.target.innerHTML);}
+                            if (sReader.reading) {
+                                if ($(event.target).attr("data-readable") == undefined) {
+                                    sReader.speak(levels[Number($(event.target).get(0).tagName[1]) - 1] + "-level heading: " + $(event.target).text());
+                                } else {
+                                    sReader.speak(levels[Number($(event.target).get(0).tagName[1]) - 1] + "-level heading: " + $(event.target).attr("data-readable"));
+                                }
+                            }
                         }
                     });
                 });
             }
 
-            $("p:not([data-no-sreader])").mouseover(function(event) {
-                if (sReader.reading) {sReader.speak("Paragraph: " + event.target.innerHTML);}
+            $(document).on("mouseover", "p:not([data-no-sreader])", function(event) {
+                if (sReader.reading) {
+                    if ($(event.target).attr("data-readable") == undefined) {
+                        sReader.speak("Paragraph: " + $(event.target).text());
+                    } else {
+                        sReader.speak("Paragraph: " + $(event.target).attr("data-readable"));
+                    }
+                }
             });
 
             for (var i = 1; i <= 6; i++) {
                 var levels = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth"];
                 var iPass = i;
 
-                $("h" + i + ":not([data-no-sreader])").mouseover(function(event) {
+                $(document).on("mouseover", "h" + i + ":not([data-no-sreader])", function(event) {
                     if (sReader.reading) {sReader.speak(levels[Number($(event.target).get(0).tagName[1]) - 1] + "-level heading: " + event.target.innerHTML);}
                 });
             }
 
-            $(".readableButton").focus(function(event) {
+            $(document).on("focus", ".readableButton", function(event) {
                 $(window).one("keyup", function(e) {
                     var code = (e.keyCode ? e.keyCode : e.which);
                     if (code == 9) {
@@ -154,11 +193,11 @@ $(function() {
                 });
             });
 
-            $(".readableButton").mouseover(function(event) {
+            $(document).on("mouseover", ".readableButton", function(event) {
                 if (sReader.reading) {sReader.speak($(this).attr("data-readable") + ": Button");}
             });
 
-            $(".readableText").focus(function(event) {
+            $(document).on("focus", ".readableText", function(event) {
                 $(window).one("keyup", function(e) {
                     var code = (e.keyCode ? e.keyCode : e.which);
                     if (code == 9) {
@@ -167,11 +206,11 @@ $(function() {
                 });
             });
 
-            $(".readableText").mouseover(function(event) {
+            $(document).on("mouseover", ".readableText", function(event) {
                 if (sReader.reading) {sReader.speak($(this).attr("data-readable"));}
             });
 
-            $(".menuItem").focus(function(event) {
+            $(document).on("focus", ".menuItem", function(event) {
                 if (sReader.reading) {
                     if ($(document.activeElement).attr("data-readable") == undefined) {
                         sReader.speak($(document.activeElement).text() + ": Menu Item");
@@ -181,7 +220,7 @@ $(function() {
                 }
             });
 
-            $(".menuItem").mouseover(function(event) {
+            $(document).on("mouseover", ".menuItem", function(event) {
                 if (sReader.reading) {
                     if ($(this).attr("data-readable") == undefined) {
                         sReader.speak($(this).text() + ": Menu Item");
@@ -191,7 +230,7 @@ $(function() {
                 }
             });
 
-            $("button").mouseover(function(event) {
+            $(document).on("mouseover", "button:not([data-no-sreader]), a.button", function(event) {
                 if (sReader.reading) {
                     if ($(this).attr("data-readable") == undefined) {
                         sReader.speak(event.target.innerHTML + ": Button");
@@ -201,7 +240,7 @@ $(function() {
                 }
             });
 
-            $("button, a").keypress(function(event) {
+            $(document).on("keypress", "button, a", function(event) {
                 if (sReader.reading) {
                     event.preventDefault();
 
@@ -214,8 +253,12 @@ $(function() {
                     }
                 }
             });
+            
+            $(document).on("click", "a", function(event) {
+                if (sReader.reading) {sReader.speak("Enter: object pressed");}
+            });
 
-            $("input").focusin(function(event) {
+            $(document).on("focusin", "input", function(event) {
                 if ($(this).attr("data-readable") == undefined) {
                     if ($(this).attr("id") != undefined && $("label[for=" + $(this).attr("id") + "]").length > 0) {
                         if (sReader.reading) {sReader.speak("Editing " + $("label[for=" + $(this).attr("id") + "]:first").text() + ": Text Input");}
@@ -231,7 +274,7 @@ $(function() {
                 }
             });
 
-            $("input").focusout(function(event) {
+            $(document).on("focusout", "input", function(event) {
                 if ($(this).attr("data-readable") == undefined) {
                     if (sReader.reading) {sReader.speak("Editing stopped");}
                 } else {
@@ -239,7 +282,7 @@ $(function() {
                 }
             });
 
-            $("input").mouseover(function(event) {
+            $(document).on("mouseover", "input", function(event) {
                 if ($(this).attr("data-readable") == undefined) {
                     if ($(this).attr("id") != undefined && $("label[for=" + $(this).attr("id") + "]").length > 0) {
                         if (sReader.reading) {sReader.speak($("label[for=" + $(this).attr("id") + "]:first").text() + ": Text Input, press to edit");}
@@ -255,7 +298,7 @@ $(function() {
                 }
             });
 
-            $("input").keypress(function(event) {
+            $(document).on("keypress", "input", function(event) {
                 if (sReader.reading) {
                     if (event.which == 8) {
                         sReader.speak("Backspace");
@@ -277,7 +320,7 @@ $(function() {
                 }
             });
 
-            $("input").keydown(function(event) {
+            $(document).on("keydown", "input", function(event) {
                 if (sReader.reading) {
                     if (event.which == 8) {
                         sReader.speak("Backspace. " + getClosestWord($(document.activeElement).val().substring(0, $(document.activeElement).val().length - 1), $(document.activeElement).val().length));
@@ -354,7 +397,7 @@ $(function() {
 
     sReader.init();
 
-    document.body.onkeydown = function(e) {
+    $(document.body).keydown(function(e) {
         if (e.keyCode == 123) {
             e.preventDefault();
         }
@@ -378,7 +421,7 @@ $(function() {
                 }
             }
         }
-    };
+    });
 
     $("input").keydown(function(e) {
         if (e.keyCode == 37 || e.keyCode == 39) {
