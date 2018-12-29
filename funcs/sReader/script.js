@@ -345,8 +345,18 @@ $(function() {
             }
         },
 
-        editWord: function() {
-            sReader.speak(getClosestWord($(document.activeElement).val(), document.activeElement.selectionStart));
+        editWord: function(offset) {
+            if (document.activeElement.selectionStart + offset < 0) {
+                sReader.speak("Start of input");
+            } else if (document.activeElement.selectionStart + offset + 2 > $(document.activeElement).val().length) {
+                sReader.speak(getClosestWord($(document.activeElement).val(), document.activeElement.selectionStart + offset) + " (end of word and input)")
+            } else {
+                if (getClosestWord($(document.activeElement).val(), document.activeElement.selectionStart + offset + 1) == "") {
+                    sReader.speak(getClosestWord($(document.activeElement).val(), document.activeElement.selectionStart + offset) + " (end of word)");
+                } else {
+                    sReader.speak(getClosestWord($(document.activeElement).val(), document.activeElement.selectionStart + offset));
+                }
+            }
         },
 
         changeState: function(state) {
@@ -428,9 +438,13 @@ $(function() {
     });
 
     $("input").keydown(function(e) {
-        if (e.keyCode == 37 || e.keyCode == 39) {
+        if (e.keyCode == 37) {
             if (sReader.reading) {
-                sReader.editWord();
+                sReader.editWord(-2);
+            }
+        } else if (e.keyCode == 39) {
+            if (sReader.reading) {
+                sReader.editWord(0);
             }
         }
     });
