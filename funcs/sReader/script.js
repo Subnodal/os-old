@@ -307,7 +307,7 @@ $(function() {
                     } else if (event.which == 13) {
                         sReader.speak("Enter");
                     } else if (event.which == 32) {
-                        sReader.speak("Space. " + $(document.activeElement).val().split(" ")[$(document.activeElement).val().split(" ").length - 1]);
+                        sReader.speak("Space. " + getClosestWord($(document.activeElement).val(), document.activeElement.selectionStart - 1));
                     } else {
                         var character = String.fromCharCode(event.which);
 
@@ -323,7 +323,7 @@ $(function() {
             $(document).on("keydown", "input", function(event) {
                 if (sReader.reading) {
                     if (event.which == 8) {
-                        sReader.speak("Backspace. " + getClosestWord($(document.activeElement).val().substring(0, $(document.activeElement).val().length - 1), $(document.activeElement).val().length));
+                        sReader.speak("Backspace. " + getClosestWord($(document.activeElement).val(), document.activeElement.selectionStart - 1).slice(0, -2));
                     } else if (event.which == 46) {
                         sReader.speak("Delete");
                     }
@@ -346,7 +346,7 @@ $(function() {
         },
 
         editWord: function() {
-            sReader.speak(getClosestWord($(document.activeElement).val(), $(document.activeElement).caret()));
+            sReader.speak(getClosestWord($(document.activeElement).val(), document.activeElement.selectionStart));
         },
 
         changeState: function(state) {
