@@ -100,7 +100,7 @@ $(function() {
 
             $("#sReaderContent").text("");
 
-            $(document).on("focus", "button:not([data-no-sreader]), a.button", function(event) {
+            $(document).on("focus", "button:not([data-no-sreader]):not(.menuItem), a.button", function(event) {
                 $(window).one("keyup", function(e) {
                     var code = (e.keyCode ? e.keyCode : e.which);
                     if (code == 9) {
@@ -230,7 +230,7 @@ $(function() {
                 }
             });
 
-            $(document).on("mouseover", "button:not([data-no-sreader]), a.button", function(event) {
+            $(document).on("mouseover", "button:not([data-no-sreader]):not(.menuItem), a.button", function(event) {
                 if (sReader.reading) {
                     if ($(this).attr("data-readable") == undefined) {
                         sReader.speak(event.target.innerHTML + ": Button");
@@ -411,6 +411,10 @@ $(function() {
         } else if (e.keyCode == 83 && e.altKey) {
             if (sReader.reading) {
                 sReader.reRead(true, true);
+            }
+        } else if (e.keyCode == 81 && e.altKey) {
+            if (sReader.reading) {
+                window.speechSynthesis.cancel();
             }
         } else if (e.ctrlKey && e.altKey) {
             if (sReader.reading) {

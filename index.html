@@ -23,9 +23,9 @@
                 <div class="infoBar">
                     <span class="infoTime readableText" data-readable="The time is unavailable">--:--</span>
                     <div class="infoBarRight">
-                        <button onclick="toggleFullscreen();" class="infoButton readableButton" data-readable="Toggle fullscreen"><i>fullscreen</i></button>
-                        <button onclick="menus.show('#accessibilityMenu', 0, $('.infoBar').outerHeight(), true);" class="infoButton readableButton" data-readable="Accessibility options"><i>accessibility</i><i>arrow_drop_down</i></button>
-                        <button onclick="menus.show('#powerMenu', 0, $('.infoBar').outerHeight(), true);" class="infoButton readableButton" data-readable="Power options"><i>power_settings_new</i><i>arrow_drop_down</i></button>
+                        <button onclick="toggleFullscreen();" class="infoButton" data-readable="Toggle fullscreen"><i>fullscreen</i></button>
+                        <button onclick="menus.show('#accessibilityMenu', 0, $('.infoBar').outerHeight(), true);" class="infoButton" data-readable="Accessibility options"><i>accessibility</i><i>arrow_drop_down</i></button>
+                        <button onclick="menus.show('#powerMenu', 0, $('.infoBar').outerHeight(), true);" class="infoButton" data-readable="Power options"><i>power_settings_new</i><i>arrow_drop_down</i></button>
                         <menu id="accessibilityMenu">
                             <button onclick="sReader.switchState();" class="menuItem">subReader</button>
                         </menu>
@@ -96,7 +96,8 @@
                     </p>
                     <p>
                         To get the spelling of the last word in the object press
-                        Alt+S.
+                        Alt+S. To stop subReader from speaking temporarily,
+                        press Alt+Q.
                     </p>
                     <button onclick="screens.fade('tests');">Go back</button>
                 </section>
