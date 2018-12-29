@@ -1,8 +1,3 @@
-* {
-    font-family: "Overpass", sans-serif;
-    outline: none;
-}
-
 html, body {
     background-color: black;
     overflow: hidden;
@@ -10,6 +5,7 @@ html, body {
 
 * {
     font-family: "Overpass", "Roboto", sans-serif;
+    outline: none;
     cursor: default;
     user-select: none;
 }
@@ -38,6 +34,10 @@ a.hidden {
 
 a.hidden:hover {
     text-decoration: unset;
+}
+
+main {
+    padding-top: 30px;
 }
 
 section {
@@ -137,6 +137,10 @@ div.cardButtons {
 }
 
 .infoBar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     background-color: black;
     color: white;
     padding: 5px;

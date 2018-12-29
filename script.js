@@ -121,5 +121,5 @@ $(function() {
         }
     }, 10);
 
-    $("main").css("height", "calc(100vh - " + $(".infoBar").height() + "px)");
+    $("main").css("padding-top", $(".infoBar").outerHeight() + "px");
 });

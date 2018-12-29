@@ -21,3 +21,7 @@ p, div, screen {
 button, input {
     font-size: 1em;
 }
+
+.infoBar {
+    height: 1em;
+}
