@@ -14,6 +14,10 @@ h1, code {
     font-family: "Overpass Mono", "Roboto Mono", sans-serif;
 }
 
+h1.normal {
+    font-family: "Overpass", "Roboto", sans-serif;
+}
+
 span, strong, em {
     font-family: inherit;
 }
@@ -136,6 +140,17 @@ div.cardButtons {
     width: fit-content;
 }
 
+.alertContent {
+    padding: 10px;
+    min-height: 50px;
+    max-height: 100px;
+    overflow: auto;
+}
+
+.alertButtons {
+    text-align: right;
+}
+
 .infoBar {
     position: fixed;
     top: 0;
@@ -165,6 +180,28 @@ div.cardButtons {
     color: rgba(255, 255, 255, 0.5);
 }
 
+#alertBackground {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vw;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#alertBox {
+    display: none;
+    position: fixed;
+    top: calc(50vh - 150px);
+    left: calc(50vw - 150px);
+    width: 300px;
+    min-height: 100px;
+    max-height: 300px;
+    border-radius: 5px;
+    background-color: white;
+}
+
 .signInBackground {
     background: var(--desktopBackground);
 }
@@ -179,7 +216,7 @@ div.cardButtons {
     display: inline-block;
 }
 
-.signInPersonalPicture {
+.signInPersonalImage {
     width: 60px;
     height: 60px;
     margin: 5px;
@@ -188,7 +225,7 @@ div.cardButtons {
     transition: 0.5s;
 }
 
-.signInPersonalPicture.selected {
+.signInPersonalImage.selected {
     border: 5px solid var(--uiColour);
     margin: 0px;
 }
@@ -204,14 +241,15 @@ div.cardButtons {
     display: none;
 }
 
-.fullscreen {
-    margin: 4px;
-    padding: 8px;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 5px;
-    border: none;
-    background-color: var(--uiColour);
-    color: var(--uiTextColour);
-    transition: 0.5s;
+.accountImage {
+    width: 60px;
+    height: 60px;
+    margin: 5px;
+    border-radius: 60px;
+}
+
+.accountImage.big {
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
 }

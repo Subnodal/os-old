@@ -10,7 +10,7 @@ var menus = {
             menus.openedMenu = menu;
 
             setTimeout(function() {
-                $(menu).css(floatRight ? "right" : "left", x);
+                $(menu).css(floatRight ? "right" : "left", x + 10);
                 $(menu).css(floatBottom ? "bottom" : "top", y);
 
                 $(menu).fadeIn();

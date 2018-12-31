@@ -1,6 +1,8 @@
 var sReader;
 
 $(function() {
+    var doTabIndex = false;
+
     function getClosestWord(str, pos) {
         str = String(str);
         pos = Number(pos) >>> 0;
@@ -79,11 +81,11 @@ $(function() {
                     }
                 `);
 
-                $("h1:not([data-no-sreader]), h2:not([data-no-sreader]), h3:not([data-no-sreader]), h4:not([data-no-sreader]), h5:not([data-no-sreader]), h6:not([data-no-sreader]), p:not([data-no-sreader]), .readableText, .readableButton, .menuItem").attr("tabindex", "0");
+                doTabIndex = true;
             } else {
                 $("#sReaderStyle").html("");
 
-                $("h1:not([data-no-sreader]), h2:not([data-no-sreader]), h3:not([data-no-sreader]), h4:not([data-no-sreader]), h5:not([data-no-sreader]), h6:not([data-no-sreader]), p:not([data-no-sreader]), .readableText, .readableButton, .menuItem").removeAttr("tabindex");
+                doTabIndex = false;
             }
         },
 
@@ -226,6 +228,26 @@ $(function() {
                         sReader.speak($(this).text() + ": Menu Item");
                     } else {
                         sReader.speak($(this).attr("data-readable") + ": Menu Item");
+                    }
+                }
+            });
+
+            $(document).on("focus", ".menuArea", function(event) {
+                if (sReader.reading) {
+                    if ($(document.activeElement).attr("data-readable") == undefined) {
+                        sReader.speak($(document.activeElement).text() + ": Menu Information");
+                    } else {
+                        sReader.speak($(document.activeElement).attr("data-readable") + ": Menu Information");
+                    }
+                }
+            });
+
+            $(document).on("mouseover", ".menuItem", function(event) {
+                if (sReader.reading) {
+                    if ($(this).attr("data-readable") == undefined) {
+                        sReader.speak($(this).text() + ": Menu Information");
+                    } else {
+                        sReader.speak($(this).attr("data-readable") + ": Menu Information");
                     }
                 }
             });
@@ -448,4 +470,12 @@ $(function() {
             }
         }
     });
+
+    setInterval(function() {
+        if (doTabIndex) {
+        $("h1:not([data-no-sreader]), h2:not([data-no-sreader]), h3:not([data-no-sreader]), h4:not([data-no-sreader]), h5:not([data-no-sreader]), h6:not([data-no-sreader]), p:not([data-no-sreader]), .readableText, .readableButton, .menuItem, .menuArea").attr("tabindex", "0");
+        } else {
+            $("h1:not([data-no-sreader]), h2:not([data-no-sreader]), h3:not([data-no-sreader]), h4:not([data-no-sreader]), h5:not([data-no-sreader]), h6:not([data-no-sreader]), p:not([data-no-sreader]), .readableText, .readableButton, .menuItem, .menuArea").removeAttr("tabindex");
+        }
+    }, 10);
 });

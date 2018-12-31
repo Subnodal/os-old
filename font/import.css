@@ -57,4 +57,7 @@ i {
     text-rendering: optimizeLegibility;
     -moz-osx-font-smoothing: grayscale;
     font-feature-settings: "liga";
+    vertical-align: middle;
+    position: relative;
+    top: -2px;
 }

@@ -19,8 +19,39 @@ var accounts = [
         name: "Guest"
     }
 ];
-var selectedAccount = 0;
+var selectedAccount = -1;
 var updateAccount = true;
+
+function alert(content, title = "", buttons = [{text: "OK", type: "normal", onclick: "closeAlert();"}]) {
+    $("#alertBox").html(`
+        <div class="alertContent">
+            ` + (title == "" ? "" : `<h1 class="normal noMargin">` + title.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/&/g, "&amp;") + `</h1>`) + `
+            <p class="noMargin">` + content.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/&/g, "&amp;").replace(/\n/g, "<br>") + `</p>
+        </div>
+        <div class="alertButtons"></div>
+    `);
+
+    for (var i = 0; i < buttons.length; i++) {
+        $(".alertButtons").html($(".alertButtons").html() + `
+            <button
+                ` + (buttons[i].type == "normal" ? "" : "class='" + buttons[i].type.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/'/g, "&apos;").replace(/&/g, "&amp;") + "'") + `
+                onclick="` + buttons[i].onclick + `"
+            >` + buttons[i].text.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/&/g, "&amp;") + `</button>
+        `);
+    }
+
+    $("#alertBackground, #alertBox").fadeIn();
+
+    $("#alertContent").focus();
+
+    if (sReader.reading) {sReader.speak("Alert! Press Tab for first item");}
+}
+
+function closeAlert() {
+    $("#alertBackground, #alertBox").fadeOut();
+
+    if (sReader.reading) {sReader.speak("Alert closed");}
+}
 
 function toggleFullscreen() {
     if (!inFullscreen) {
@@ -65,10 +96,43 @@ function toggleFullscreen() {
 function selectSignInAccount(index) {
     selectedAccount = index;
 
-    $(".signInPersonalPicture").removeClass("selected");
-    $(".signInPersonalPicture[data-account='" + index + "']").addClass("selected");
+    $(".signInPersonalImage").removeClass("selected");
+    $(".signInPersonalImage[data-account='" + index + "']").addClass("selected");
 
     if (sReader.reading) {sReader.speak("Account selected: " + accounts[selectedAccount].name);}
+}
+
+function signIn() {
+    if (selectedAccount >= 0) {
+        $(".myUsername").text(accounts[selectedAccount].name);
+        $(".myAccountImage").attr({
+            src: accounts[selectedAccount].image != undefined ? accounts[selectedAccount].image : "media/defaultAccount.png",
+            onerror: "this.src = 'media/defaultAccount.png';"
+        });
+
+        setTimeout(function() {
+            $(".signInPersonalImage").removeClass("selected");
+            $("#signInNetworkUsername, #signInPassword").val("");
+        }, 500);
+
+        screens.fade("desktop");
+    } else {
+        alert("Please select your account.");
+    }
+}
+
+function signOut() {
+    setTimeout(function() {
+        $(".myUsername").text("User");
+        $(".myAccountImage").attr({
+            src: "media/defaultAccount.png",
+            onerror: ""
+        });
+    }, 500);
+
+    screens.fade("signIn");
+
+    selectedAccount = -1;
 }
 
 $(function() {
@@ -103,7 +167,7 @@ $(function() {
                             <img
                                 src="` + (accounts[i].image != undefined ? accounts[i].image.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") : "media/defaultAccount.png") + `"
                                 onerror="this.src = 'media/defaultAccount.png';"
-                                class="signInPersonalPicture" data-account=` + i + `
+                                class="signInPersonalImage" data-account=` + i + `
                             />
                         </a>
                         <div class="signInPersonalText">` + accounts[i].name.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") + `</div>

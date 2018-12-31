@@ -19,36 +19,55 @@
     </head>
     <body>
         <screen name="signIn" class="signInBackground" data-readable="sign in page">
-            <main>
-                <div class="infoBar">
-                    <span class="infoTime readableText" data-readable="The time is unavailable">--:--</span>
-                    <div class="infoBarRight">
-                        <button onclick="toggleFullscreen();" class="infoButton" data-readable="Toggle fullscreen"><i>fullscreen</i></button>
-                        <button onclick="menus.show('#accessibilityMenu', 0, $('.infoBar').outerHeight(), true);" class="infoButton" data-readable="Accessibility options"><i>accessibility</i><i>arrow_drop_down</i></button>
-                        <button onclick="menus.show('#powerMenu', 0, $('.infoBar').outerHeight(), true);" class="infoButton" data-readable="Power options"><i>power_settings_new</i><i>arrow_drop_down</i></button>
-                        <menu id="accessibilityMenu">
-                            <button onclick="sReader.switchState();" class="menuItem">subReader</button>
-                        </menu>
-                        <menu id="powerMenu">
-                            <button onclick="window.location.href = 'https://subnodal.com';" class="menuItem">Exit session</button>
-                        </menu>
-                    </div>
+            <div class="infoBar">
+                <span class="infoTime readableText" data-readable="The time is unavailable">--:--</span>
+                <div class="infoBarRight">
+                    <button onclick="toggleFullscreen();" class="infoButton" data-readable="Toggle fullscreen"><i>fullscreen</i></button>
+                    <button onclick="menus.show('#signInAccessibilityMenu', 0, $('.infoBar').outerHeight(), true);" class="infoButton" data-readable="Accessibility options"><i>accessibility</i><i>arrow_drop_down</i></button>
+                    <button onclick="menus.show('#signInPowerMenu', 0, $('.infoBar').outerHeight(), true);" class="infoButton" data-readable="Power options"><i>power_settings_new</i><i>arrow_drop_down</i></button>
+                    <menu id="signInAccessibilityMenu">
+                        <button onclick="sReader.switchState();" class="menuItem">subReader</button>
+                    </menu>
+                    <menu id="signInPowerMenu">
+                        <button onclick="window.location.href = 'https://subnodal.com';" class="menuItem">Exit session</button>
+                    </menu>
                 </div>
+            </div>
+            <main>
                 <div class="card greeter">
                     <div class="cardContent center">
                         <h1>Sign into subOS</h1>
                         <div class="signInPersonal"></div>
                         <div class="signInNetwork">
-                            <input placeholder="Username" class="fillWidth">
+                            <input placeholder="Username" class="fillWidth" id="signInNetworkUsername">
                         </div>
-                        <input type="password" placeholder="Password" class="fillWidth">
+                        <input type="password" placeholder="Password" class="fillWidth" id="signInPassword">
                     </div>
                     <div class="cardButtons greeter">
                         <button onclick="screens.fade('tests');" class="flat">Help</button>
-                        <button>Sign In</button>
+                        <button onclick="signIn();">Sign In</button>
                     </div>
                 </div>
             </main>
+        </screen>
+        <screen name="desktop" class="desktopBackground" data-readable="desktop">
+            <div class="infoBar">
+                <span class="infoTime readableText" data-readable="The time is unavailable">--:--</span>
+                <div class="infoBarRight">
+                    <button onclick="menus.show('#desktopMyAccount', 0, $('.infoBar').outerHeight(), true);" class="infoButton" data-readable="My account"><span class="myUsername">User</span> <i>arrow_drop_down</i></button>
+                    <button onclick="menus.show('#desktopPowerMenu', 0, $('.infoBar').outerHeight(), true);" class="infoButton" data-readable="Power options"><i>power_settings_new</i><i>arrow_drop_down</i></button>
+                    <menu id="desktopMyAccount">
+                            <div class="menuArea coloured center" data-readable="My account information">
+                                <img class="accountImage big myAccountImage" />
+                                <div class="myUsername">User</div>
+                            </div>
+                            <button onclick="signOut();" class="menuItem">Sign out</button>
+                        </menu>
+                    <menu id="desktopPowerMenu">
+                        <button onclick="window.location.href = 'https://subnodal.com';" class="menuItem">Exit session</button>
+                    </menu>
+                </div>
+            </div>  
         </screen>
         <screen name="tests" data-readable="tests page">
             <div class="infoBar">
@@ -103,7 +122,9 @@
                 </section>
             </main>
         </screen>
-        <div class="card grey darken-1 white-text left-align" id="sReader">
+        <div id="alertBackground"></div>
+        <div id="alertBox"></div>
+        <div id="sReader">
             <div class="card-content" id="sReaderContent"></div>
         </div>
         <div>

@@ -8,9 +8,10 @@ menu {
     border-radius: 5px;
     background-color: var(--backgroundColour);
     color: var(--textColour);
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
-.menuItem {
+.menuItem, .menuArea {
     display: block;
     margin: 0;
     padding: 8px;
@@ -19,18 +20,28 @@ menu {
     text-align: left;
     background-color: transparent;
     color: var(--textColour);
+    box-sizing: border-box;
 }
 
-.menuItem:first-child {
+.menuItem.coloured, .menuArea.coloured {
+    background-color: var(--uiColour);
+    color: white;
+}
+
+.menuItem:first-child, .menuArea:first-child {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
 
-.menuItem:last-child {
+.menuItem:last-child, .menuArea:last-child {
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 }
 
 .menuItem:hover {
     background-color: rgba(0, 0, 0, 0.2);
+}
+
+.menuItem.coloured:hover {
+    background-color: var(--uiColour);
 }
