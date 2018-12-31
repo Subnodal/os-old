@@ -117,7 +117,7 @@ function signIn() {
 
         screens.fade("desktop");
     } else {
-        alert("Please select your account.");
+        alert("Please select your account.", "Could not sign you in");
     }
 }
 
