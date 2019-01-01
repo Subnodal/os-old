@@ -3,6 +3,7 @@
     <head>
         <title>subOS</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+        <link rel="stylesheet" href="lib/jqueryui.css">
         <link rel="stylesheet" href="font/import.css">
         <link rel="stylesheet" href="funcs/fontSizes/style.css">
         <link rel="stylesheet" href="funcs/colours/style.css">
@@ -10,11 +11,14 @@
         <link rel="stylesheet" href="funcs/sReader/style.css">
         <link rel="stylesheet" href="funcs/screens/style.css">
         <link rel="stylesheet" href="funcs/menus/style.css">
+        <link rel="stylesheet" href="funcs/windows/style.css">
         <link rel="stylesheet" href="style.css">
         <script src="lib/jquery.min.js"></script>
+        <script src="lib/jqueryui.js"></script>
         <script src="funcs/sReader/script.js"></script>
         <script src="funcs/screens/script.js"></script>
         <script src="funcs/menus/script.js"></script>
+        <script src="funcs/windows/script.js"></script>
         <script src="script.js"></script>
     </head>
     <body>
@@ -67,8 +71,9 @@
                         <button onclick="window.location.href = 'https://subnodal.com';" class="menuItem">Exit session</button>
                     </menu>
                 </div>
-                <p class="year">It's 2019!!!!</p>
-            </div>  
+            </div>
+            <windows></windows>
+            <div class="appBar"></div>
         </screen>
         <screen name="tests" data-readable="tests page">
             <div class="infoBar">
