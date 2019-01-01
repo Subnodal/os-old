@@ -58,7 +58,7 @@ function newWindow(src, title = "Untitled App") {
 
             $(this).css("z-index", zIndexLevel);
             $(this).css("background-color", "var(--uiColour)");
-            $(this).siblings(".window").css("background-color", "var(--uiDeselectedColour)");
+            $(this).siblings("window").css("background-color", "var(--uiDeselectedColour)");
 
             $(".infoBar, .appBar").css("z-index", zIndexLevel + 1);
         })
@@ -66,6 +66,14 @@ function newWindow(src, title = "Untitled App") {
         .hide()
         .fadeIn()
     ;
+
+    zIndexLevel += 1;
+
+    $("window:last").css("z-index", zIndexLevel);
+    $("window:last").css("background-color", "var(--uiColour)");
+    $("window:last").siblings("window").css("background-color", "var(--uiDeselectedColour)");
+
+    $(".infoBar, .appBar").css("z-index", zIndexLevel + 1);
 
     $(".windowContent").click(function(event) {
         $(this).parent().parent().mousedown();
@@ -86,8 +94,10 @@ function newWindow(src, title = "Untitled App") {
 }
 
 $(function() {
-    $("windows").mousedown(function() {
-        $("window").css("background-color", "var(--uiDeselectedColour)");
+    $("windows").mousedown(function(event) {
+        if (event.target == this) {
+            $("window").css("background-color", "var(--uiDeselectedColour)");
+        }
     });
 
     $(document.body).on("dblclick", ".windowBar", function() {
