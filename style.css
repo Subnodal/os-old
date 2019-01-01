@@ -253,3 +253,8 @@ div.cardButtons {
     height: 100px;
     border-radius: 100px;
 }
+
+.year {
+    font-size: 100pt;
+    color: black;
+}
