@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="style.css">
         <script src="lib/jquery.min.js"></script>
         <script src="lib/jqueryui.js"></script>
+        <script src="lib/touchpunch.min.js"></script>
         <script src="funcs/sReader/script.js"></script>
         <script src="funcs/screens/script.js"></script>
         <script src="funcs/menus/script.js"></script>
@@ -73,7 +74,10 @@
                 </div>
             </div>
             <windows></windows>
-            <div class="appBar"></div>
+            <div class="appBar">
+                    <a href="javascript:newWindow('nativeApps/test/index.html', 'Test App');" class="appBarAppLauncherButton hidden readableButton" data-readable="App Launcher"><img src="media/defaultAccount.png" class="appBarAppLauncherIcon" /></a>
+                <div class="appBarOpenApps"></div>
+            </div>
         </screen>
         <screen name="tests" data-readable="tests page">
             <div class="infoBar">

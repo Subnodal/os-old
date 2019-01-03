@@ -189,6 +189,35 @@ div.cardButtons {
     background-color: rgba(0, 0, 0, 0.7);
     color: white;
     padding: 5px;
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.appBarOpenApps {
+    display: inline-block;
+}
+
+.appBarOpenAppButton, .appBarAppLauncherButton {
+    margin-right: 10px;
+    padding: 0;
+}
+
+.appBarOpenAppIcon, .appBarAppLauncherIcon {
+    width: 50px;
+    height: 50px;
+    margin: -5px;
+    padding: 5px;
+    border-radius: 50px;
+    transition: 0.5s;
+}
+
+.appBarOpenAppIcon.selected {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.appBarAppLauncherIcon:hover {
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 #alertBackground {

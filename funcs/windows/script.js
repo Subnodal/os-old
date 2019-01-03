@@ -1,23 +1,77 @@
 var zIndexLevel = 0;
+var minimisedWindows = [];
 
-function closeWindow(window) {
-    window.fadeOut();
+function minimiseWindow(selWindow) {
+    minimisedWindows.push(selWindow.attr("response-key"));
+
+    var normalTop = selWindow.css("top");
+
+    selWindow.animate({
+        "top": $(window).outerHeight() + "px"
+    }, {duration: 500});
 
     setTimeout(function() {
-        window.remove();
-    }, 500);
+        selWindow.hide();
+        selWindow.css("top", normalTop);
+    }, 600);
+
+    $(".appBarOpenAppButton").children(".appBarOpenAppIcon").removeClass("selected");
+
+    if (sReader.reading) {sReader.speak("Minimised");}
 }
 
-function newWindow(src, title = "Untitled App") {
+function restoreWindow(selWindow) {
+    minimisedWindows.pop(minimisedWindows.findIndex(function(data) {
+        return data == selWindow.attr("response-key");
+    }));
+
+    var normalTop = selWindow.css("top");
+
+    selWindow.css("top", $(window).outerHeight() + "px");
+    selWindow.show();
+
+    selWindow.animate({
+        "top": normalTop
+    }, {duration: 500});
+
+    $(".appBarOpenAppButton[response-key-link='" + selWindow.attr("response-key") + "']").children(".appBarOpenAppIcon").addClass("selected");
+    $(".appBarOpenAppButton:not([response-key-link='" + selWindow.attr("response-key") + "'])").children(".appBarOpenAppIcon").removeClass("selected");
+
+    if (sReader.reading) {sReader.speak("Restored");}
+}
+
+function closeWindow(selWindow, doAppBarAnimation = true) {
+    selWindow.fadeOut();
+
+    if (doAppBarAnimation) {
+        $(".appBar").slideUp(200);
+    }
+
+    setTimeout(function() {
+        $(".appBarOpenAppButton[response-key-link='" + selWindow.attr("response-key") + "']").remove();
+
+        if (doAppBarAnimation) {
+            $(".appBar").slideDown(200);
+        }
+    }, 200);
+
+    setTimeout(function() {
+        selWindow.remove();
+    }, 500);
+
+    if (sReader.reading) {sReader.speak("Closed");}
+}
+
+function newWindow(src, title = "Untitled App", icon = "media/defaultAccount.png") {
     $(`
         <window>
             <div class="windowBar">
                 ` + title.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/&/g, "&amp;") + `
             </div>
             <div class="windowButtons">
-                <button onclick="closeWindow($(this).parent().parent());" class="windowButton" data-readable="Minimise">_</button>
-                <button onclick="$(this).parent().parent().children('.windowBar').dblclick();" class="windowButton" data-readable="Maximise">O</button>
-                <button onclick="closeWindow($(this).parent().parent());" class="windowButton" data-readable="Close">X</button>
+                <button onclick="minimiseWindow($(this).parent().parent());" class="windowButton" data-readable="Minimise ` + title.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") + `">_</button>
+                <button onclick="$(this).parent().parent().children('.windowBar').dblclick();" class="windowButton" data-readable="Maximise ` + title.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") + `">O</button>
+                <button onclick="closeWindow($(this).parent().parent());" class="windowButton" data-readable="Close ` + title.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") + `">X</button>
             </div>
             <div class="windowBody">
                 <iframe class="windowContent" src="` + src.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") + `"><iframe>
@@ -54,6 +108,8 @@ function newWindow(src, title = "Untitled App") {
             }
         })
         .mousedown(function() {
+            menus.hideAll();
+
             zIndexLevel += 1;
 
             $(this).css("z-index", zIndexLevel);
@@ -61,6 +117,9 @@ function newWindow(src, title = "Untitled App") {
             $(this).siblings("window").css("background-color", "var(--uiDeselectedColour)");
 
             $(".infoBar, .appBar").css("z-index", zIndexLevel + 1);
+
+            $(".appBarOpenAppButton[response-key-link='" + $(this).attr("response-key") + "']").children(".appBarOpenAppIcon").addClass("selected");
+            $(".appBarOpenAppButton:not([response-key-link='" + $(this).attr("response-key") + "'])").children(".appBarOpenAppIcon").removeClass("selected");
         })
         .css({top: 100, left: 100})
         .hide()
@@ -85,12 +144,55 @@ function newWindow(src, title = "Untitled App") {
         parent.click();
     });
 
+    $(".appBarOpenAppButton").children(".appBarOpenAppIcon").removeClass("selected");
+
+    $(`
+        <a class="appBarOpenAppButton hidden readableButton"><img src="` + icon.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") + `" class="appBarOpenAppIcon selected" data-readable="Unavailable App" /></a>
+    `)
+        .appendTo(".appBarOpenApps")
+        .hide()
+        .fadeIn()
+    ;
+
     parent.on("load", function() {
         parent[0].contentWindow.postMessage({
             for: "subOS",
             hello: true
         }, "*");
     });
+
+    $("window:last").find(".windowButton").get(2).focus();
+
+    if (sReader.reading) {sReader.speak("New window " + title + " opened, press Tab for first object, press Enter to close now");}
+}
+
+function doWindowTask(key) {
+    var doHighlight = true;
+
+    if (minimisedWindows.findIndex(function(data) {
+        return data == $("window[response-key='" + key + "']").attr("response-key");
+    }) >= 0) {
+        restoreWindow($("window[response-key='" + key + "']"));
+    } else {
+        if (Number($("window[response-key='" + key + "']").css("z-index")) == zIndexLevel) {
+            minimiseWindow($("window[response-key='" + key + "']"));
+
+            doHighlight = false;
+        }
+    }
+
+    zIndexLevel += 1;
+
+    $("window[response-key='" + key + "']").css("z-index", zIndexLevel);
+    $("window[response-key='" + key + "']").css("background-color", "var(--uiColour)");
+    $("window[response-key='" + key + "']").siblings("window").css("background-color", "var(--uiDeselectedColour)");
+
+    $(".infoBar, .appBar").css("z-index", zIndexLevel + 1);
+
+    if (doHighlight) {
+        $(".appBarOpenAppButton[response-key-link='" + key + "']").children(".appBarOpenAppIcon").addClass("selected");
+        $(".appBarOpenAppButton:not([response-key-link='" + key + "'])").children(".appBarOpenAppIcon").removeClass("selected");
+    }
 }
 
 $(function() {
@@ -116,6 +218,8 @@ $(function() {
             $(this).parent().animate({top: 100, left: 100}, {duration: 500, queue: false});
             $(this).parent().draggable("enable");
             $(this).parent().resizable("enable");
+
+            if (sReader.reading) {sReader.speak("Restored");}
         } else {
             $(this).css({
                 width: "calc(100% - 80px)",
@@ -136,6 +240,8 @@ $(function() {
                     "border-radius": "0"
                 });
             }, 500);
+
+            if (sReader.reading) {sReader.speak("Maximised");}
         }
     });
 });
@@ -143,6 +249,9 @@ $(function() {
 addEventListener("message", function(event) {
     if (event.data.for == "subOS" && event.data.helloResponse) {
         $("window:last").attr("response-key", event.data.helloResponse);
+        $("a.appBarOpenAppButton:last").attr("response-key-link", event.data.helloResponse);
+        $("a.appBarOpenAppButton:last").attr("href", "javascript:doWindowTask('" + event.data.helloResponse + "');");
+        $("a.appBarOpenAppButton:last").attr("data-readable", "Reveal or minimise " + $("window[response-key='" + event.data.helloResponse + "']").children(".windowBar").text().trim())
     } else if (event.data.for == "subOS" && event.data.bringToFront && event.data.responseKey) {
         $("window[response-key='" + event.data.responseKey + "']").mousedown();
     }

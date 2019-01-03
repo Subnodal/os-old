@@ -122,17 +122,27 @@ function signIn() {
 }
 
 function signOut() {
+    $(".appBar").slideUp(500);
+
+    $("window").each(function() {
+        closeWindow($(this), false);
+    });
+
     setTimeout(function() {
-        $(".myUsername").text("User");
-        $(".myAccountImage").attr({
-            src: "media/defaultAccount.png",
-            onerror: ""
-        });
+        setTimeout(function() {
+            $(".myUsername").text("User");
+            $(".myAccountImage").attr({
+                src: "media/defaultAccount.png",
+                onerror: ""
+            });
+            $(".appBar").slideDown();
+            $(".appBarOpenApps").html("");
+        }, 500);
+
+        screens.fade("signIn");
+
+        selectedAccount = -1;
     }, 500);
-
-    screens.fade("signIn");
-
-    selectedAccount = -1;
 }
 
 $(function() {
