@@ -31,5 +31,27 @@ var core;
                 responseKey: core.responseKey
             }, "*");
         });
+
+        $(document.body).keydown(function(e) {
+            if (e.keyCode == 73 && e.altKey) {
+                parent.postMessage({
+                    for: "subOS",
+                    pressWindowButton: 0,
+                    responseKey: core.responseKey
+                }, "*");
+            } else if (e.keyCode == 79 && e.altKey) {
+                parent.postMessage({
+                    for: "subOS",
+                    pressWindowButton: 1,
+                    responseKey: core.responseKey
+                }, "*");
+            } else if (e.keyCode == 80 && e.altKey) {
+                parent.postMessage({
+                    for: "subOS",
+                    pressWindowButton: 2,
+                    responseKey: core.responseKey
+                }, "*");
+            }
+        });
     });
 })();

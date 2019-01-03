@@ -69,9 +69,9 @@ function newWindow(src, title = "Untitled App", icon = "media/defaultAccount.png
                 ` + title.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/&/g, "&amp;") + `
             </div>
             <div class="windowButtons">
-                <button onclick="minimiseWindow($(this).parent().parent());" class="windowButton" data-readable="Minimise ` + title.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") + `">_</button>
-                <button onclick="$(this).parent().parent().children('.windowBar').dblclick();" class="windowButton" data-readable="Maximise ` + title.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") + `">O</button>
-                <button onclick="closeWindow($(this).parent().parent());" class="windowButton" data-readable="Close ` + title.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") + `">X</button>
+                <button onclick="minimiseWindow($(this).parent().parent());" class="windowButton" data-readable="Minimise ` + title.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") + `"><i>keyboard_arrow_down</i></button>
+                <button onclick="$(this).parent().parent().children('.windowBar').dblclick();" class="windowButton" data-readable="Maximise ` + title.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") + `"><i>fullscreen</i></button>
+                <button onclick="closeWindow($(this).parent().parent());" class="windowButton" data-readable="Close ` + title.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") + `"><i>close</i></button>
             </div>
             <div class="windowBody">
                 <iframe class="windowContent" src="` + src.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") + `"><iframe>
@@ -116,7 +116,7 @@ function newWindow(src, title = "Untitled App", icon = "media/defaultAccount.png
             $(this).css("background-color", "var(--uiColour)");
             $(this).siblings("window").css("background-color", "var(--uiDeselectedColour)");
 
-            $(".infoBar, .appBar").css("z-index", zIndexLevel + 1);
+            $(".infoBar, .appBar, menu, #alertBackground, #alertBox, #sReader, #sReaderBlackout").css("z-index", zIndexLevel + 1);
 
             $(".appBarOpenAppButton[response-key-link='" + $(this).attr("response-key") + "']").children(".appBarOpenAppIcon").addClass("selected");
             $(".appBarOpenAppButton:not([response-key-link='" + $(this).attr("response-key") + "'])").children(".appBarOpenAppIcon").removeClass("selected");
@@ -132,7 +132,7 @@ function newWindow(src, title = "Untitled App", icon = "media/defaultAccount.png
     $("window:last").css("background-color", "var(--uiColour)");
     $("window:last").siblings("window").css("background-color", "var(--uiDeselectedColour)");
 
-    $(".infoBar, .appBar").css("z-index", zIndexLevel + 1);
+    $(".infoBar, .appBar, menu, #alertBackground, #alertBox, #sReader, #sReaderBlackout").css("z-index", zIndexLevel + 1);
 
     $(".windowContent").click(function(event) {
         $(this).parent().parent().mousedown();
@@ -187,7 +187,7 @@ function doWindowTask(key) {
     $("window[response-key='" + key + "']").css("background-color", "var(--uiColour)");
     $("window[response-key='" + key + "']").siblings("window").css("background-color", "var(--uiDeselectedColour)");
 
-    $(".infoBar, .appBar").css("z-index", zIndexLevel + 1);
+    $(".infoBar, .appBar, menu, #alertBackground, #alertBox, #sReader, #sReaderBlackout").css("z-index", zIndexLevel + 1);
 
     if (doHighlight) {
         $(".appBarOpenAppButton[response-key-link='" + key + "']").children(".appBarOpenAppIcon").addClass("selected");
@@ -220,11 +220,13 @@ $(function() {
             $(this).parent().resizable("enable");
 
             if (sReader.reading) {sReader.speak("Restored");}
+
+            $($(this).parent().find("i")[1]).text("fullscreen");
         } else {
             $(this).css({
-                width: "calc(100% - 80px)",
-                "padding-left": "0",
-                "padding-right": "0"
+                width: "calc(100% - 90px)",
+                "padding-left": "5px",
+                "padding-right": "5px"
             });
             $(this).parent().animate({"width": $(window).width() + "px"}, {duration: 500, queue: false});
             $(this).parent().animate({"height": ($(window).height() - $(".infoBar").outerHeight() - $(".appBar").outerHeight() - 5) + "px"}, {duration: 500, queue: false});
@@ -242,6 +244,30 @@ $(function() {
             }, 500);
 
             if (sReader.reading) {sReader.speak("Maximised");}
+
+            $($(this).parent().find("i")[1]).text("fullscreen_exit");
+        }
+    });
+
+    $(document.body).keydown(function(e) {
+        if (e.keyCode == 73 && e.altKey) {
+            $("window").each(function() {
+                if ($(this).css("z-index") == zIndexLevel) {
+                    $(this).find(".windowButton").get(0).click();
+                }
+            });
+        } else if (e.keyCode == 79 && e.altKey) {
+            $("window").each(function() {
+                if ($(this).css("z-index") == zIndexLevel) {
+                    $(this).find(".windowButton").get(1).click();
+                }
+            });
+        } else if (e.keyCode == 80 && e.altKey) {
+            $("window").each(function() {
+                if ($(this).css("z-index") == zIndexLevel) {
+                    $(this).find(".windowButton").get(2).click();
+                }
+            });
         }
     });
 });
@@ -254,5 +280,7 @@ addEventListener("message", function(event) {
         $("a.appBarOpenAppButton:last").attr("data-readable", "Reveal or minimise " + $("window[response-key='" + event.data.helloResponse + "']").children(".windowBar").text().trim())
     } else if (event.data.for == "subOS" && event.data.bringToFront && event.data.responseKey) {
         $("window[response-key='" + event.data.responseKey + "']").mousedown();
+    } else if (event.data.for == "subOS" && event.data.pressWindowButton != undefined && event.data.responseKey) {
+        $("window[response-key='" + event.data.responseKey + "']").find(".windowButton").get(event.data.pressWindowButton).click();
     }
 }, false);

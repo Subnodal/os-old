@@ -93,6 +93,10 @@ function toggleFullscreen() {
     }
 }
 
+function isSignedIn() {
+    return $("screen[name=desktop]").css("display") == "block";
+}
+
 function selectSignInAccount(index) {
     selectedAccount = index;
 
