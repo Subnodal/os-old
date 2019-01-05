@@ -78,8 +78,12 @@
             <div class="appBar">
                 <a href="javascript:newWindow('nativeApps/test/index.html', 'Test App');" class="appBarAppLauncherButton hidden readableButton" data-readable="App Launcher"><img src="media/appLauncherIcon.png" class="appBarOptionsIcon" /></a>
                 <div class="appBarOpenApps"></div>
-                <a href="javascript:notifications.open();" class="appBarAppLauncherButton hidden readableButton" data-readable="Notifications"><img src="media/notificationsIcon.png" class="appBarOptionsIcon appBarNotificationsIcon" /></a>
+                <a onclick="notifications.open();" class="appBarAppLauncherButton hidden readableButton" data-readable="Notifications"><img src="media/notificationsIcon.png" class="appBarOptionsIcon appBarNotificationsIcon" /></a>
             </div>
+            <menu id="notificationsMenu">
+                <div class="menuArea coloured">Notifications</div>
+                <div class="menuArea">All caught up! There are no notifications to attend to right now.</div>
+            </menu>
         </screen>
         <screen name="tests" data-readable="tests page">
             <div class="infoBar">

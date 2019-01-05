@@ -1,5 +1,5 @@
 var notifications = {
     open: function() {
-        alert("Coming soon!");
+        menus.show($("#notificationsMenu"), 0, 60, true, true);
     }
 };

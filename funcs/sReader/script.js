@@ -117,7 +117,7 @@ $(function() {
                 });
             });
 
-            $(document).on("focus", "a:not(.button)", function(event) {
+            $(document).on("focus", "a:not(.button, .readableButton)", function(event) {
                 $(window).one("keyup", function(e) {
                     var code = (e.keyCode ? e.keyCode : e.which);
                     if (code == 9) {
@@ -459,7 +459,7 @@ $(function() {
         }
     });
 
-    $("input").keydown(function(e) {
+    $(document).on("keypress", "input", function(e) {
         if (e.keyCode == 37) {
             if (sReader.reading) {
                 sReader.editWord(-2);

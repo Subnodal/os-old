@@ -7,12 +7,20 @@ var menus = {
             menus.hideAll();
         } else {
             menus.cancel = true;
-            menus.openedMenu = menu;
 
             setTimeout(function() {
-                $(menu).css(floatRight ? "right" : "left", x + 10);
-                $(menu).css(floatBottom ? "bottom" : "top", y);
+                menus.openedMenu = menu;
 
+                $(menu).css({
+                    "left": "unset",
+                    "right": "unset",
+                    "top": "unset",
+                    "bottom": "unset"
+                });
+
+                $(menu).css(floatRight ? "right" : "left", (floatBottom ? x : x + 10));
+                $(menu).css(floatBottom ? "bottom" : "top", y);
+                
                 $(menu).fadeIn();
 
                 if (sReader.reading) {sReader.speak("Menu opened");}
@@ -34,13 +42,6 @@ var menus = {
                 }
 
                 menus.openedMenu = null;
-
-                $("menu").css({
-                    "left": "unset",
-                    "right": "unset",
-                    "top": "unset",
-                    "bottom": "unset"
-                });
             }, 500);
         }
     }

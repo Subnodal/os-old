@@ -200,4 +200,8 @@ $(function() {
     }, 10);
 
     $("main").css("padding-top", $(".infoBar").outerHeight() + "px");
+
+    $(document.body).on("contextmenu", "*", function(e) {
+        e.preventDefault();
+    });
 });
