@@ -17,7 +17,7 @@ function minimiseWindow(selWindow) {
 
     $(".appBarOpenAppButton").children(".appBarOpenAppIcon").removeClass("selected");
 
-    if (sReader.reading) {sReader.speak("Minimised");}
+    if (sReader.reading) {sReader.speak(_("Minimised"));}
 }
 
 function restoreWindow(selWindow) {
@@ -37,7 +37,7 @@ function restoreWindow(selWindow) {
     $(".appBarOpenAppButton[response-key-link='" + selWindow.attr("response-key") + "']").children(".appBarOpenAppIcon").addClass("selected");
     $(".appBarOpenAppButton:not([response-key-link='" + selWindow.attr("response-key") + "'])").children(".appBarOpenAppIcon").removeClass("selected");
 
-    if (sReader.reading) {sReader.speak("Restored");}
+    if (sReader.reading) {sReader.speak(_("Restored"));}
 }
 
 function closeWindow(selWindow, doAppBarAnimation = true) {
@@ -59,19 +59,19 @@ function closeWindow(selWindow, doAppBarAnimation = true) {
         selWindow.remove();
     }, 500);
 
-    if (sReader.reading) {sReader.speak("Closed");}
+    if (sReader.reading) {sReader.speak(_("Closed"));}
 }
 
 function newWindow(src, title = "Untitled App", icon = "media/defaultAccount.png") {
     $(`
         <window>
-            <div class="windowBar">
+            <div class="windowBar noTranslate">
                 ` + title.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/&/g, "&amp;") + `
             </div>
             <div class="windowButtons">
-                <button onclick="minimiseWindow($(this).parent().parent());" class="windowButton" data-readable="Minimise ` + title.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") + `"><i>keyboard_arrow_down</i></button>
-                <button onclick="$(this).parent().parent().children('.windowBar').dblclick();" class="windowButton" data-readable="Maximise ` + title.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") + `"><i>fullscreen</i></button>
-                <button onclick="closeWindow($(this).parent().parent());" class="windowButton" data-readable="Close ` + title.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") + `"><i>close</i></button>
+                <button onclick="minimiseWindow($(this).parent().parent());" class="windowButton" data-readable="@Minimise %|` + title.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") + `"><i>keyboard_arrow_down</i></button>
+                <button onclick="$(this).parent().parent().children('.windowBar').dblclick();" class="windowButton" data-readable="@Maximise %|` + title.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") + `"><i>fullscreen</i></button>
+                <button onclick="closeWindow($(this).parent().parent());" class="windowButton" data-readable="@Close %|` + title.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") + `"><i>close</i></button>
             </div>
             <div class="windowBody">
                 <iframe class="windowContent" src="` + src.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") + `"><iframe>
@@ -163,7 +163,7 @@ function newWindow(src, title = "Untitled App", icon = "media/defaultAccount.png
 
     $("window:last").find(".windowButton").get(2).focus();
 
-    if (sReader.reading) {sReader.speak("New window " + title + " opened, press Tab for first object, press Enter to close now");}
+    if (sReader.reading) {sReader.speak(_("New window % opened, press Tab for first object, press Enter to close now", title));}
 }
 
 function doWindowTask(key) {
@@ -219,7 +219,7 @@ $(function() {
             $(this).parent().draggable("enable");
             $(this).parent().resizable("enable");
 
-            if (sReader.reading) {sReader.speak("Restored");}
+            if (sReader.reading) {sReader.speak(_("Restored"));}
 
             $($(this).parent().find("i")[1]).text("fullscreen");
         } else {
@@ -243,7 +243,7 @@ $(function() {
                 });
             }, 500);
 
-            if (sReader.reading) {sReader.speak("Maximised");}
+            if (sReader.reading) {sReader.speak(_("Maximised"));}
 
             $($(this).parent().find("i")[1]).text("fullscreen_exit");
         }

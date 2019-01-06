@@ -5,9 +5,9 @@ var screens = {
 
         if (sReader.reading) {
             if ($("screen[name=" + name + "]").attr("data-readable") == undefined) {
-                sReader.speak("Screen navigation to " + $("screen[name=" + name + "]").attr("name") + ", press Tab for first object");
+                sReader.speak(_("Screen navigation to %, press Tab for first object", $("screen[name=" + name + "]").attr("name")));
             } else {
-                sReader.speak("Screen navigation to " + $("screen[name=" + name + "]").attr("data-readable") + ", press Tab for first object");
+                sReader.speak(_("Screen navigation to %, press Tab for first object", $("screen[name=" + name + "]").attr("data-readable")));
             }
         }
     },
@@ -18,9 +18,9 @@ var screens = {
 
         if (sReader.reading) {
             if ($("screen[name=" + name + "]").attr("data-readable") == undefined) {
-                sReader.speak("Screen navigation to " + $("screen[name=" + name + "]").attr("name") + ", press Tab for first object");
+                sReader.speak(_("Screen navigation to %, press Tab for first object", $("screen[name=" + name + "]").attr("name")));
             } else {
-                sReader.speak("Screen navigation to " + $("screen[name=" + name + "]").attr("data-readable") + ", press Tab for first object");
+                sReader.speak(_("Screen navigation to %, press Tab for first object", $("screen[name=" + name + "]").attr("data-readable")));
             }
         }
     }

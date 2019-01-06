@@ -35,32 +35,32 @@ $(function() {
                         if (listing[i] == listing[i].toLowerCase()) {
                             listing[i] = listing[i].toUpperCase();
                         } else {
-                            listing[i] = "Capital " + listing[i].toUpperCase();
+                            listing[i] = _("Capital %", listing[i].toUpperCase());
                         }
                     }
 
                     var message = new SpeechSynthesisUtterance(listing.join(" ")
-                        .replace(/\s\s\s/g, " space ")
-                        .replace(/!/g, " exclamation mark")
-                        .replace(/\?/g, " question mark ")
-                        .replace(/\./g, " dot ")
-                        .replace(/"/g, " quote ")
-                        .replace(/'/g, " single quote ")
-                        .replace(/,/g, " comma ")
-                        .replace(/\//g, " slash ")
-                        .replace(/\\/g, " backslash ")
-                        .replace(/\|/g, " pipe ")
-                        .replace(/:/g, " colon ")
-                        .replace(/;/g, " semicolon ")
-                        .replace(/\(/g, " opening parenthesis ")
-                        .replace(/\)/g, " closing parenthesis ")
-                        .replace(/\[/g, " opening square bracket ")
-                        .replace(/\]/g, " closing square bracket ")
-                        .replace(/\{/g, " opening brace bracket ")
-                        .replace(/\}/g, " closing brace bracket ")
-                        .replace(/\</g, " less than ")
-                        .replace(/\>/g, " greater than ")
-                        .replace(/-/g, " dash ")
+                        .replace(/\s\s\s/g, _(" space "))
+                        .replace(/!/g, _(" exclamation mark"))
+                        .replace(/\?/g, _(" question mark "))
+                        .replace(/\./g, _(" dot "))
+                        .replace(/"/g, _(" quote "))
+                        .replace(/'/g, _(" single quote "))
+                        .replace(/,/g, _(" comma "))
+                        .replace(/\//g, _(" slash "))
+                        .replace(/\\/g, _(" backslash "))
+                        .replace(/\|/g, _(" pipe "))
+                        .replace(/:/g, _(" colon "))
+                        .replace(/;/g, _(" semicolon "))
+                        .replace(/\(/g, _(" opening parenthesis "))
+                        .replace(/\)/g, _(" closing parenthesis "))
+                        .replace(/\[/g, _(" opening square bracket "))
+                        .replace(/\]/g, _(" closing square bracket "))
+                        .replace(/\{/g, _(" opening brace bracket "))
+                        .replace(/\}/g, _(" closing brace bracket "))
+                        .replace(/\</g, _(" less than "))
+                        .replace(/\>/g, _(" greater than "))
+                        .replace(/-/g, _(" dash "))
                     );
                 } else {
                     var message = new SpeechSynthesisUtterance(text.replace(/subReader/g, " sub reader ").replace(/subOS/g, " sub OS "));
@@ -108,9 +108,9 @@ $(function() {
                     if (code == 9) {
                         if (sReader.reading) {
                             if ($(event.target).attr("data-readable") == undefined) {
-                                sReader.speak($(event.target).text() + ": Button");
+                                sReader.speak($(event.target).text() + _(": Button"));
                             } else {
-                                sReader.speak($(event.target).attr("data-readable") + ": Button");
+                                sReader.speak($(event.target).attr("data-readable") + _(": Button"));
                             }
                         }
                     }
@@ -123,9 +123,9 @@ $(function() {
                     if (code == 9) {
                         if (sReader.reading) {
                             if ($(event.target).attr("data-readable") == undefined) {
-                                sReader.speak($(event.target).text() + ": Link");
+                                sReader.speak($(event.target).text() + _(": Link"));
                             } else {
-                                sReader.speak($(event.target).attr("data-readable") + ": Link");
+                                sReader.speak($(event.target).attr("data-readable") + _(": Link"));
                             }
                         }
                     }
@@ -138,9 +138,9 @@ $(function() {
                     if (code == 9) {
                         if (sReader.reading) {
                             if ($(event.target).attr("data-readable") == undefined) {
-                                sReader.speak("Paragraph: " + $(event.target).text());
+                                sReader.speak(_("Paragraph: ") + $(event.target).text());
                             } else {
-                                sReader.speak("Paragraph: " + $(event.target).attr("data-readable"));
+                                sReader.speak(_("Paragraph: ") + $(event.target).attr("data-readable"));
                             }
                         }
                     }
@@ -148,7 +148,7 @@ $(function() {
             });
 
             for (var i = 1; i <= 6; i++) {
-                var levels = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth"];
+                var levels = [_("First"), _("Second"), _("Third"), _("Fourth"), _("Fifth"), _("Sixth")];
                 var iPass = i;
 
                 $(document).on("focus", "h" + i + ":not([data-no-sreader])", function(event) {
@@ -157,9 +157,9 @@ $(function() {
                         if (code == 9) {
                             if (sReader.reading) {
                                 if ($(event.target).attr("data-readable") == undefined) {
-                                    sReader.speak(levels[Number($(event.target).get(0).tagName[1]) - 1] + "-level heading: " + $(event.target).text());
+                                    sReader.speak(_("%-level heading: ", levels[Number($(event.target).get(0).tagName[1]) - 1]) + $(event.target).text());
                                 } else {
-                                    sReader.speak(levels[Number($(event.target).get(0).tagName[1]) - 1] + "-level heading: " + $(event.target).attr("data-readable"));
+                                    sReader.speak(_("%-level heading: ", levels[Number($(event.target).get(0).tagName[1]) - 1]) + $(event.target).attr("data-readable"));
                                 }
                             }
                         }
@@ -170,19 +170,19 @@ $(function() {
             $(document).on("mouseover", "p:not([data-no-sreader])", function(event) {
                 if (sReader.reading) {
                     if ($(event.target).attr("data-readable") == undefined) {
-                        sReader.speak("Paragraph: " + $(event.target).text());
+                        sReader.speak(_("Paragraph: ") + $(event.target).text());
                     } else {
-                        sReader.speak("Paragraph: " + $(event.target).attr("data-readable"));
+                        sReader.speak(_("Paragraph: ") + $(event.target).attr("data-readable"));
                     }
                 }
             });
 
             for (var i = 1; i <= 6; i++) {
-                var levels = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth"];
+                var levels = [_("First"), _("Second"), _("Third"), _("Fourth"), _("Fifth"), _("Sixth")];
                 var iPass = i;
 
                 $(document).on("mouseover", "h" + i + ":not([data-no-sreader])", function(event) {
-                    if (sReader.reading) {sReader.speak(levels[Number($(event.target).get(0).tagName[1]) - 1] + "-level heading: " + event.target.innerHTML);}
+                    if (sReader.reading) {_("%-level heading: ", sReader.speak(levels[Number($(event.target).get(0).tagName[1]) - 1]) + event.target.innerHTML);}
                 });
             }
 
@@ -190,13 +190,13 @@ $(function() {
                 $(window).one("keyup", function(e) {
                     var code = (e.keyCode ? e.keyCode : e.which);
                     if (code == 9) {
-                        if (sReader.reading) {sReader.speak($(document.activeElement).attr("data-readable") + ": Button");}
+                        if (sReader.reading) {sReader.speak($(document.activeElement).attr("data-readable") + _(": Button"));}
                     }
                 });
             });
 
             $(document).on("mouseover", ".readableButton", function(event) {
-                if (sReader.reading) {sReader.speak($(this).attr("data-readable") + ": Button");}
+                if (sReader.reading) {sReader.speak($(this).attr("data-readable") + _(": Button"));}
             });
 
             $(document).on("focus", ".readableText", function(event) {
@@ -215,9 +215,9 @@ $(function() {
             $(document).on("focus", ".menuItem", function(event) {
                 if (sReader.reading) {
                     if ($(document.activeElement).attr("data-readable") == undefined) {
-                        sReader.speak($(document.activeElement).text() + ": Menu Item");
+                        sReader.speak($(document.activeElement).text() + _(": Menu Item"));
                     } else {
-                        sReader.speak($(document.activeElement).attr("data-readable") + ": Menu Item");
+                        sReader.speak($(document.activeElement).attr("data-readable") + _(": Menu Item"));
                     }
                 }
             });
@@ -225,9 +225,9 @@ $(function() {
             $(document).on("mouseover", ".menuItem", function(event) {
                 if (sReader.reading) {
                     if ($(this).attr("data-readable") == undefined) {
-                        sReader.speak($(this).text() + ": Menu Item");
+                        sReader.speak($(this).text() + _(": Menu Item"));
                     } else {
-                        sReader.speak($(this).attr("data-readable") + ": Menu Item");
+                        sReader.speak($(this).attr("data-readable") + _(": Menu Item"));
                     }
                 }
             });
@@ -235,9 +235,9 @@ $(function() {
             $(document).on("focus", ".menuArea", function(event) {
                 if (sReader.reading) {
                     if ($(document.activeElement).attr("data-readable") == undefined) {
-                        sReader.speak($(document.activeElement).text() + ": Menu Information");
+                        sReader.speak($(document.activeElement).text() + _(": Menu Information"));
                     } else {
-                        sReader.speak($(document.activeElement).attr("data-readable") + ": Menu Information");
+                        sReader.speak($(document.activeElement).attr("data-readable") + _(": Menu Information"));
                     }
                 }
             });
@@ -245,9 +245,9 @@ $(function() {
             $(document).on("mouseover", ".menuItem", function(event) {
                 if (sReader.reading) {
                     if ($(this).attr("data-readable") == undefined) {
-                        sReader.speak($(this).text() + ": Menu Information");
+                        sReader.speak($(this).text() + _(": Menu Information"));
                     } else {
-                        sReader.speak($(this).attr("data-readable") + ": Menu Information");
+                        sReader.speak($(this).attr("data-readable") + _(": Menu Information"));
                     }
                 }
             });
@@ -255,9 +255,9 @@ $(function() {
             $(document).on("mouseover", "button:not([data-no-sreader]):not(.menuItem), a.button", function(event) {
                 if (sReader.reading) {
                     if ($(this).attr("data-readable") == undefined) {
-                        sReader.speak(event.target.innerHTML + ": Button");
+                        sReader.speak(event.target.innerHTML + _(": Button"));
                     } else {
-                        sReader.speak($(this).attr("data-readable") + ": Button");
+                        sReader.speak($(this).attr("data-readable") + _(": Button"));
                     }
                 }
             });
@@ -267,7 +267,7 @@ $(function() {
                     event.preventDefault();
 
                     if (event.which == 13) {
-                        sReader.speak("Enter: object pressed");
+                        sReader.speak(_("Enter: object pressed"));
 
                         setTimeout(function() {
                             $(document.activeElement).click();
@@ -277,30 +277,30 @@ $(function() {
             });
             
             $(document).on("click", "a", function(event) {
-                if (sReader.reading) {sReader.speak("Enter: object pressed");}
+                if (sReader.reading) {sReader.speak(_("Enter: object pressed"));}
             });
 
             $(document).on("focusin", "input", function(event) {
                 if ($(this).attr("data-readable") == undefined) {
                     if ($(this).attr("id") != undefined && $("label[for=" + $(this).attr("id") + "]").length > 0) {
-                        if (sReader.reading) {sReader.speak("Editing " + $("label[for=" + $(this).attr("id") + "]:first").text() + ": Text Input");}
+                        if (sReader.reading) {sReader.speak(_("Editing %: Text Input", $("label[for=" + $(this).attr("id") + "]:first").text()));}
                     } else {
                         if ($(this).attr("placeholder") != undefined) {
-                            if (sReader.reading) {sReader.speak("Editing " + $(this).attr("placeholder") + ": Text Input");}
+                            if (sReader.reading) {sReader.speak(_("Editing %: Text Input", $(this).attr("placeholder")));}
                         } else {
                             if (sReader.reading) {sReader.speak("Editing: Text Input");}
                         }
                     }
                 } else {
-                    if (sReader.reading) {sReader.speak("Editing " + $(this).attr("data-readable") + ": Text Input");}
+                    if (sReader.reading) {sReader.speak(_("Editing %: Text Input", $(this).attr("data-readable")));}
                 }
             });
 
             $(document).on("focusout", "input", function(event) {
                 if ($(this).attr("data-readable") == undefined) {
-                    if (sReader.reading) {sReader.speak("Editing stopped");}
+                    if (sReader.reading) {sReader.speak(_("Editing stopped"));}
                 } else {
-                    if (sReader.reading) {sReader.speak("Editing stopped");}
+                    if (sReader.reading) {sReader.speak(_("Editing stopped"));}
                 }
             });
 
@@ -310,13 +310,13 @@ $(function() {
                         if (sReader.reading) {sReader.speak($("label[for=" + $(this).attr("id") + "]:first").text() + ": Text Input, press to edit");}
                     } else {
                         if ($(this).attr("placeholder") != undefined) {
-                            if (sReader.reading) {sReader.speak($(this).attr("placeholder") + ": Text Input, press to edit");}
+                            if (sReader.reading) {sReader.speak($(this).attr("placeholder") + _(": Text Input, press to edit"));}
                         } else {
-                            if (sReader.reading) {sReader.speak("Text Input, press to edit");}
+                            if (sReader.reading) {sReader.speak(_("Text Input, press to edit"));}
                         }
                     }
                 } else {
-                    if (sReader.reading) {sReader.speak($(this).attr("data-readable") + ": Text Input, press to edit");}
+                    if (sReader.reading) {sReader.speak($(this).attr("data-readable") + _(": Text Input, press to edit"));}
                 }
             });
 
@@ -336,7 +336,7 @@ $(function() {
                         if (character == character.toLowerCase()) {
                             sReader.speak(character.toUpperCase());
                         } else {
-                            sReader.speak("Capital " + character);
+                            sReader.speak(_("Capital %", character));
                         }
                     }
                 }
@@ -345,9 +345,9 @@ $(function() {
             $(document).on("keydown", "input", function(event) {
                 if (sReader.reading) {
                     if (event.which == 8) {
-                        sReader.speak("Backspace. " + getClosestWord($(document.activeElement).val(), document.activeElement.selectionStart - 1).slice(0, -2));
+                        sReader.speak(_("Backspace. ") + getClosestWord($(document.activeElement).val(), document.activeElement.selectionStart - 1).slice(0, -2));
                     } else if (event.which == 46) {
-                        sReader.speak("Delete");
+                        sReader.speak(_("Delete"));
                     }
                 }
             });
@@ -357,7 +357,7 @@ $(function() {
             if (document.activeElement != document.body) {
                 if ($(document.activeElement).text() == "") {
                     if ($(document.activeElement).val() == "") {
-                        sReader.speak("Empty", slow, spell);
+                        sReader.speak(_("Empty"), slow, spell);
                     } else {
                         sReader.speak($(document.activeElement).val(), slow, spell);
                     }
@@ -369,12 +369,12 @@ $(function() {
 
         editWord: function(offset) {
             if (document.activeElement.selectionStart + offset < 0) {
-                sReader.speak("Start of input");
+                sReader.speak(_("Start of input"));
             } else if (document.activeElement.selectionStart + offset + 2 > $(document.activeElement).val().length) {
-                sReader.speak(getClosestWord($(document.activeElement).val(), document.activeElement.selectionStart + offset) + " (end of word and input)")
+                sReader.speak(getClosestWord($(document.activeElement).val(), document.activeElement.selectionStart + offset) + _(" (end of word and input)"));
             } else {
                 if (getClosestWord($(document.activeElement).val(), document.activeElement.selectionStart + offset + 1) == "") {
-                    sReader.speak(getClosestWord($(document.activeElement).val(), document.activeElement.selectionStart + offset) + " (end of word)");
+                    sReader.speak(getClosestWord($(document.activeElement).val(), document.activeElement.selectionStart + offset) + _(" (end of word)"));
                 } else {
                     sReader.speak(getClosestWord($(document.activeElement).val(), document.activeElement.selectionStart + offset));
                 }
@@ -387,12 +387,12 @@ $(function() {
             if (state) {
                 $("#sReader").css("display", "unset");
                 sReader.cssState(true);
-                sReader.speak("subReader is on");
+                sReader.speak(_("subReader is on"));
             } else {
                 $("#sReader").css("display", "none");
                 sReader.cssState(false);
                 sReader.changeBlackout(false, true);
-                sReader.speak("subReader is off");
+                sReader.speak(_("subReader is off"));
 
                 $("#sReaderContent").text("");
             }
@@ -411,10 +411,10 @@ $(function() {
 
             if (state) {
                 $("#sReaderBlackout").css("display", "unset");
-                if (!silent) {sReader.speak("Blackout is on");}
+                if (!silent) {sReader.speak(_("Blackout is on"));}
             } else {
                 $("#sReaderBlackout").css("display", "none");
-                if (!silent) {sReader.speak("Blackout is off");}
+                if (!silent) {sReader.speak(_("Blackout is off"));}
             }
         },
 

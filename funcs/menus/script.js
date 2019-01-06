@@ -23,7 +23,7 @@ var menus = {
                 
                 $(menu).fadeIn();
 
-                if (sReader.reading) {sReader.speak("Menu opened");}
+                if (sReader.reading) {sReader.speak(_("Menu opened"));}
 
                 $(menu).children().get(0).focus();
 
@@ -38,7 +38,7 @@ var menus = {
         if (!menus.cancel) {
             setTimeout(function() {
                 if (menus.openedMenu != null) {
-                    if (sReader.reading) {sReader.speak("Menu closed");}
+                    if (sReader.reading) {sReader.speak(_("Menu closed"));}
                 }
 
                 menus.openedMenu = null;

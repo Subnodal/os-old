@@ -22,7 +22,7 @@ var accounts = [
 var selectedAccount = -1;
 var updateAccount = true;
 
-function alert(content, title = "", buttons = [{text: "OK", type: "normal", onclick: "closeAlert();"}]) {
+function alert(content, title = "", buttons = [{text: _("OK"), type: "normal", onclick: "closeAlert();"}]) {
     $("#alertBox").html(`
         <div class="alertContent">
             ` + (title == "" ? "" : `<h1 class="normal noMargin">` + title.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/&/g, "&amp;") + `</h1>`) + `
@@ -44,13 +44,13 @@ function alert(content, title = "", buttons = [{text: "OK", type: "normal", oncl
 
     $("#alertContent").focus();
 
-    if (sReader.reading) {sReader.speak("Alert! Press Tab for first item");}
+    if (sReader.reading) {sReader.speak(_("Alert! Press Tab for first item"));}
 }
 
 function closeAlert() {
     $("#alertBackground, #alertBox").fadeOut();
 
-    if (sReader.reading) {sReader.speak("Alert closed");}
+    if (sReader.reading) {sReader.speak(_("Alert closed"));}
 }
 
 function toggleFullscreen() {
@@ -103,7 +103,7 @@ function selectSignInAccount(index) {
     $(".signInPersonalImage").removeClass("selected");
     $(".signInPersonalImage[data-account='" + index + "']").addClass("selected");
 
-    if (sReader.reading) {sReader.speak("Account selected: " + accounts[selectedAccount].name);}
+    if (sReader.reading) {sReader.speak(_("Account selected: %", accounts[selectedAccount].name));}
 }
 
 function signIn() {
@@ -121,7 +121,7 @@ function signIn() {
 
         screens.fade("desktop");
     } else {
-        alert("Please select your account.", "Could not sign you in");
+        alert(_("Please select your account."), _("Could not sign you in"));
     }
 }
 
@@ -134,7 +134,7 @@ function signOut() {
 
     setTimeout(function() {
         setTimeout(function() {
-            $(".myUsername").text("User");
+            $(".myUsername").text(_("User"));
             $(".myAccountImage").attr({
                 src: "media/defaultAccount.png",
                 onerror: ""
@@ -161,10 +161,10 @@ $(function() {
 
         if (date.getMinutes() < 10) {
             $(".infoTime").html(date.getHours() + ":0" + date.getMinutes());
-            $(".infoTime").attr("data-readable", "The time is " + date.getHours() + ":0" + date.getMinutes());
+            $(".infoTime").attr("data-readable", _("The time is %", date.getHours() + ":0" + date.getMinutes()));
         } else {
             $(".infoTime").html(date.getHours() + ":" + date.getMinutes());
-            $(".infoTime").attr("data-readable", "The time is " + date.getHours() + ":" + date.getMinutes());
+            $(".infoTime").attr("data-readable", _("The time is %", date.getHours() + ":" + date.getMinutes()));
         }
 
         var accountsBuild = "";
@@ -176,7 +176,7 @@ $(function() {
                         <a
                             href="javascript:selectSignInAccount(` + i + `);"
                             class="hidden button"
-                            data-readable="Select ` + accounts[i].name.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") + `"
+                            data-readable="@Select %|` + accounts[i].name.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") + `"
                         >
                             <img
                                 src="` + (accounts[i].image != undefined ? accounts[i].image.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") : "media/defaultAccount.png") + `"
@@ -184,7 +184,7 @@ $(function() {
                                 class="signInPersonalImage" data-account=` + i + `
                             />
                         </a>
-                        <div class="signInPersonalText">` + accounts[i].name.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") + `</div>
+                        <div class="signInPersonalText noTranslate">` + accounts[i].name.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") + `</div>
                     </div>
                 `;
             }

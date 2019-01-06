@@ -16,6 +16,9 @@
         <script src="lib/jquery.min.js"></script>
         <script src="lib/jqueryui.js"></script>
         <script src="lib/touchpunch.min.js"></script>
+        <script src="funcs/lang/script.js"></script>
+        <script src="lang/en-PR.js"></script>
+        <script src="lang/ro-RO.js"></script>
         <script src="funcs/sReader/script.js"></script>
         <script src="funcs/screens/script.js"></script>
         <script src="funcs/menus/script.js"></script>
@@ -24,70 +27,76 @@
         <script src="script.js"></script>
     </head>
     <body>
-        <screen name="signIn" class="signInBackground" data-readable="sign in page">
+        <screen name="signIn" class="signInBackground" data-readable="@sign in page">
             <div class="infoBar">
-                <span class="infoTime readableText" data-readable="The time is unavailable">--:--</span>
+                <span class="infoTime readableText" data-readable="@The time is unavailable">--:--</span>
                 <div class="infoBarRight">
-                    <button onclick="toggleFullscreen();" class="infoButton" data-readable="Toggle fullscreen"><i>fullscreen</i></button>
-                    <button onclick="menus.show('#signInAccessibilityMenu', 0, $('.infoBar').outerHeight(), true);" class="infoButton" data-readable="Accessibility options"><i>accessibility</i><i>arrow_drop_down</i></button>
-                    <button onclick="menus.show('#signInPowerMenu', 0, $('.infoBar').outerHeight(), true);" class="infoButton" data-readable="Power options"><i>power_settings_new</i><i>arrow_drop_down</i></button>
+                    <button onclick="toggleFullscreen();" class="infoButton" data-readable="@Toggle fullscreen"><i>fullscreen</i></button>
+                    <button onclick="menus.show('#signInLanguageMenu', 0, $('.infoBar').outerHeight(), true);" class="infoButton" data-readable="@Language options"><i>translate</i><i>arrow_drop_down</i></button>
+                    <button onclick="menus.show('#signInAccessibilityMenu', 0, $('.infoBar').outerHeight(), true);" class="infoButton" data-readable="@Accessibility options"><i>accessibility</i><i>arrow_drop_down</i></button>
+                    <button onclick="menus.show('#signInPowerMenu', 0, $('.infoBar').outerHeight(), true);" class="infoButton" data-readable="@Power options"><i>power_settings_new</i><i>arrow_drop_down</i></button>
+                    <menu id="signInLanguageMenu">
+                        <button onclick="window.location.href = window.location.href.split('?')[0] + '?lang=en-GB';" class="menuItem">English (United Kingdom)</button>
+                        <button onclick="window.location.href = window.location.href.split('?')[0] + '?lang=en-PR';" class="menuItem">English (Ye Pirate)</button>
+                        <button onclick="window.location.href = window.location.href.split('?')[0] + '?lang=ro-RO';" class="menuItem">Bleep-bloop</button>
+                    </menu>
                     <menu id="signInAccessibilityMenu">
                         <button onclick="sReader.switchState();" class="menuItem">subReader</button>
                     </menu>
                     <menu id="signInPowerMenu">
-                        <button onclick="window.location.href = 'https://subnodal.com';" class="menuItem">Exit session</button>
+                        <button onclick="window.location.href = 'https://subnodal.com';" class="menuItem">@Exit session</button>
                     </menu>
                 </div>
             </div>
             <main>
                 <div class="card greeter">
                     <div class="cardContent center">
-                        <h1>Sign into subOS</h1>
+                        <h1>@Sign into subOS</h1>
                         <div class="signInPersonal"></div>
                         <div class="signInNetwork">
                             <input placeholder="Username" class="fillWidth" id="signInNetworkUsername">
                         </div>
-                        <input type="password" placeholder="Password" class="fillWidth" id="signInPassword">
+                        <input type="password" placeholder="@Password" class="fillWidth" id="signInPassword">
                     </div>
                     <div class="cardButtons greeter">
-                        <button onclick="screens.fade('tests');" class="flat">Help</button>
-                        <button onclick="signIn();">Sign In</button>
+                        <button onclick="screens.fade('tests');" class="flat">@Help</button>
+                        <button onclick="signIn();">@Sign In</button>
                     </div>
                 </div>
             </main>
         </screen>
-        <screen name="desktop" class="desktopBackground" data-readable="desktop">
+        <screen name="desktop" class="desktopBackground" data-readable="@desktop">
             <div class="infoBar">
-                <span class="infoTime readableText" data-readable="The time is unavailable">--:--</span>
+                <span class="infoTime readableText" data-readable="@The time is unavailable">--:--</span>
                 <div class="infoBarRight">
-                    <button onclick="menus.show('#desktopMyAccount', 0, $('.infoBar').outerHeight(), true);" class="infoButton" data-readable="My account"><span class="myUsername">User</span> <i>arrow_drop_down</i></button>
-                    <button onclick="menus.show('#desktopPowerMenu', 0, $('.infoBar').outerHeight(), true);" class="infoButton" data-readable="Power options"><i>power_settings_new</i><i>arrow_drop_down</i></button>
+                    <button onclick="menus.show('#desktopMyAccount', 0, $('.infoBar').outerHeight(), true);" class="infoButton" data-readable="@My account"><span class="myUsername">User</span> <i>arrow_drop_down</i></button>
+                    <button onclick="menus.show('#desktopPowerMenu', 0, $('.infoBar').outerHeight(), true);" class="infoButton" data-readable="@Power options"><i>power_settings_new</i><i>arrow_drop_down</i></button>
                     <menu id="desktopMyAccount">
-                        <div class="menuArea coloured center" data-readable="My account information">
+                        <div class="menuArea coloured center" data-readable="@My account information">
                             <img class="accountImage big myAccountImage" />
                             <div class="myUsername">User</div>
                         </div>
-                        <button onclick="signOut();" class="menuItem">Sign out</button>
+                        <button onclick="signOut();" class="menuItem">@Sign out</button>
                     </menu>
                     <menu id="desktopPowerMenu">
-                        <button onclick="window.location.href = 'https://subnodal.com';" class="menuItem">Exit session</button>
+                        <button onclick="window.location.href = 'https://subnodal.com';" class="menuItem">@Exit session</button>
                     </menu>
                 </div>
             </div>
             <windows></windows>
             <div class="appBar">
-                <a href="javascript:newWindow('nativeApps/test/index.html', 'Test App');" class="appBarAppLauncherButton hidden readableButton" data-readable="App Launcher"><img src="media/appLauncherIcon.png" class="appBarOptionsIcon" /></a>
+                <a href="javascript:newWindow('nativeApps/test/index.html', 'Test App');" class="appBarAppLauncherButton hidden readableButton" data-readable="@App Launcher"><img src="media/appLauncherIcon.png" class="appBarOptionsIcon" /></a>
                 <div class="appBarOpenApps"></div>
-                <a onclick="notifications.open();" class="appBarAppLauncherButton hidden readableButton" data-readable="Notifications"><img src="media/notificationsIcon.png" class="appBarOptionsIcon appBarNotificationsIcon" /></a>
+                <a onclick="notifications.open();" class="appBarAppLauncherButton hidden readableButton" data-readable="@Notifications"><img src="media/notificationsIcon.png" class="appBarOptionsIcon appBarNotificationsIcon" /></a>
             </div>
             <menu id="notificationsMenu">
-                <div class="menuArea coloured">Notifications</div>
-                <div class="menuArea">All caught up! There are no notifications to attend to right now.</div>
+                <div class="menuArea coloured">@Notifications</div>
+                <div class="menuArea">@All caught up! There are no notifications to attend to right now.</div>
             </menu>
         </screen>
         <screen name="tests" data-readable="tests page">
             <div class="infoBar">
-                <span class="readableText infoTime" data-readable="The time is unavailable">--:--</span>
+                <span class="readableText infoTime" data-readable="@The time is unavailable">--:--</span>
             </div>
             <main>
                 <section>
@@ -110,7 +119,7 @@
         </screen>
         <screen name="sReaderHelp" data-readable="subReader Help">
             <div class="infoBar">
-                <span class="readableText infoTime" data-readable="The time is unavailable">--:--</span>
+                <span class="readableText infoTime" data-readable="@The time is unavailable">--:--</span>
             </div>
             <main>
                 <section>
