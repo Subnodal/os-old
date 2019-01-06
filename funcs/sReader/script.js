@@ -41,7 +41,7 @@ $(function() {
 
                     var message = new SpeechSynthesisUtterance(listing.join(" ")
                         .replace(/\s\s\s/g, _(" space "))
-                        .replace(/!/g, _(" exclamation mark"))
+                        .replace(/!/g, _(" exclamation mark "))
                         .replace(/\?/g, _(" question mark "))
                         .replace(/\./g, _(" dot "))
                         .replace(/"/g, _(" quote "))
@@ -323,13 +323,13 @@ $(function() {
             $(document).on("keypress", "input", function(event) {
                 if (sReader.reading) {
                     if (event.which == 8) {
-                        sReader.speak("Backspace");
+                        sReader.speak(_("Backspace"));
                     } else if (event.which == 9) {
-                        sReader.speak("Tab");
+                        sReader.speak(_("Tab"));
                     } else if (event.which == 13) {
-                        sReader.speak("Enter");
+                        sReader.speak(_("Enter"));
                     } else if (event.which == 32) {
-                        sReader.speak("Space. " + getClosestWord($(document.activeElement).val(), document.activeElement.selectionStart - 1));
+                        sReader.speak(_("Space. ") + getClosestWord($(document.activeElement).val(), document.activeElement.selectionStart - 1));
                     } else {
                         var character = String.fromCharCode(event.which);
 

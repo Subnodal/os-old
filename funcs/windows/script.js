@@ -277,7 +277,7 @@ addEventListener("message", function(event) {
         $("window:last").attr("response-key", event.data.helloResponse);
         $("a.appBarOpenAppButton:last").attr("response-key-link", event.data.helloResponse);
         $("a.appBarOpenAppButton:last").attr("href", "javascript:doWindowTask('" + event.data.helloResponse + "');");
-        $("a.appBarOpenAppButton:last").attr("data-readable", "Reveal or minimise " + $("window[response-key='" + event.data.helloResponse + "']").children(".windowBar").text().trim())
+        $("a.appBarOpenAppButton:last").attr("data-readable", "@Restore or minimise %|" + $("window[response-key='" + event.data.helloResponse + "']").children(".windowBar").text().trim())
     } else if (event.data.for == "subOS" && event.data.bringToFront && event.data.responseKey) {
         $("window[response-key='" + event.data.responseKey + "']").mousedown();
     } else if (event.data.for == "subOS" && event.data.pressWindowButton != undefined && event.data.responseKey) {
