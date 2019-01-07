@@ -24,7 +24,7 @@ lang.list["ro-RO"] = {
     "My account information": "Bloop bleep-bleep bleep-bleep-bloop-bloop",
     "Sign out": "Bleep bloop",
     "Notifications": "Bleep-bleep-bleep-bloop-bloop",
-    "All caught up! There are no notifications to attend to right now.": "Bloop bloop blepp! Bleep bleep bloop bleep-bleep-bloop-bloop bloop bloop bloop bleep bloop.",
+    "All caught up! There are no notifications to attend to right now.": "Bloop bloop bleep! Bleep bleep bloop bleep-bleep-bloop-bloop bloop bloop bloop bleep bloop.",
     "subReader is on": "Bloop-bloop-bloop bloop bloop",
     "%-level heading: ": "%-bloop bloop-bloop: ",
     ": Button": ": Bloop",

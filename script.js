@@ -197,6 +197,8 @@ $(function() {
 
             updateAccount = false;
         }
+
+        $("img").attr("draggable", "false");
     }, 10);
 
     $("main").css("padding-top", $(".infoBar").outerHeight() + "px");
