@@ -17,6 +17,7 @@ lang.list["ro-RO"] = {
     "subReader": "Bloop-bloop-bloop",
     "Exit session": "Bleep-bleep bloop-bloop",
     "Sign into subOS": "Bloop bleep-bloop Bloop-bleep-bleep",
+    "Username": "Bleep-bleep-bloop",
     "Password": "Bleep-bloop",
     "Help": "Bloop",
     "Sign In": "Bleep Bloop",

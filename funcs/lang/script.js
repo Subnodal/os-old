@@ -78,7 +78,7 @@ function _(string, replacements = []) {
 $(function() {
     setInterval(function() {
         $("*:not(script, style, meta, link, .noTranslate)").each(function() {
-            if ($(this).text()[0] == "@") {
+            if ($(this).html()[0] == "@") {
                 if ($(this).text().substring(1).split("|").length == 2) {
                     $(this).text(lang.translate(
                         $(this).text().substring(1).split("|")[0],

@@ -54,7 +54,7 @@
                         <h1>@Sign into subOS</h1>
                         <div class="signInPersonal"></div>
                         <div class="signInNetwork">
-                            <input placeholder="Username" class="fillWidth" id="signInNetworkUsername">
+                            <input placeholder="@Username" class="fillWidth" id="signInNetworkUsername">
                         </div>
                         <input type="password" placeholder="@Password" class="fillWidth" id="signInPassword">
                     </div>
@@ -69,12 +69,12 @@
             <div class="infoBar">
                 <span class="infoTime readableText" data-readable="@The time is unavailable">--:--</span>
                 <div class="infoBarRight">
-                    <button onclick="menus.show('#desktopMyAccount', 0, $('.infoBar').outerHeight(), true);" class="infoButton" data-readable="@My account"><span class="myUsername">User</span> <i>arrow_drop_down</i></button>
+                    <button onclick="menus.show('#desktopMyAccount', 0, $('.infoBar').outerHeight(), true);" class="infoButton" data-readable="@My account"><span class="myUsername">@User</span> <i>arrow_drop_down</i></button>
                     <button onclick="menus.show('#desktopPowerMenu', 0, $('.infoBar').outerHeight(), true);" class="infoButton" data-readable="@Power options"><i>power_settings_new</i><i>arrow_drop_down</i></button>
                     <menu id="desktopMyAccount">
                         <div class="menuArea coloured center" data-readable="@My account information">
                             <img class="accountImage big myAccountImage" />
-                            <div class="myUsername">User</div>
+                            <div class="myUsername">@User</div>
                         </div>
                         <button onclick="signOut();" class="menuItem">@Sign out</button>
                     </menu>
