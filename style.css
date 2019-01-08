@@ -159,6 +159,7 @@ div.cardButtons {
     background-color: black;
     color: white;
     padding: 5px;
+    z-index: 1;
 }
 
 .infoBarRight {
