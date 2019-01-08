@@ -7,8 +7,7 @@ var accounts = [
     {
         name: "Seb",
         image: "https://avatars0.githubusercontent.com/u/39373619?s=460&v=4"
-    }
-    ,
+    },
     {
         name: "Herbie"
     },
