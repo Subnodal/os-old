@@ -141,6 +141,11 @@ string:
     ...
 ```
 
+Oh, and don't forget to add a `<script>` tag to index.html to link it correctly!
+
+Lead developers will review your language submission and add the language entry
+to language selection menus etc.
+
 #### Auto-generation
 To auto-generate the language file, play around with the OS and open the parts
 you want to translate. Then in the developer console, type:

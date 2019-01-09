@@ -32,6 +32,18 @@ var lang = {
                     lang.translogErrors.push(string);
                 }
             }
+        } else {
+            if (lang.list["overrides"][string]) {
+                if (typeof(lang.list["overrides"][string]) == "object") {
+                    if (String(replacements[0]) == "1") {
+                        string = lang.list["overrides"][string]["sing"];
+                    } else {
+                        string = lang.list["overrides"][string]["pl"];
+                    }
+                } else {
+                    string = lang.list["overrides"][string];
+                }
+            }
         }
         
         var iter = 0;
