@@ -100,6 +100,9 @@ For more than one part:
 
 ```
 
+You should also use the `@` in the `data-readable` attribute too so that they
+also get translated.
+
 ### Making translations for subOS
 If you want to translate the text of subOS from English (United Kingdom),
 follow this section! Currently there are only 3 languages, English (United
