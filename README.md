@@ -85,7 +85,7 @@ If you want to set some HTML content using JS, construct it like the following:
 ```js
 
     $(".myDiv").html(`
-        <span>You got the lucky number %!|` + luckyNumber + `</span> <a>Something else</a>
+        <span>@You got the lucky number %!|` + luckyNumber + `</span> <a>Something else</a>
     `)
 
 ```
@@ -95,7 +95,7 @@ For more than one part:
 ```js
 
     $(".myDiv").html(`
-        <span>You got the lucky number %! The number % was also another number.|` + luckyNumber + `,` + otherNumber + `</span> <a>Something else entirely</a>
+        <span>@You got the lucky number %! The number % was also another number.|` + luckyNumber + `,` + otherNumber + `</span> <a>Something else entirely</a>
     `)
 
 ```
