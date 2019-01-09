@@ -100,7 +100,7 @@ For more than one part:
 
 ```
 
-### Making translations to subOS
+### Making translations for subOS
 If you want to translate the text of subOS from English (United Kingdom),
 follow this section! Currently there are only 3 languages, English (United
 Kingdom), English (Ye Pirate) and Bleep-bloop. English (Ye Pirate) and
