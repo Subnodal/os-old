@@ -224,7 +224,7 @@ $(function() {
             $($(this).parent().find("i")[1]).text("fullscreen");
         } else {
             $(this).css({
-                width: "calc(100% - 90px)",
+                width: "calc(100% - 95px)",
                 "padding-left": "5px",
                 "padding-right": "5px"
             });
