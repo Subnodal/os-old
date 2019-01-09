@@ -1,0 +1,98 @@
+* {
+    font-family: "Overpass", "Roboto", sans-serif;
+    outline: none;
+    cursor: default;
+    user-select: none;
+}
+
+h1, code {
+    font-family: "Overpass Mono", "Roboto Mono", sans-serif;
+}
+
+h1.normal {
+    font-family: "Overpass", "Roboto", sans-serif;
+}
+
+span, strong, em {
+    font-family: inherit;
+}
+
+a {
+    color: var(--uiFlatTextColour);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a.hidden {
+    color: unset;
+    text-decoration: unset;
+}
+
+a.hidden:hover {
+    text-decoration: unset;
+}
+
+section {
+    margin: 8px;
+    padding: 8px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+button {
+    margin: 4px;
+    padding: 8px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--uiColour);
+    color: var(--uiTextColour);
+    transition: 0.5s;
+}
+
+button:hover {
+    background-color: var(--uiHoverColour);
+}
+
+button.flat {
+    background-color: inherit;
+    color: var(--uiFlatTextColour);
+}
+
+input {
+    margin: 4px;
+    padding: 8px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--uiInputColour);
+    color: var(--uiInputTextColour);
+    transition: 0.5s;
+    cursor: text;
+    user-select: unset;
+}
+
+.left {
+    text-align: left;
+}
+
+.center {
+    text-align: center;
+}
+
+.right {
+    text-align: right;
+}
+
+.noMargin {
+    margin: 0;
+}
+
+.fillWidth {
+    width: fit-content;
+}
