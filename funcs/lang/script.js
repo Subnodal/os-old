@@ -50,7 +50,7 @@ var lang = {
 
         while (string.includes("%") && iter < 1000) {
             if (replacements[iter] instanceof Date) {
-                string = string.replace("%", replacements[iter].toLocaleTimeString(lang.lang, {hour: "2-digit", minute: "2-digit"}));    
+                string = string.replace("%", replacements[iter].toLocaleTimeString(useLocaleFormats ? lang.lang : "en-GB", {hour: "2-digit", minute: "2-digit"}));    
             } else if (!!Number(replacements[iter]) && useLocaleFormats) {
                 string = string.replace("%", Number(replacements[iter]).toLocaleString(lang.lang));
             } else {
