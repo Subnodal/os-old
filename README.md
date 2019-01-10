@@ -105,12 +105,8 @@ also get translated.
 
 ### Making translations for subOS
 If you want to translate the text of subOS from English (United Kingdom),
-follow this section! Currently there are only 3 languages, English (United
-Kingdom), English (Ye Pirate) and Bleep-bloop. English (Ye Pirate) and
-Bleep-bloop are for testing purposes only, with English (Ye Pirate) translating
-most of the OS on-screen display elements and Bleep-bloop translating (nearly)
-everything, including subReader! You should really try Bleep-bloop and
-subReader, you'll get annoyed in no time.
+follow this section! Currently there are only 2 languages, English (United
+Kingdom) and French (France).
 
 Translations are stored in the lang folder, with the language code
 (hyphen-separated) followed by `.js` as the translation file. It is formatted
