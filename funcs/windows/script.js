@@ -213,6 +213,7 @@ $(function() {
                 "padding": "5px",
                 "border-radius": "5px"
             });
+            
             $(this).parent().animate({"width": $(this).parent().attr("stash-size-width")}, {duration: 500, queue: false});
             $(this).parent().animate({"height": $(this).parent().attr("stash-size-height")}, {duration: 500, queue: false});
             $(this).parent().animate({"top": $(this).parent().attr("stash-size-top")}, {duration: 500, queue: false});
@@ -235,6 +236,7 @@ $(function() {
                 "padding-left": "5px",
                 "padding-right": "5px"
             });
+
             $(this).parent().animate({"width": $(window).width() + "px"}, {duration: 500, queue: false});
             $(this).parent().animate({"height": ($(window).height() - $(".infoBar").outerHeight() - $(".appBar").outerHeight() - 5) + "px"}, {duration: 500, queue: false});
             $(this).parent().animate({top: $(".infoBar").outerHeight(), left: 0}, {duration: 500, queue: false});
