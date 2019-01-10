@@ -5,12 +5,12 @@ var lang = {
     translog: [],
     translogErrors: [],
 
-    translate: function(string, replacements = []) {
+    translate: function(string, replacements = [], useLocaleFormats = true) {
         if (!lang.translog.includes(string)) {
             lang.translog.push(string);
         }
 
-        if (typeof(replacements) == "string") {
+        if (typeof(replacements) == "string" || replacements instanceof Date) {
             replacements = [replacements];
         } else if (typeof(replacements) == "number") {
             replacements = [String(replacements)];
@@ -49,7 +49,13 @@ var lang = {
         var iter = 0;
 
         while (string.includes("%") && iter < 1000) {
-            string = string.replace("%", replacements[iter])
+            if (replacements[iter] instanceof Date) {
+                string = string.replace("%", replacements[iter].toLocaleTimeString(lang.lang, {hour: "2-digit", minute: "2-digit"}));    
+            } else if (!!Number(replacements[iter]) && useLocaleFormats) {
+                string = string.replace("%", Number(replacements[iter]).toLocaleString(lang.lang));
+            } else {
+                string = string.replace("%", replacements[iter]);
+            }
 
             iter++;
         }
