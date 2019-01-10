@@ -213,9 +213,11 @@ $(function() {
                 padding: "5px",
                 "border-radius": "5px"
             });
-            $(this).parent().animate({"width": "400px"}, {duration: 500, queue: false});
-            $(this).parent().animate({"height": "300px"}, {duration: 500, queue: false});
-            $(this).parent().animate({top: 100, left: 100}, {duration: 500, queue: false});
+            $(this).parent().animate({"width": $(this).parent().attr("stash-size-width")}, {duration: 500, queue: false});
+            $(this).parent().animate({"height": $(this).parent().attr("stash-size-height")}, {duration: 500, queue: false});
+            $(this).parent().animate({"top": $(this).parent().attr("stash-size-top")}, {duration: 500, queue: false});
+            $(this).parent().animate({"left": $(this).parent().attr("stash-size-left")}, {duration: 500, queue: false});
+            
             $(this).parent().draggable("enable");
             $(this).parent().resizable("enable");
 
@@ -223,6 +225,11 @@ $(function() {
 
             $($(this).parent().find("i")[1]).text("fullscreen");
         } else {
+            $(this).parent().attr("stash-size-width", $(this).parent().css("width"));
+            $(this).parent().attr("stash-size-height", $(this).parent().css("height"));
+            $(this).parent().attr("stash-size-top", $(this).parent().css("top"));
+            $(this).parent().attr("stash-size-left", $(this).parent().css("left"));
+
             $(this).css({
                 width: "calc(100% - 95px)",
                 "padding-left": "5px",
