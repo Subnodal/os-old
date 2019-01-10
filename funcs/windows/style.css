@@ -50,6 +50,10 @@ button.windowButton {
     background-color: transparent;
 }
 
+button.windowButton:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
 button.windowButton > i {
     position: relative;
     top: 0;
