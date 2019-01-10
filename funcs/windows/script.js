@@ -205,12 +205,12 @@ $(function() {
     $(document.body).on("dblclick", ".windowBar", function() {
         if ($(this).parent().width() == $(window).width()) {
             $(this).css({
-                width: "calc(100% - 90px)",
+                "width": "calc(100% - 90px)",
                 "padding-left": "5px",
                 "padding-right": "5px"
             });
             $(this).parent().css({
-                padding: "5px",
+                "padding": "5px",
                 "border-radius": "5px"
             });
             $(this).parent().animate({"width": $(this).parent().attr("stash-size-width")}, {duration: 500, queue: false});
@@ -231,7 +231,7 @@ $(function() {
             $(this).parent().attr("stash-size-left", $(this).parent().css("left"));
 
             $(this).css({
-                width: "calc(100% - 95px)",
+                "width": "calc(100% - 95px)",
                 "padding-left": "5px",
                 "padding-right": "5px"
             });
