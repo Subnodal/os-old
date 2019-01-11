@@ -50,7 +50,7 @@ lang.list["de-DE"] = {
     "Editing %: Text Input": "% bearbeiten: Texteingabe",
     "Editing stopped": "Die Bearbeitung wurde gestoppt",
     "Screen navigation to %, press Tab for first object": "Bildschirmnavigation % Desktop, drücken Sie die Tabulatortaste, um das erste Objekt anzuzeigen",
-    ": Menu Information": "Menüinformationen",
+    ": Menu Information": ": Menüinformationen",
     "Menu closed": "Menü geschlossen",
     "Alert! Press Tab for first item": "Warnen! Drücken Sie die Tabulatortaste für den ersten Eintrag",
     "Paragraph: ": "Absatz: ",
@@ -62,3 +62,6 @@ lang.list["de-DE"] = {
     "Restored": "Restauriert",
     "Maximised": "Maximiert"
 };
+
+
+lang.list["test"] = {};

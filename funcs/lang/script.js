@@ -13,7 +13,7 @@ var lang = {
             $(".infoBarTextContent").css("top", "0");
         }
 
-        if (!lang.translog.includes(string)) {
+        if (!lang.translog.includes(string) && string != "%") {
             lang.translog.push(string);
         }
 
@@ -35,7 +35,7 @@ var lang = {
                     string = lang.list[lang.lang][string];
                 }
             } else {
-                if (!lang.translogErrors.includes(string)) {
+                if (!lang.translogErrors.includes(string) && string != "%") {
                     lang.translogErrors.push(string);
                 }
             }
@@ -93,6 +93,18 @@ var lang = {
         stringBuilder = stringBuilder.substring(0, stringBuilder.length - 1);
 
         return stringBuilder;
+    },
+
+    getStats: function() {
+        if (lang.lang == lang.defaultLang) {
+            console.log("Please switch to a language other than " + lang.lang + "!");
+        } else {
+            console.log("Statistics for " + lang.lang + ":");
+            console.log("Available strings:         " + Object.keys(lang.list[lang.lang]).length);
+            console.log("Currently used strings:    " + lang.translog.length);
+            console.log("Missing strings:           " + lang.translogErrors.length);
+            console.log("Translated:                " + (((lang.translog.length - lang.translogErrors.length) / lang.translog.length) * 100) + "%");
+        }
     }
 };
 
