@@ -63,6 +63,11 @@ div.cardButtons {
     z-index: 1;
 }
 
+.infoBarTextContent {
+    position: relative;
+    top: 0;
+}
+
 .infoBarRight {
     float: right;
     height: 100%;

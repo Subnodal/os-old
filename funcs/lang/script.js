@@ -2,10 +2,17 @@ var lang = {
     defaultLang: "en-GB",
     lang: "en-GB",
     list: {},
+    layoutYRequiredLangs: ["zh-CN"],
     translog: [],
     translogErrors: [],
 
     translate: function(string, replacements = [], useLocaleFormats = true) {
+        if (lang.layoutYRequiredLangs.indexOf(lang.lang) > -1) {
+            $(".infoBarTextContent").css("top", "-4px");
+        } else {
+            $(".infoBarTextContent").css("top", "0");
+        }
+
         if (!lang.translog.includes(string)) {
             lang.translog.push(string);
         }
