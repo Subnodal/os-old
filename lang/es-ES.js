@@ -24,7 +24,7 @@ lang.list["es-ES"] = {
     "My account": "Mi cuenta",
     "User": "Usuario",
     "My account information": "Información de mi cuenta",
-    "Sign out": "desconectar",
+    "Sign out": "Desconectar",
     "App Launcher": "Lanzador de Aplicaciones",
     "Notifications": "通知",
     "All caught up! There are no notifications to attend to right now.": "全都赶上了！目前没有通知。",
