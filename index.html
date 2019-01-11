@@ -19,8 +19,10 @@
         <script src="lib/touchpunch.min.js"></script>
         <script src="funcs/lang/script.js"></script>
         <script src="lang/overrides.js"></script>
-        <script src="lang/fr-FR.js"></script>
         <script src="lang/zh-CN.js"></script>
+        <script src="lang/en-AU.js"></script>
+        <script src="lang/en-US.js"></script>
+        <script src="lang/fr-FR.js"></script>
         <script src="funcs/sReader/script.js"></script>
         <script src="funcs/screens/script.js"></script>
         <script src="funcs/menus/script.js"></script>
@@ -39,7 +41,9 @@
                     <button onclick="menus.show('#signInPowerMenu', 0, $('.infoBar').outerHeight(), true);" class="infoButton" data-readable="@Power options"><i>power_settings_new</i><i>arrow_drop_down</i></button>
                     <menu id="signInLanguageMenu">
                         <button onclick="window.location.href = window.location.href.split('?')[0] + '?lang=zh-CN';" class="menuItem">中文（简体）</button>
+                        <button onclick="window.location.href = window.location.href.split('?')[0] + '?lang=en-AU';" class="menuItem">English (Australia)</button>
                         <button onclick="window.location.href = window.location.href.split('?')[0] + '?lang=en-GB';" class="menuItem">English (United Kingdom)</button>
+                        <button onclick="window.location.href = window.location.href.split('?')[0] + '?lang=en-US';" class="menuItem">English (United States)</button>
                         <button onclick="window.location.href = window.location.href.split('?')[0] + '?lang=fr-FR';" class="menuItem">Français (France)</button>
                     </menu>
                     <menu id="signInAccessibilityMenu">
