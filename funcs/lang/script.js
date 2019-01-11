@@ -8,7 +8,7 @@ var lang = {
 
     translate: function(string, replacements = [], useLocaleFormats = true) {
         if (lang.layoutYRequiredLangs.indexOf(lang.lang) > -1) {
-            $(".infoBarTextContent").css("top", "-4px");
+            $(".infoBarTextContent").css("top", "-5px");
         } else {
             $(".infoBarTextContent").css("top", "0");
         }
