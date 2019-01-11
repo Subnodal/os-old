@@ -1,4 +1,4 @@
-// Español (españa)
+// Spanish (Spain)
 
 lang.list["es-ES"] = {
     "First": "Primero",
