@@ -5,7 +5,7 @@
     user-select: none;
 }
 
-h1, code {
+h1, code, .mono {
     font-family: "Overpass Mono", "Roboto Mono", sans-serif;
 }
 
