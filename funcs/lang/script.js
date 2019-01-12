@@ -45,7 +45,7 @@ var lang = {
                 }
             }
         } else {
-            if (lang.list[lang.lang] == undefined && !lang.sentWarning) {
+            if (lang.lang != lang.defaultLang && lang.list[lang.lang] == undefined && !lang.sentWarning) {
                 lang.sentWarning = true;
 
                 if (getURLParameter("languageWarningMessage") != null) {
