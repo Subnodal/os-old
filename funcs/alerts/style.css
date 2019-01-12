@@ -1,0 +1,39 @@
+.alertContent {
+    padding: 10px;
+    min-height: 50px;
+    max-height: 100px;
+    overflow: auto;
+}
+
+.alertButtons {
+    text-align: right;
+}
+
+#alertBackground {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vw;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#alertBox {
+    display: none;
+    position: fixed;
+    top: calc(50vh - 150px);
+    left: calc(50vw - 150px);
+    width: 300px;
+    min-height: 100px;
+    max-height: 300px;
+    border-radius: 5px;
+    background-color: white;
+    transition: 0.5s top;
+}
+
+@media (max-height: 500px) {
+    #alertBox {
+        top: calc(50vh - 100px);
+    }
+}

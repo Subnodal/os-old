@@ -1,3 +1,7 @@
+function getURLParameter(name) {
+    return decodeURIComponent((new RegExp("[?|&]" + name + "=" + "([^&;]+?)(&|#|;|$)").exec(location.search) || [null, ""])[1].replace(/\+/g, "%20")) || null;
+}
+
 var lang = {
     defaultLang: "en-GB",
     lang: "en-GB",
@@ -5,6 +9,7 @@ var lang = {
     layoutYRequiredLangs: ["zh-CN"],
     translog: [],
     translogErrors: [],
+    sentWarning: false,
 
     translate: function(string, replacements = [], useLocaleFormats = true) {
         if (lang.layoutYRequiredLangs.indexOf(lang.lang) > -1) {
@@ -23,7 +28,7 @@ var lang = {
             replacements = [String(replacements)];
         }
 
-        if (lang.lang != lang.defaultLang) {
+        if (lang.lang != lang.defaultLang && lang.list[lang.lang] != undefined) {
             if (lang.list[lang.lang][string]) {
                 if (typeof(lang.list[lang.lang][string]) == "object") {
                     if (String(replacements[0]) == "1") {
@@ -40,6 +45,16 @@ var lang = {
                 }
             }
         } else {
+            if (lang.list[lang.lang] == undefined && !lang.sentWarning) {
+                lang.sentWarning = true;
+
+                if (getURLParameter("languageWarningMessage") != null) {
+                    alert(getURLParameter("languageWarningMessage"));
+                } else {
+                    alert("Sorry! The language that you chose is unavailable.");
+                }
+            }
+
             if (lang.list["overrides"][string]) {
                 if (typeof(lang.list["overrides"][string]) == "object") {
                     if (String(replacements[0]) == "1") {
@@ -147,10 +162,6 @@ $(function() {
         });
     }, 10);
 });
-
-function getURLParameter(name) {
-    return decodeURIComponent((new RegExp("[?|&]" + name + "=" + "([^&;]+?)(&|#|;|$)").exec(location.search) || [null, ""])[1].replace(/\+/g, "%20")) || null;
-}
 
 if (getURLParameter("lang") != null) {
     lang.lang = getURLParameter("lang");

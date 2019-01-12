@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="funcs/screens/style.css">
         <link rel="stylesheet" href="funcs/menus/style.css">
         <link rel="stylesheet" href="funcs/windows/style.css">
+        <link rel="stylesheet" href="funcs/alerts/style.css">
         <link rel="stylesheet" href="style.css">
         <script src="lib/jquery.min.js"></script>
         <script src="lib/jqueryui.js"></script>
@@ -29,6 +30,8 @@
         <script src="funcs/screens/script.js"></script>
         <script src="funcs/menus/script.js"></script>
         <script src="funcs/windows/script.js"></script>
+        <script src="funcs/alerts/script.js"></script>
+        <script src="funcs/appLauncher/script.js"></script>
         <script src="funcs/notifications/script.js"></script>
         <script src="script.js"></script>
     </head>
@@ -95,11 +98,12 @@
             </div>
             <windows></windows>
             <div class="appBar">
-                <a href="javascript:newWindow('nativeApps/test/index.html', 'Test App');" class="appBarAppLauncherButton hidden readableButton" data-readable="@App Launcher"><img src="media/appLauncherIcon.png" class="appBarOptionsIcon" /></a>
+                <a onclick="appLauncher.open();" class="appBarAppLauncherButton hidden readableButton" data-readable="@App Launcher"><img src="media/appLauncherIcon.png" class="appBarOptionsIcon" /></a>
                 <!-- <a href="javascript:newWindow('nativeApps/LiveG Calculator/index.html', 'LiveG Calculator');" class="appBarAppLauncherButton hidden readableButton" data-readable="@App Launcher"><img src="media/appLauncherIcon.png" class="appBarOptionsIcon" /></a> -->
                 <div class="appBarOpenApps"></div>
                 <a onclick="notifications.open();" class="appBarAppLauncherButton hidden readableButton" data-readable="@Notifications"><img src="media/notificationsIcon.png" class="appBarOptionsIcon appBarNotificationsIcon" /></a>
             </div>
+            <menu id="appLauncherMenu"></menu>
             <menu id="notificationsMenu">
                 <div class="menuArea coloured">@Notifications</div>
                 <div class="menuArea">@All caught up! There are no notifications to attend to right now.</div>

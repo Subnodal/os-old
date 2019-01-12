@@ -60,5 +60,9 @@ lang.list["fr-FR"] = {
     "Closed": "Fermée",
     "Minimised": "Minimisé",
     "Restored": "Restauré",
-    "Maximised": "Maximisé"
+    "Maximised": "Maximisé",
+    "Apps": "Applications",
+    "Test App": "Test App",
+    "Calculator": "Calculatrice",
+    "Sorry! This app is unavailable in your language.": "Es tut uns leid! Diese App ist in Ihrer Sprache nicht verfügbar."
 };

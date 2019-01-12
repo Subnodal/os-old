@@ -60,5 +60,9 @@ lang.list["zh-CN"] = {
     "Closed": "关闭",
     "Minimised": "最小化",
     "Restored": "恢复",
-    "Maximised": "最大化"
+    "Maximised": "最大化",
+    "Apps": "应用",
+    "Test App": "测试应用程序",
+    "Calculator": "计算器",
+    "Sorry! This app is unavailable in your language.": "抱歉！此应用程序无法使用您的语言。"
 };

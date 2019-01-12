@@ -41,17 +41,6 @@ div.cardButtons {
     text-align: right;
 }
 
-.alertContent {
-    padding: 10px;
-    min-height: 50px;
-    max-height: 100px;
-    overflow: auto;
-}
-
-.alertButtons {
-    text-align: right;
-}
-
 .infoBar {
     position: fixed;
     top: 0;
@@ -133,28 +122,6 @@ div.cardButtons {
 .appBarNotificationsIcon {
     position: fixed;
     right: 5px;
-}
-
-#alertBackground {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vw;
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
-#alertBox {
-    display: none;
-    position: fixed;
-    top: calc(50vh - 150px);
-    left: calc(50vw - 150px);
-    width: 300px;
-    min-height: 100px;
-    max-height: 300px;
-    border-radius: 5px;
-    background-color: white;
 }
 
 .signInBackground {

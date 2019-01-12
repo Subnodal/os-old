@@ -60,5 +60,9 @@ lang.list["en-AU"] = {
     "Closed": "Closed",
     "Minimised": "Minimised",
     "Restored": "Restored",
-    "Maximised": "Maximised"
+    "Maximised": "Maximised",
+    "Apps": "Apps",
+    "Test App": "Test App",
+    "Calculator": "Calculator",
+    "Sorry! This app is unavailable in your language.": "Sorry! This app is unavailable in your language."
 };
