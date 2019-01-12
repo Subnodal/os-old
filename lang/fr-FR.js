@@ -64,5 +64,5 @@ lang.list["fr-FR"] = {
     "Apps": "Applications",
     "Test App": "Test App",
     "Calculator": "Calculatrice",
-    "Sorry! This app is unavailable in your language.": "Es tut uns leid! Diese App ist in Ihrer Sprache nicht verfügbar."
+    "Sorry! This app is unavailable in your language.": "Pardon! Cette application n'est pas disponible dans votre langue."
 };
