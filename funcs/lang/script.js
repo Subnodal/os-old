@@ -131,14 +131,14 @@ $(function() {
     setInterval(function() {
         $("*:not(script, style, meta, link, .noTranslate)").each(function() {
             if ($(this).html()[0] == "@") {
-                if ($(this).text().substring(1).split("|").length == 2) {
-                    $(this).text(lang.translate(
-                        $(this).text().substring(1).split("|")[0],
-                        $(this).text().substring(1).split("|")[1].split("\\")
+                if ($(this).html().substring(1).split("|").length == 2) {
+                    $(this).html(lang.translate(
+                        $(this).html().substring(1).split("|")[0],
+                        $(this).html().substring(1).split("|")[1].split("\\")
                     ));
                 } else {
-                    $(this).text(lang.translate(
-                        $(this).text().substring(1).split("|")[0]
+                    $(this).html(lang.translate(
+                        $(this).html().substring(1).split("|")[0]
                     ));
                 }
             }
