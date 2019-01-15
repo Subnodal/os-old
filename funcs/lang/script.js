@@ -4,6 +4,7 @@ function getURLParameter(name) {
 
 var lang = {
     defaultLang: "en-GB",
+    realLang: "en-GB",
     lang: "en-GB",
     list: {},
     layoutYRequiredLangs: ["zh-CN"],
@@ -165,4 +166,10 @@ $(function() {
 
 if (getURLParameter("lang") != null) {
     lang.lang = getURLParameter("lang");
+}
+
+lang.realLang = lang.lang;
+
+if ((lang.lang == "en-AU" || lang.lang == "en-US") && lang.list[lang.lang] == undefined) {
+    lang.lang = "en-GB";
 }
