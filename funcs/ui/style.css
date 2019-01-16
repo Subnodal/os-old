@@ -58,9 +58,19 @@ button:hover {
     background-color: var(--uiHoverColour);
 }
 
+button:disabled {
+    background-color: var(--coverTextColour);
+    cursor: default;
+}
+
 button.flat {
     background-color: inherit;
     color: var(--uiFlatTextColour);
+}
+
+button.flat:disabled {
+    background-color: inherit;
+    color: var(--coverTextColour);
 }
 
 input {
