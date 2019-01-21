@@ -11,9 +11,9 @@ var appLauncher = {
             nativePath: "nativeApps/calculator/index.html"
         },
         {
-            name: "Text Editor",
+            name: "Notes",
             native: true,
-            nativePath: "nativeApps/textEdit/index.html"
+            nativePath: "nativeApps/notes/index.html"
         }
     ],
 
