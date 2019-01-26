@@ -18,7 +18,7 @@ var appLauncher = {
     ],
 
     open: function() {
-        menus.show($("#appLauncherMenu"), 0, 60, false, true);
+        menus.show("#appLauncherMenu", 0, 60, false, true);
     },
 
     generate: function() {
