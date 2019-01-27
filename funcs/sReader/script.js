@@ -4,6 +4,16 @@ function getURLParameter(name) {
     return decodeURIComponent((new RegExp("[?|&]" + name + "=" + "([^&;]+?)(&|#|;|$)").exec(location.search) || [null, ""])[1].replace(/\+/g, "%20")) || null;
 }
 
+var speechDialects = {
+    "de-DE": "german",
+    "en-AU": "english",
+    "en-US": "english",
+    "es-ES": "spanish",
+    "fr-FR": "french",
+    "hi-IN": "hindi",
+    "zh-CN": "chinese"
+};
+
 $(function() {
     var doTabIndex = false;
 
@@ -70,8 +80,8 @@ $(function() {
                     var message = new SpeechSynthesisUtterance(text.replace(/subReader/g, " sub reader ").replace(/subOS/g, " sub OS "));
                 }
 
-                if ((lang.lang == "en-GB" || lang.lang == "en-AU") && getURLParameter("bootable") == "true") {
-                    message.lang = "en-US";
+                if (getURLParameter("bootable") == "true") {
+                    message.lang = speechDialects[lang.lang];
                 } else {
                     message.lang = lang.lang;
                 }
