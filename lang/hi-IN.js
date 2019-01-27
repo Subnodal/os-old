@@ -28,7 +28,7 @@ lang.list["hi-IN"] = {
     "App Launcher": "ऐप लॉन्चर",
     "Notifications": "सूचनाएं",
     "All caught up! There are no notifications to attend to right now.": "सारी जानकारी प्राप्त! अभी उपस्थित होने के लिए कोई सूचना नहीं है।",
-    "The time is %": "现在是%",
+    "The time is %": "समय % बजे है",
     "Select %": "चुनते हैं %",
     "Please select your account.": "कृपया अपना खाता चुनें।",
     "Could not sign you in": "आप में प्रवेश नहीं कर सके",
@@ -38,7 +38,7 @@ lang.list["hi-IN"] = {
     "Close %": "बंद करे %",
     "Restore or minimise %": "% पुनर्स्थापित या कम करें",
     "subReader is on": "subReader चालू है",
-    "%-level heading: ": "% -हेल्ड हेडिंग",
+    "%-level heading: ": "% -हेल्ड हेडिंग: ",
     ": Button": ": बटन",
     "Enter: object pressed": "दर्ज करें: ऑब्जेक्ट दबाया गया",
     "Menu opened": "मेनू खोला गया",
@@ -64,5 +64,9 @@ lang.list["hi-IN"] = {
     "Apps": "क्षुधा",
     "Test App": "टेस्ट ऐप",
     "Calculator": "कैलकुलेटर",
-    "Sorry! This app is unavailable in your language.": "माफ़ कीजिये! यह ऐप आपकी भाषा में अनुपलब्ध है।"
+    "Sorry! This app is unavailable in your language.": "माफ़ कीजिये! यह ऐप आपकी भाषा में अनुपलब्ध है।",
+    "Notes": "टिप्पणियाँ",
+    "Capital %": "राजधानी %",
+    "Space. ": "स्पेस बार। ",
+    "Backspace. ": "बैकस्पेस। "
 };

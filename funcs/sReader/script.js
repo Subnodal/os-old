@@ -66,6 +66,8 @@ $(function() {
                     var message = new SpeechSynthesisUtterance(text.replace(/subReader/g, " sub reader ").replace(/subOS/g, " sub OS "));
                 }
 
+                message.lang = lang.lang;
+
                 if (!slow) {message.rate = 3;}
                 
                 window.speechSynthesis.speak(message);
