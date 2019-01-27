@@ -36,6 +36,30 @@ var bc = {
                 url: "http://0.0.0.0:5000/" + mode + "/" + bc.generationKey + "/" + paramsList
             });  
         }
+    },
+
+    get: function(mode, params = [], callback) {
+        var paramsList = "";
+
+        for (var i = 0; i < params.length; i++) {
+            paramsList += encodeURIComponent(params[i]) + "/"
+        }
+
+        paramsList = paramsList.substring(0, paramsList.length - 1);
+
+        if (paramsList == "") {
+            $.ajax({
+                url: "http://0.0.0.0:5000/" + mode + "/" + bc.generationKey
+            }).done(function (data) {
+                callback(data);
+            });
+        } else {
+            $.ajax({
+                url: "http://0.0.0.0:5000/" + mode + "/" + bc.generationKey + "/" + paramsList
+            }).done(function (data) {
+                callback(data);
+            });  
+        }
     }
 };
 
