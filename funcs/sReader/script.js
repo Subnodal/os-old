@@ -7,6 +7,7 @@ function getURLParameter(name) {
 var speechDialects = {
     "de-DE": "german",
     "en-AU": "english",
+    "en-GB": "english",
     "en-US": "english",
     "es-ES": "spanish",
     "fr-FR": "french",
