@@ -1,3 +1,7 @@
+function getURLParameter(name) {
+    return decodeURIComponent((new RegExp("[?|&]" + name + "=" + "([^&;]+?)(&|#|;|$)").exec(location.search) || [null, ""])[1].replace(/\+/g, "%20")) || null;
+}
+
 var bc = {
     generationKey: "",
 
@@ -6,6 +10,11 @@ var bc = {
             url: "http://0.0.0.0:5000/generate"
         }).done(function(data) {
             bc.generationKey = data;
+
+            var url = new URL(window.location.href);
+            url.searchParams.set("bckey", bc.generationKey);
+
+            window.location.href = url.href;
         });
     },
 
@@ -31,5 +40,11 @@ var bc = {
 };
 
 $(function() {
-    bc.init();
+    if (getURLParameter("bootable") == "true") {
+        if (getURLParameter("bckey") == null) {
+            bc.init();
+        } else {
+            bc.generationKey = getURLParameter("bckey");
+        }
+    }
 });
