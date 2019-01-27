@@ -4,17 +4,6 @@ function getURLParameter(name) {
     return decodeURIComponent((new RegExp("[?|&]" + name + "=" + "([^&;]+?)(&|#|;|$)").exec(location.search) || [null, ""])[1].replace(/\+/g, "%20")) || null;
 }
 
-var speechDialects = {
-    "de-DE": "german",
-    "en-AU": "english",
-    "en-GB": "english",
-    "en-US": "english",
-    "es-ES": "spanish",
-    "fr-FR": "french",
-    "hi-IN": "hindi",
-    "zh-CN": "chinese"
-};
-
 $(function() {
     var doTabIndex = false;
 
@@ -81,19 +70,22 @@ $(function() {
                     var message = new SpeechSynthesisUtterance(text.replace(/subReader/g, " sub reader ").replace(/subOS/g, " sub OS "));
                 }
 
-                if (getURLParameter("bootable") == "true") {
-                    message.lang = speechDialects[lang.lang];
-                } else {
-                    message.lang = lang.lang;
-                }
+                message.lang = lang.lang;
 
                 if (!slow) {message.rate = 3;}
                 
-                window.speechSynthesis.speak(message);
+                if (getURLParameter("bootable") == "true") {
+                    // Use built-in speech instead
+                    bc.post("speak", [message.text, message.rate, message.lang]);
+                } else {
+                    // Just use the speechSynthesis API
+                    window.speechSynthesis.speak(message);
+                }
+                
                 $("#sReaderContent").text(text);
             }, 250);
         },
-        
+
         cssState: function(state) {
             if (state) {
                 $("#sReaderStyle").html(`
