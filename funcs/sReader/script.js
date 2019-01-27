@@ -93,16 +93,7 @@ $(function() {
                 $("#sReaderContent").text(text);
             }, 250);
         },
-
-        initSpeech: function() {
-            var message = new SpeechSynthesisUtterance("");
-
-            // Used to fix bug on bootable machines
-            message.lang = "french";
-
-            window.speechSynthesis.speak(message);
-        },
-
+        
         cssState: function(state) {
             if (state) {
                 $("#sReaderStyle").html(`
@@ -417,7 +408,6 @@ $(function() {
             if (state) {
                 $("#sReader").css("display", "unset");
                 sReader.cssState(true);
-                sReader.initSpeech();
                 sReader.speak(_("subReader is on"));
             } else {
                 $("#sReader").css("display", "none");
