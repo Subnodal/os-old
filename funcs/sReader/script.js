@@ -94,7 +94,7 @@ $(function() {
             }, 250);
         },
 
-        init: function() {
+        initSpeech: function() {
             var message = new SpeechSynthesisUtterance("");
 
             // Used to fix bug on bootable machines
@@ -417,7 +417,7 @@ $(function() {
             if (state) {
                 $("#sReader").css("display", "unset");
                 sReader.cssState(true);
-                sReader.init();
+                sReader.initSpeech();
                 sReader.speak(_("subReader is on"));
             } else {
                 $("#sReader").css("display", "none");
