@@ -9,7 +9,7 @@ var bc = {
         });
     },
 
-    post: function(mode, params) {
+    post: function(mode, params = []) {
         var paramsList = "";
 
         for (var i = 0; i < params.length; i++) {

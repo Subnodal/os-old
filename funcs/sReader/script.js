@@ -25,7 +25,13 @@ $(function() {
         blackout: false,
 
         speak: function(text, slow = false, spell = false, code = false) {
-            window.speechSynthesis.cancel();
+            if (getURLParameter("bootable") == "true") {
+                // Use built-in speech instead
+                bc.post("speakstop");
+            } else {
+                // Just use the speechSynthesis API
+                window.speechSynthesis.cancel();
+            }
 
             setTimeout(function() {
                 if (!code) {
