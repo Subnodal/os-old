@@ -64,5 +64,18 @@ lang.list["es-ES"] = {
     "Apps": "Aplicaciones",
     "Test App": "Aplicación de Prueba",
     "Calculator": "Calculadora",
-    "Sorry! This app is unavailable in your language.": "¡Lo siento! Esta aplicación no está disponible en tu idioma."
+    "Sorry! This app is unavailable in your language.": "¡Lo siento! Esta aplicación no está disponible en tu idioma.",
+    "Shutdown": "",
+    "Reboot": "",
+    "Update from Git": "",
+    "Shutdown": "Apagar",
+    "Reboot": "Reiniciar",
+    "Update from Git": "Actualización de Git",
+    "Notes": "Notas",
+    "Please wait while the system reboots.": "Por favor espere mientras el sistema se reinicia.",
+    "Rebooting...": "Reiniciando ...",
+    "Please wait while the system shuts down.": "Por favor espere mientras el sistema se apaga.",
+    "Shutting down...": "Apagando...",
+    "subOS is updating via Git. It will restart when the update has finished.": "subOS se está actualizando a través de Git. Se reiniciará cuando la actualización haya finalizado.",
+    "Updating...": "Actualizando ..."
 };

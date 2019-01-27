@@ -64,5 +64,15 @@ lang.list["zh-CN"] = {
     "Apps": "应用",
     "Test App": "测试应用程序",
     "Calculator": "计算器",
-    "Sorry! This app is unavailable in your language.": "抱歉！此应用程序无法使用您的语言。"
+    "Sorry! This app is unavailable in your language.": "抱歉！此应用程序无法使用您的语言。",
+    "Shutdown": "关掉",
+    "Reboot": "重启",
+    "Update from Git": "从Git更新",
+    "Notes": "笔记",
+    "Please wait while the system shuts down.": "请等待系统关闭。",
+    "Shutting down...": "关闭...",
+    "Please wait while the system reboots.": "请等待系统重新启动。",
+    "Rebooting...": "重新启动...",
+    "subOS is updating via Git. It will restart when the update has finished.": "subOS正在通过Git进行更新。更新完成后它将重新启动。",
+    "Updating...": "更新中..."
 };

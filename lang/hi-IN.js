@@ -68,5 +68,14 @@ lang.list["hi-IN"] = {
     "Notes": "टिप्पणियाँ",
     "Capital %": "राजधानी %",
     "Space. ": "स्पेस बार। ",
-    "Backspace. ": "बैकस्पेस। "
+    "Backspace. ": "बैकस्पेस। ",
+    "Shutdown": "बंद करना",
+    "Reboot": "रीबूट",
+    "Update from Git": "Git से अपडेट करें",
+    "Please wait while the system shuts down.": "कृपया प्रतीक्षा करें जब सिस्टम बंद हो जाता है।",
+    "Shutting down...": "बंद करना...",
+    "Please wait while the system reboots.": "कृपया प्रतीक्षा करें, जबकि सिस्टम रिबूट होता है।",
+    "Rebooting...": "रीबूट हो रहा है...",
+    "subOS is updating via Git. It will restart when the update has finished.": "सबटिट Git के जरिए अपडेट हो रहा है। अपडेट समाप्त होने पर यह पुनः आरंभ होगा।",
+    "Updating...": "अद्यतन कर रहा है..."
 };
