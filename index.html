@@ -18,6 +18,7 @@
         <script src="lib/jquery.min.js"></script>
         <script src="lib/jqueryui.js"></script>
         <script src="lib/touchpunch.min.js"></script>
+        <script src="funcs/ui/script.js"></script>
         <script src="funcs/lang/script.js"></script>
         <script src="lang/overrides.js"></script>
         <script src="lang/zh-CN.js"></script>
@@ -28,6 +29,7 @@
         <script src="lang/fr-FR.js"></script>
         <script src="lang/hi-IN.js"></script>
         <script src="funcs/bootableComms/script.js"></script>
+        <script src="funcs/devOps/script.js"></script>
         <script src="funcs/sReader/script.js"></script>
         <script src="funcs/screens/script.js"></script>
         <script src="funcs/menus/script.js"></script>
@@ -42,7 +44,7 @@
             <div class="infoBar">
                 <span class="infoBarTextContent infoTime readableText" data-readable="@The time is unavailable">--:--</span>
                 <div class="infoBarRight">
-                    <button onclick="toggleFullscreen();" class="infoButton" data-readable="@Toggle fullscreen"><i>fullscreen</i></button>
+                    <button onclick="toggleFullscreen();" class="infoButton nonBootable" data-readable="@Toggle fullscreen"><i>fullscreen</i></button>
                     <button onclick="menus.show('#signInLanguageMenu', 0, $('.infoBar').outerHeight(), true);" class="infoButton" data-readable="@Language options"><i>translate</i><i>arrow_drop_down</i></button>
                     <button onclick="menus.show('#signInAccessibilityMenu', 0, $('.infoBar').outerHeight(), true);" class="infoButton" data-readable="@Accessibility options"><i>accessibility</i><i>arrow_drop_down</i></button>
                     <button onclick="menus.show('#signInPowerMenu', 0, $('.infoBar').outerHeight(), true);" class="infoButton" data-readable="@Power options"><i>power_settings_new</i><i>arrow_drop_down</i></button>
@@ -60,7 +62,10 @@
                         <button onclick="sReader.switchState();" class="menuItem">@subReader</button>
                     </menu>
                     <menu id="signInPowerMenu">
-                        <button onclick="window.location.href = 'https://subnodal.com';" class="menuItem">@Exit session</button>
+                        <button onclick="window.location.href = 'https://subnodal.com';" class="menuItem nonBootable">@Exit session</button>
+                        <button onclick="devops.shutdown();" class="menuItem bootable">@Shutdown</button>
+                        <button onclick="devops.reboot();" class="menuItem bootable">@Reboot</button>
+                        <button onclick="devops.updateFromGit();" class="menuItem bootable">@Update from Git</button>
                     </menu>
                 </div>
             </div>

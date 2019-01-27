@@ -25,7 +25,7 @@ var menus = {
 
                 if (sReader.reading) {sReader.speak(_("Menu opened"));}
 
-                $(menu).children().get(0).focus();
+                $(menu).find(".menuItem:visible, .menuArea:visible").get(0).focus();
 
                 menus.cancel = false;
             }, 100);
