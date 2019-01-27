@@ -38,7 +38,7 @@ lang.list["de-DE"] = {
     "Close %": "Schließen Sie %",
     "Restore or minimise %": "Wiederherstellen oder minimieren Sie %",
     "subReader is on": "subLeser ist eingeschaltet",
-    "%-level heading: ": "Überschrift der % Ebene",
+    "%-level heading: ": "Überschrift der % Ebene: ",
     ": Button": ": Taste",
     "Enter: object pressed": "Enter: Objekt gedrückt",
     "Menu opened": "Menü geöffnet",

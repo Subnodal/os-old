@@ -1,12 +1,12 @@
 // Spanish (Spain)
 
 lang.list["es-ES"] = {
-    "First": "Primero",
-    "Second": "Segundo",
-    "Third": "Tercero",
-    "Fourth": "Cuatro",
-    "Fifth": "Quinto",
-    "Sixth": "Sexto",
+    "First": "primero",
+    "Second": "segundo",
+    "Third": "tercero",
+    "Fourth": "cuatro",
+    "Fifth": "quinto",
+    "Sixth": "sexto",
     "sign in page": "página de inicio de sesión",
     "The time is unavailable": "El tiempo no esta disponible",
     "Toggle fullscreen": "Cambiar a pantalla completa",
@@ -38,7 +38,7 @@ lang.list["es-ES"] = {
     "Close %": "Cerrar %",
     "Restore or minimise %": "Restaurar o minimizar %",
     "subReader is on": "subReader está en",
-    "%-level heading: ": "encabezado de nivel %: ",
+    "%-level heading: ": "Encabezado de nivel %: ",
     ": Button": ": Botón",
     "Enter: object pressed": "Introduzca: objeto presionado",
     "Menu opened": "Menú abierto",

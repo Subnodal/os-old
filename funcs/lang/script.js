@@ -121,11 +121,22 @@ var lang = {
             console.log("Missing strings:           " + lang.translogErrors.length);
             console.log("Translated:                " + (((lang.translog.length - lang.translogErrors.length) / lang.translog.length) * 100) + "%");
         }
+    },
+
+    change: function(langCode) {
+        var url = new URL(window.location.href);
+        url.searchParams.set("lang", langCode);
+
+        window.location.href = url.href;
     }
 };
 
 function _(string, replacements = []) {
     return lang.translate(string, replacements);
+}
+
+function changeLang(langCode) {
+    lang.change(langCode);
 }
 
 $(function() {

@@ -46,14 +46,14 @@
                     <button onclick="menus.show('#signInAccessibilityMenu', 0, $('.infoBar').outerHeight(), true);" class="infoButton" data-readable="@Accessibility options"><i>accessibility</i><i>arrow_drop_down</i></button>
                     <button onclick="menus.show('#signInPowerMenu', 0, $('.infoBar').outerHeight(), true);" class="infoButton" data-readable="@Power options"><i>power_settings_new</i><i>arrow_drop_down</i></button>
                     <menu id="signInLanguageMenu">
-                        <button onclick="window.location.href = window.location.href.split('?')[0] + '?lang=zh-CN';" class="menuItem">中文（简体）</button>
-                        <button onclick="window.location.href = window.location.href.split('?')[0] + '?lang=de-DE';" class="menuItem">Deutsches (Deutschland)</button>
-                        <button onclick="window.location.href = window.location.href.split('?')[0] + '?lang=en-AU';" class="menuItem">English (Australia)</button>
-                        <button onclick="window.location.href = window.location.href.split('?')[0] + '?lang=en-GB';" class="menuItem">English (United Kingdom)</button>
-                        <button onclick="window.location.href = window.location.href.split('?')[0] + '?lang=en-US';" class="menuItem">English (United States)</button>
-                        <button onclick="window.location.href = window.location.href.split('?')[0] + '?lang=es-ES';" class="menuItem">Español (España)</button>
-                        <button onclick="window.location.href = window.location.href.split('?')[0] + '?lang=fr-FR';" class="menuItem">Français (France)</button>
-                        <button onclick="window.location.href = window.location.href.split('?')[0] + '?lang=hi-IN';" class="menuItem">हिंदी (भारत)</button>
+                        <button onclick="changeLang('zh-CN');" class="menuItem">中文（简体）</button>
+                        <button onclick="changeLang('de-DE');" class="menuItem">Deutsches (Deutschland)</button>
+                        <button onclick="changeLang('en-AU');" class="menuItem">English (Australia)</button>
+                        <button onclick="changeLang('en-GB');" class="menuItem">English (United Kingdom)</button>
+                        <button onclick="changeLang('en-US');" class="menuItem">English (United States)</button>
+                        <button onclick="changeLang('es-ES');" class="menuItem">Español (España)</button>
+                        <button onclick="changeLang('fr-FR');" class="menuItem">Français (France)</button>
+                        <button onclick="changeLang('hi-IN');" class="menuItem">हिंदी (भारत)</button>
                     </menu>
                     <menu id="signInAccessibilityMenu">
                         <button onclick="sReader.switchState();" class="menuItem">@subReader</button>

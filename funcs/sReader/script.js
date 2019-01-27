@@ -1,5 +1,9 @@
 var sReader;
 
+function getURLParameter(name) {
+    return decodeURIComponent((new RegExp("[?|&]" + name + "=" + "([^&;]+?)(&|#|;|$)").exec(location.search) || [null, ""])[1].replace(/\+/g, "%20")) || null;
+}
+
 $(function() {
     var doTabIndex = false;
 
@@ -66,7 +70,11 @@ $(function() {
                     var message = new SpeechSynthesisUtterance(text.replace(/subReader/g, " sub reader ").replace(/subOS/g, " sub OS "));
                 }
 
-                message.lang = lang.lang;
+                if ((lang.lang == "en-GB" || lang.lang == "en-AU") && getURLParameter("bootable") == "true") {
+                    message.lang = "en-US";
+                } else {
+                    message.lang = lang.lang;
+                }
 
                 if (!slow) {message.rate = 3;}
                 
