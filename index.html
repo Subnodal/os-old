@@ -128,8 +128,7 @@
                         Hi! This is very proof-of-concept. The account names are placeholders only.
                     </p>
                     <p data-no-sreader>
-                        <label for="random">Enter some text!</label> <input id="random" data-readable="a random input box">
-                        <button onclick="alert($('input').val());">Click Me!</button>
+                        <button onclick="screens.fade('wirelessSetup');">Wireless Setup</button>
                         <button onclick="screens.fade('signIn');">Sign In</button>
                     </p>
                     <h2>subReader</h2>
@@ -137,6 +136,20 @@
                         <button onclick="sReader.switchState();">Switch on/off subReader (Ctrl+F12)</button>
                         <button onclick="screens.fade('sReaderHelp');">subReader Help</button>
                     </p>
+                </section>
+            </main>
+        </screen>
+        <screen name="wirelessSetup">
+            <div class="infoBar">
+                <span class="infoBarTextContent readableText infoTime" data-readable="@The time is unavailable">--:--</span>
+            </div>
+            <main>
+                <section>
+                    <p>Available WAPs:</p>
+                    <ul class="availableWaps"></ul>
+                    <input placeholder="WAP SSID" id="WAPSSID">
+                    <input placeholder="WAP Password" id="WAPPassword">
+                    <button onclick="screens.fade('tests');">Go back</button>
                 </section>
             </main>
         </screen>
