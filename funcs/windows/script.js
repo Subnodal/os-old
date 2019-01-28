@@ -216,7 +216,13 @@ $(function() {
 
             $(this).parent().animate({"width": $(this).parent().attr("stash-size-width")}, {duration: 500, queue: false});
             $(this).parent().animate({"height": $(this).parent().attr("stash-size-height")}, {duration: 500, queue: false});
-            $(this).parent().animate({"top": $(this).parent().attr("stash-size-top")}, {duration: 500, queue: false});
+
+            if (Number($(this).parent().attr("stash-size-top").substring(0, $(this).parent().attr("stash-size-top").length - 2)) <= $(".infoBar").outerHeight()) {
+                $(this).parent().animate({"top": $(".infoBar").outerHeight()}, {duration: 500, queue: false});
+            } else {
+                $(this).parent().animate({"top": $(this).parent().attr("stash-size-top")}, {duration: 500, queue: false});
+            }
+
             $(this).parent().animate({"left": $(this).parent().attr("stash-size-left")}, {duration: 500, queue: false});
             
             $(this).parent().draggable("enable");
