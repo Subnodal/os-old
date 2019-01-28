@@ -82,7 +82,7 @@ function newWindow(src, title = "Untitled App", icon = "media/defaultAccount.png
         .draggable({
             cancel: ".windowBody",
             containment: "window",
-            start: function() {
+            start: function(event) {
                 $(".windowBody").css("pointer-events", "none");
                 $(".windowBody").children(".windowContent").css("pointer-events", "none");
             },
@@ -90,7 +90,7 @@ function newWindow(src, title = "Untitled App", icon = "media/defaultAccount.png
                 $(".windowBody").css("pointer-events", "auto");
                 $(".windowBody").children(".windowContent").css("pointer-events", "auto");
 
-                if ($(event.target).offset().top <= $(".infoBar").outerHeight()) {
+                if ($(event.target).offset().top < $(".infoBar").outerHeight()) {
                     $(event.target).children(".windowBar").dblclick();
                 }
             }
@@ -98,13 +98,17 @@ function newWindow(src, title = "Untitled App", icon = "media/defaultAccount.png
         .resizable({
             handles: "n, e, s, w, ne, nw, se, sw",
             alsoResize: $(this).children(".windowBody, .windowContent"),
-            start: function() {
+            start: function(event) {
                 $(".windowBody").css("pointer-events", "none");
                 $(".windowBody").children(".windowContent").css("pointer-events", "none");
             },
-            stop: function() {
+            stop: function(event) {
                 $(".windowBody").css("pointer-events", "auto");
                 $(".windowBody").children(".windowContent").css("pointer-events", "auto");
+
+                if ($(event.target).offset().top < $(".infoBar").outerHeight()) {
+                    $(event.target).children(".windowBar").dblclick();
+                }
             }
         })
         .mousedown(function() {
