@@ -20,7 +20,11 @@ function alert(content, title = "", buttons = [{text: _("OK"), type: "normal", o
 
     $("#alertContent").focus();
 
-    if (sReader.reading) {sReader.speak(_("Alert! Press Tab for first item"));}
+    if (sReader.reading) {
+        sReader.speak(_("Alert! Press Tab for first item"));
+    } else {
+        $(".alertButtons").find("button:last").focus();
+    }
 }
 
 function closeAlert() {

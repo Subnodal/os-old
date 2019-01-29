@@ -169,4 +169,10 @@ $(function() {
     $(document.body).on("contextmenu", "*", function(e) {
         e.preventDefault();
     });
+
+    $("#signInPassword").keyup(function(e) {
+        if (e.keyCode == 13) {
+            signIn();
+        }
+    });
 });
