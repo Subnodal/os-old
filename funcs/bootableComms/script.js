@@ -22,7 +22,7 @@ var bc = {
         var paramsList = "";
 
         for (var i = 0; i < params.length; i++) {
-            paramsList += encodeURIComponent(params[i]) + "/"
+            paramsList += encodeURIComponent(params[i]).replace(/%0A/g, "%16") + "/"
         }
 
         paramsList = paramsList.substring(0, paramsList.length - 1);
