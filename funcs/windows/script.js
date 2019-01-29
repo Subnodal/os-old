@@ -2,42 +2,56 @@ var zIndexLevel = 0;
 var minimisedWindows = [];
 
 function minimiseWindow(selWindow) {
-    minimisedWindows.push(selWindow.attr("response-key"));
+    if (selWindow.attr("doing-animation") != "true") {
+        minimisedWindows.push(selWindow.attr("response-key"));
 
-    var normalTop = selWindow.css("top");
+        var normalTop = selWindow.css("top");
 
-    selWindow.animate({
-        "top": $(window).outerHeight() + "px"
-    }, {duration: 500});
+        selWindow.attr("doing-animation", "true");
 
-    setTimeout(function() {
-        selWindow.hide();
-        selWindow.css("top", normalTop);
-    }, 600);
+        selWindow.animate({
+            "top": $(window).outerHeight() + "px"
+        }, {duration: 500});
 
-    $(".appBarOpenAppButton").children(".appBarOpenAppIcon").removeClass("selected");
+        setTimeout(function() {
+            selWindow.hide();
+            selWindow.css("top", normalTop);
 
-    if (sReader.reading) {sReader.speak(_("Minimised"));}
+            selWindow.removeAttr("doing-animation");
+        }, 600);
+
+        $(".appBarOpenAppButton").children(".appBarOpenAppIcon").removeClass("selected");
+
+        if (sReader.reading) {sReader.speak(_("Minimised"));}
+    }
 }
 
 function restoreWindow(selWindow) {
-    minimisedWindows.pop(minimisedWindows.findIndex(function(data) {
-        return data == selWindow.attr("response-key");
-    }));
+    if (selWindow.attr("doing-animation") != "true") {
+        minimisedWindows.pop(minimisedWindows.findIndex(function(data) {
+            return data == selWindow.attr("response-key");
+        }));
 
-    var normalTop = selWindow.css("top");
+        var normalTop = selWindow.css("top");
 
-    selWindow.css("top", $(window).outerHeight() + "px");
-    selWindow.show();
+        selWindow.attr("doing-animation", "true");
 
-    selWindow.animate({
-        "top": normalTop
-    }, {duration: 500});
+        selWindow.css("top", $(window).outerHeight() + "px");
+        selWindow.show();
 
-    $(".appBarOpenAppButton[response-key-link='" + selWindow.attr("response-key") + "']").children(".appBarOpenAppIcon").addClass("selected");
-    $(".appBarOpenAppButton:not([response-key-link='" + selWindow.attr("response-key") + "'])").children(".appBarOpenAppIcon").removeClass("selected");
+        selWindow.animate({
+            "top": normalTop
+        }, {duration: 500});
 
-    if (sReader.reading) {sReader.speak(_("Restored"));}
+        setTimeout(function() {
+            selWindow.removeAttr("doing-animation");
+        }, 600);
+
+        $(".appBarOpenAppButton[response-key-link='" + selWindow.attr("response-key") + "']").children(".appBarOpenAppIcon").addClass("selected");
+        $(".appBarOpenAppButton:not([response-key-link='" + selWindow.attr("response-key") + "'])").children(".appBarOpenAppIcon").removeClass("selected");
+
+        if (sReader.reading) {sReader.speak(_("Restored"));}
+    }
 }
 
 function closeWindow(selWindow, doAppBarAnimation = true) {
