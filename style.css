@@ -52,7 +52,7 @@ div.cardButtons {
     z-index: 1;
 }
 
-.infoBar > .infoButton {
+.infoBar > .infoButton:first-of-type {
     padding-left: 0;
 }
 
@@ -66,7 +66,7 @@ div.cardButtons {
     height: 100%;
 }
 
-.infoBarRight > .infoButton {
+.infoBarRight > .infoButton:last-of-type {
     padding-right: 0;
 }
 
