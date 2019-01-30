@@ -18,7 +18,7 @@ var menus = {
                     "bottom": "unset"
                 });
 
-                $(menu).css(floatRight ? "right" : "left", (floatBottom ? x : x + 10));
+                $(menu).css(floatRight ? "right" : "left", x);
                 $(menu).css(floatBottom ? "bottom" : "top", y);
                 
                 $(menu).fadeIn();
