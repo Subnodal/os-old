@@ -92,6 +92,21 @@ $(function() {
             }, 250);
         },
 
+        playTone: function(name, pan = 0) {
+            var panner = new Pizzicato.Effects.StereoPanner({
+                pan: pan
+            });
+
+            var tone = new Pizzicato.Sound(sReader.tones[name], function() {
+                tone.addEffect(panner);
+                tone.play();
+            });
+        },
+
+        playPanTone: function(name, element) {
+            sReader.playTone(name, ((element.offset().left / $(window).width()) * 2) - 1);
+        },
+
         cssState: function(state) {
             if (state) {
                 $("#sReaderStyle").html(`
@@ -126,6 +141,8 @@ $(function() {
                     var code = (e.keyCode ? e.keyCode : e.which);
                     if (code == 9) {
                         if (sReader.reading) {
+                            sReader.playPanTone("button", $(event.target));
+
                             if ($(event.target).attr("data-readable") == undefined) {
                                 sReader.speak($(event.target).text() + _(": Button"));
                             } else {
@@ -141,6 +158,8 @@ $(function() {
                     var code = (e.keyCode ? e.keyCode : e.which);
                     if (code == 9) {
                         if (sReader.reading) {
+                            sReader.playPanTone("button", $(event.target));
+                            
                             if ($(event.target).attr("data-readable") == undefined) {
                                 sReader.speak($(event.target).text() + _(": Link"));
                             } else {
@@ -209,13 +228,21 @@ $(function() {
                 $(window).one("keyup", function(e) {
                     var code = (e.keyCode ? e.keyCode : e.which);
                     if (code == 9) {
-                        if (sReader.reading) {sReader.speak($(document.activeElement).attr("data-readable") + _(": Button"));}
+                        if (sReader.reading) {
+                            sReader.playPanTone("button", $(document.activeElement));
+
+                            sReader.speak($(document.activeElement).attr("data-readable") + _(": Button"));
+                        }
                     }
                 });
             });
 
             $(document).on("mouseover", ".readableButton", function(event) {
-                if (sReader.reading) {sReader.speak($(this).attr("data-readable") + _(": Button"));}
+                if (sReader.reading) {
+                    sReader.playPanTone("button", $(this));
+
+                    sReader.speak($(this).attr("data-readable") + _(": Button"));
+                }
             });
 
             $(document).on("focus", ".readableText", function(event) {
@@ -233,6 +260,8 @@ $(function() {
 
             $(document).on("focus", ".menuItem", function(event) {
                 if (sReader.reading) {
+                    sReader.playPanTone("button", $(document.activeElement));
+
                     if ($(document.activeElement).attr("data-readable") == undefined) {
                         sReader.speak($(document.activeElement).text() + _(": Menu Item"));
                     } else {
@@ -243,6 +272,8 @@ $(function() {
 
             $(document).on("mouseover", ".menuItem", function(event) {
                 if (sReader.reading) {
+                    sReader.playPanTone("button", $(this));
+
                     if ($(this).attr("data-readable") == undefined) {
                         sReader.speak($(this).text() + _(": Menu Item"));
                     } else {
@@ -261,7 +292,7 @@ $(function() {
                 }
             });
 
-            $(document).on("mouseover", ".menuItem", function(event) {
+            $(document).on("mouseover", ".menuArea", function(event) {
                 if (sReader.reading) {
                     if ($(this).attr("data-readable") == undefined) {
                         sReader.speak($(this).text() + _(": Menu Information"));
@@ -273,6 +304,8 @@ $(function() {
 
             $(document).on("mouseover", "button:not([data-no-sreader]):not(.menuItem), a.button", function(event) {
                 if (sReader.reading) {
+                    sReader.playPanTone("button", $(event.target));
+                    
                     if ($(this).attr("data-readable") == undefined) {
                         sReader.speak(event.target.innerHTML + _(": Button"));
                     } else {
@@ -300,6 +333,8 @@ $(function() {
             });
 
             $(document).on("focusin", "input", function(event) {
+                if (sReader.reading) {sReader.playPanTone("input", $(event.target));}
+
                 if ($(this).attr("data-readable") == undefined) {
                     if ($(this).attr("id") != undefined && $("label[for=" + $(this).attr("id") + "]").length > 0) {
                         if (sReader.reading) {sReader.speak(_("Editing %: Text Input", $("label[for=" + $(this).attr("id") + "]:first").text()));}
@@ -324,6 +359,8 @@ $(function() {
             });
 
             $(document).on("mouseover", "input", function(event) {
+                if (sReader.reading) {sReader.playPanTone("input", $(event.target));}
+
                 if ($(this).attr("data-readable") == undefined) {
                     if ($(this).attr("id") != undefined && $("label[for=" + $(this).attr("id") + "]").length > 0) {
                         if (sReader.reading) {sReader.speak($("label[for=" + $(this).attr("id") + "]:first").text() + ": Text Input, press to edit");}
@@ -406,11 +443,15 @@ $(function() {
             if (state) {
                 $("#sReader").css("display", "unset");
                 sReader.cssState(true);
+                sReader.playTone("on");
+
                 sReader.speak(_("subReader is on"));
             } else {
                 $("#sReader").css("display", "none");
                 sReader.cssState(false);
                 sReader.changeBlackout(false, true);
+                sReader.playTone("off");
+
                 sReader.speak(_("subReader is off"));
 
                 $("#sReaderContent").text("");
