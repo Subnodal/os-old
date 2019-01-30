@@ -45,11 +45,15 @@ div.cardButtons {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
+    width: calc(100% - 10px);
     background-color: black;
     color: white;
     padding: 5px;
     z-index: 1;
+}
+
+.infoBar > .infoButton {
+    padding-left: 0;
 }
 
 .infoBarTextContent {
@@ -60,6 +64,10 @@ div.cardButtons {
 .infoBarRight {
     float: right;
     height: 100%;
+}
+
+.infoBarRight > .infoButton {
+    padding-right: 0;
 }
 
 .infoButton {
