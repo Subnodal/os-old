@@ -53,6 +53,7 @@ lang.list["hi-IN"] = {
     ": Menu Information": ": मेनू जानकारी",
     "Menu closed": "मेनू बंद हो गया",
     "Alert! Press Tab for first item": "चेतावनी! पहले आइटम के लिए टैब दबाएँ",
+    "Empty": "खाली",
     "Paragraph: ": "अनुच्छेद: ",
     "Alert closed": "अलर्ट बंद हो गया",
     ": Text Input, press to edit": ": पाठ इनपुट, संपादित करने के लिए दबाएँ",

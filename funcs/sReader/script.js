@@ -23,6 +23,7 @@ $(function() {
     sReader = {
         reading: false,
         blackout: false,
+        skipNextButton: false,
 
         speak: function(text, slow = false, spell = false, code = false) {
             if (getURLParameter("bootable") == "true") {
@@ -319,17 +320,31 @@ $(function() {
                     event.preventDefault();
 
                     if (event.which == 13) {
+                        sReader.playTone("enter");
+
                         sReader.speak(_("Enter: object pressed"));
 
                         setTimeout(function() {
+                            sReader.skipNextButton = true;
+                            
                             $(document.activeElement).click();
+
+                            event.stopPropagation();
                         }, 1000);
                     }
                 }
             });
             
-            $(document).on("click", "a", function(event) {
-                if (sReader.reading) {sReader.speak(_("Enter: object pressed"));}
+            $(document).on("click", "button, a", function(event) {
+                if (!sReader.skipNextButton) {
+                    if (sReader.reading) {
+                        sReader.playTone("enter");
+
+                        sReader.speak(_("Enter: object pressed"));
+                    }
+                } else {
+                    sReader.skipNextButton = false;
+                }
             });
 
             $(document).on("focusin", "input", function(event) {

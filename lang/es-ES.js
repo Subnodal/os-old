@@ -53,6 +53,7 @@ lang.list["es-ES"] = {
     ": Menu Information": ": Información del menú",
     "Menu closed": "Menú cerrado",
     "Alert! Press Tab for first item": "¡Alerta! Presione Tab para el primer elemento",
+    "Empty": "Vacío",
     "Paragraph: ": "Párrafo: ",
     "Alert closed": "Alerta cerrada",
     ": Text Input, press to edit": ": Entrada de texto, presione para editar",
