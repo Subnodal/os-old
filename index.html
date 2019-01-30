@@ -101,7 +101,10 @@
                         <button onclick="signOut();" class="menuItem">@Sign out</button>
                     </menu>
                     <menu id="desktopPowerMenu">
-                        <button onclick="window.location.href = 'https://subnodal.com';" class="menuItem">@Exit session</button>
+                        <button onclick="window.location.href = 'https://subnodal.com';" class="menuItem nonBootable">@Exit session</button>
+                        <button onclick="systemActions.shutdown();" class="menuItem bootable">@Shutdown</button>
+                        <button onclick="systemActions.reboot();" class="menuItem bootable">@Reboot</button>
+                        <button onclick="devOps.updateFromGit();" class="menuItem bootable">@Update from Git</button>
                     </menu>
                 </div>
             </div>
