@@ -6,6 +6,62 @@
     width: 100vw;
     height: 40vh;
     background-color: var(--backgroundColour);
+    text-align: center;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
     transition: 0.5s top;
+}
+
+.oskButton {
+    min-width: calc(calc(40vh / 4) - 8px);
+    height: calc(calc(40vh / 4) - 8px);
+    background-color: transparent;
+    color: var(--textColour);
+    font-size: 20px;
+}
+
+.oskButton:hover {
+    background-color: transparent;
+}
+
+.oskButton:active {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.oskSpace {
+    width: calc(calc(calc(40vh / 4) - 8px) * 8);
+    height: calc(calc(40vh / 4) - 28px);
+    margin: 10px;
+    background-color: rgba(0, 0, 0, 0.1)!important;
+}
+
+.oskSpace:active {
+    background-color: rgba(0, 0, 0, 0.2)!important;
+}
+
+.oskShift.oskShiftRight {
+    width: calc(calc(calc(40vh / 4) - 8px) * 2);
+}
+
+.oskShiftRight {
+    width: calc(calc(calc(calc(40vh / 4) - 8px) * 2) - 20px);
+    padding-left: 20px;
+    text-align: left;
+}
+
+@media (max-width: 110vh) {
+    .oskButton {
+        min-width: calc(8vw - 10px);
+    }
+
+    .oskSpace {
+        width: calc(calc(8vw - 10px) * 8);
+    }
+
+    .oskShift.oskShiftRight {
+        width: calc(calc(8vw - 10px) * 2);
+    }
+
+    .oskShiftRight {
+        width: calc(calc(calc(8vw - 10px) * 2) - 20px);
+    }
 }
