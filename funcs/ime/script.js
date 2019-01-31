@@ -4,6 +4,7 @@ var ime = {
     inUse: false,
     pinyinCharBuffer: [],
     candidates: [],
+    punctuationSwaps: {".": "。", ",": "，", "!": "！", "?": "？", "(": "（", ")": "）", "{": "｛", "}": "｝", "[": "【", "]": "】", "<": "《", ">": "》", ":": "：", ";": "；", "\"": "“", "'": "‘", ",": "、"},
 
     show: function() {
         if (ime.inUse) {
@@ -23,7 +24,7 @@ var ime = {
         ime.shown = false;
     },
 
-    registerChar: function(key) {
+    registerChar: function(key, event) {
         if (key == 8) {
             ime.pinyinCharBuffer.pop();
         } else {
@@ -38,7 +39,16 @@ var ime = {
     getCandidates: function(target) {
         if (ime.maps.pinyin[ime.pinyinCharBuffer.join("").toLowerCase()] == undefined && ime.pinyinCharBuffer.length > 2) {
             if (ime.candidates != undefined && ime.candidates[0] != undefined) {
-                target.val(target.val().substring(0, document.activeElement.selectionStart - ime.pinyinCharBuffer.length + 1) + ime.candidates[0] + target.val().substring(document.activeElement.selectionStart));
+                var oldPosition = document.activeElement.selectionStart;
+                
+                var suffix = target.val().substring(document.activeElement.selectionStart);
+
+                target.val(target.val().substring(0, document.activeElement.selectionStart - ime.pinyinCharBuffer.length + 1) + ime.candidates[0] + suffix);
+
+                console.log(ime.pinyinCharBuffer.length - 1);
+
+                document.activeElement.selectionStart = oldPosition - ime.pinyinCharBuffer.length + 2;
+                document.activeElement.selectionEnd = oldPosition - ime.pinyinCharBuffer.length + 2;
 
                 ime.candidates = [];
                 ime.pinyinCharBuffer = [ime.pinyinCharBuffer.pop()];
@@ -49,33 +59,35 @@ var ime = {
     },
 
     doEvent: function(event) {
-        ime.registerChar(event.keyCode);
-        ime.getCandidates($(event.target));
+        if (ime.inUse) {
+            ime.registerChar(event.keyCode, event);
+            ime.getCandidates($(event.target));
 
-        if (ime.candidates == undefined) {
-            ime.candidates = [];
+            if (ime.candidates == undefined) {
+                ime.candidates = [];
+            }
+
+            if (ime.pinyinCharBuffer.length > 0 && ime.candidates.length > 0) {
+                $("#ime").text(ime.candidates.join(" "));
+
+                ime.show();
+            } else {
+                ime.hide();
+            }
+
+            $("#ime").css({
+                top: (
+                    event.target.scrollTop ?
+                    getCaretCoordinates(event.target, event.target.selectionEnd).top - (event.target.scrollTop * 2) :
+                    getCaretCoordinates(event.target, event.target.selectionEnd).top
+                ) + $(event.target).offset().top + Number($(event.target).css("font-size").substring(0, $(event.target).css("font-size").length - 2)),
+                left: (
+                    event.target.scrollLeft ?
+                    getCaretCoordinates(event.target, event.target.selectionEnd).left - (event.target.scrollLeft * 2) :
+                    getCaretCoordinates(event.target, event.target.selectionEnd).left
+                ) + $(event.target).offset().left
+            });
         }
-
-        if (ime.pinyinCharBuffer.length > 0 && ime.candidates.length > 0) {
-            $("#ime").text(ime.candidates.join(" "));
-
-            ime.show();
-        } else {
-            ime.hide();
-        }
-
-        $("#ime").css({
-            top: (
-                event.target.scrollTop ?
-                getCaretCoordinates(event.target, event.target.selectionEnd).top - (event.target.scrollTop * 2) :
-                getCaretCoordinates(event.target, event.target.selectionEnd).top
-            ) + $(event.target).offset().top + Number($(event.target).css("font-size").substring(0, $(event.target).css("font-size").length - 2)),
-            left: (
-                event.target.scrollLeft ?
-                getCaretCoordinates(event.target, event.target.selectionEnd).left - (event.target.scrollLeft * 2) :
-                getCaretCoordinates(event.target, event.target.selectionEnd).left
-            ) + $(event.target).offset().left
-        });
     },
 
     init: function() {
@@ -86,6 +98,21 @@ var ime = {
 
         $(document).on("focus", "*:not(input)", ime.hide);
         $(document).on("click", "*:not(input)", ime.hide);
+
+        setInterval(function() {
+            if (ime.inUse && $(document.activeElement).is("input:not([type=password])")) {
+                for (var i = 0; i < Object.keys(ime.punctuationSwaps).length; i++) {
+                    if (new RegExp("\\" + Object.keys(ime.punctuationSwaps)[i], "g").test($(document.activeElement).val())) {
+                        var oldPosition = document.activeElement.selectionStart;
+
+                        $(document.activeElement).val($(document.activeElement).val().replace(new RegExp("\\" + Object.keys(ime.punctuationSwaps)[i], "g"), ime.punctuationSwaps[Object.keys(ime.punctuationSwaps)[i]]));
+
+                        document.activeElement.selectionStart = oldPosition;
+                        document.activeElement.selectionEnd = oldPosition;
+                    }
+                }
+            }
+        });
     }
 };
 
