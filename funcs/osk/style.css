@@ -1,0 +1,11 @@
+#osk {
+    position: absolute;
+    display: none;
+    top: 100vh;
+    left: 0;
+    width: 100vw;
+    height: 40vh;
+    background-color: var(--backgroundColour);
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+    transition: 0.5s top;
+}

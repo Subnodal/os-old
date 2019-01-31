@@ -1,0 +1,3 @@
+var tablet = {
+    inUse: false
+};
