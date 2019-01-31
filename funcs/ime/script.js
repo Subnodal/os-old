@@ -36,22 +36,24 @@ var ime = {
         }
     },
 
+    useCandidate: function(candidate) {
+        var oldPosition = document.activeElement.selectionStart;
+        
+        var suffix = $(document.activeElement).val().substring(document.activeElement.selectionStart);
+
+        $(document.activeElement).val($(document.activeElement).val().substring(0, document.activeElement.selectionStart - ime.pinyinCharBuffer.length + 1) + candidate + suffix);
+
+        document.activeElement.selectionStart = oldPosition - ime.pinyinCharBuffer.length + 2;
+        document.activeElement.selectionEnd = oldPosition - ime.pinyinCharBuffer.length + 2;
+
+        ime.candidates = [];
+        ime.pinyinCharBuffer = [ime.pinyinCharBuffer.pop()];
+    },
+
     getCandidates: function(target) {
         if (ime.maps.pinyin[ime.pinyinCharBuffer.join("").toLowerCase()] == undefined && ime.pinyinCharBuffer.length > 2) {
             if (ime.candidates != undefined && ime.candidates[0] != undefined) {
-                var oldPosition = document.activeElement.selectionStart;
-                
-                var suffix = target.val().substring(document.activeElement.selectionStart);
-
-                target.val(target.val().substring(0, document.activeElement.selectionStart - ime.pinyinCharBuffer.length + 1) + ime.candidates[0] + suffix);
-
-                console.log(ime.pinyinCharBuffer.length - 1);
-
-                document.activeElement.selectionStart = oldPosition - ime.pinyinCharBuffer.length + 2;
-                document.activeElement.selectionEnd = oldPosition - ime.pinyinCharBuffer.length + 2;
-
-                ime.candidates = [];
-                ime.pinyinCharBuffer = [ime.pinyinCharBuffer.pop()];
+                ime.useCandidate(ime.candidates[0]);
             }
         } else {
             ime.candidates = ime.maps.pinyin[ime.pinyinCharBuffer.join("").toLowerCase()];
@@ -71,6 +73,8 @@ var ime = {
                 $("#ime").text(ime.candidates.join(" "));
 
                 ime.show();
+
+                if (sReader.reading) {}
             } else {
                 ime.hide();
             }
