@@ -15,12 +15,14 @@
         <link rel="stylesheet" href="funcs/menus/style.css">
         <link rel="stylesheet" href="funcs/windows/style.css">
         <link rel="stylesheet" href="funcs/alerts/style.css">
+        <link rel="stylesheet" href="funcs/ime/style.css">
         <link rel="stylesheet" href="funcs/osk/style.css">
         <link rel="stylesheet" href="style.css">
         <script src="lib/jquery.min.js"></script>
         <script src="lib/jqueryui.js"></script>
         <script src="lib/touchpunch.min.js"></script>
         <script src="lib/pizzicato.min.js"></script>
+        <script src="lib/caretpos.js"></script>
         <script src="funcs/ui/script.js"></script>
         <script src="funcs/lang/script.js"></script>
         <script src="lang/overrides.js"></script>
@@ -41,6 +43,8 @@
         <script src="funcs/menus/script.js"></script>
         <script src="funcs/windows/script.js"></script>
         <script src="funcs/alerts/script.js"></script>
+        <script src="funcs/ime/script.js"></script>
+        <script src="funcs/ime/maps/pinyin.js"></script>
         <script src="funcs/osk/script.js"></script>
         <script src="funcs/osk/keyboardLayouts.js"></script>
         <script src="funcs/appLauncher/script.js"></script>
@@ -139,6 +143,9 @@
                         Hi! This is very proof-of-concept. The account names are placeholders only.
                     </p>
                     <p data-no-sreader>
+                        <label for="tryMeTest">Try me against subReader, OSK and IME!</label> <input id="tryMeTest" placeholder="Try me!">
+                    </p>
+                    <p data-no-sreader>
                         <button onclick="screens.fade('wirelessSetup');">Wireless Setup</button>
                         <button onclick="screens.fade('signIn');">Sign In</button>
                     </p>
@@ -199,6 +206,7 @@
         <div id="sReader">
             <div class="card-content" id="sReaderContent"></div>
         </div>
+        <div id="ime"></div>
         <div id="osk"></div>
         <div>
             <div id="sReaderBlackout"></div>

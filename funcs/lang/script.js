@@ -184,3 +184,9 @@ lang.realLang = lang.lang;
 if ((lang.lang == "en-AU" || lang.lang == "en-US") && lang.list[lang.lang] == undefined) {
     lang.lang = "en-GB";
 }
+
+$(function() {
+    if (lang.lang == "zh-CN") {
+        ime.inUse = true;
+    }
+});

@@ -416,7 +416,7 @@ $(function() {
             $(document).on("keydown", "input", function(event) {
                 if (sReader.reading) {
                     if (event.which == 8) {
-                        sReader.speak(_("Backspace. ") + getClosestWord($(document.activeElement).val(), document.activeElement.selectionStart - 1).slice(0, -2));
+                        sReader.speak(_("Backspace. ") + getClosestWord($(document.activeElement).val(), document.activeElement.selectionStart - 1).slice(0, -1));
                     } else if (event.which == 46) {
                         sReader.speak(_("Delete"));
                     }
