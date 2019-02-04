@@ -101,7 +101,7 @@ var osk = {
         if (osk.shifting) {
             $(".oskShift").addClass("on");
         } else {
-            $(".oskShift").remvoeClass("on");
+            $(".oskShift").removeClass("on");
         }
     },
 
