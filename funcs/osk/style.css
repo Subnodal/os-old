@@ -42,6 +42,10 @@
     width: calc(calc(calc(40vh / 4) - 8px) * 2);
 }
 
+.oskShift.on {
+    background-color: rgba(0, 0, 0, 0.1)!important;
+}
+
 .oskShiftRight {
     width: calc(calc(calc(calc(40vh / 4) - 8px) * 2) - 20px);
     padding-left: 20px;

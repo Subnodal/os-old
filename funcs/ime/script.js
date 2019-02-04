@@ -37,17 +37,19 @@ var ime = {
     },
 
     useCandidate: function(candidate) {
-        var oldPosition = document.activeElement.selectionStart;
-        
-        var suffix = $(document.activeElement).val().substring(document.activeElement.selectionStart);
+        if (candidate != undefined) {
+            var oldPosition = document.activeElement.selectionStart;
+            
+            var suffix = $(document.activeElement).val().substring(document.activeElement.selectionStart);
 
-        $(document.activeElement).val($(document.activeElement).val().substring(0, document.activeElement.selectionStart - ime.pinyinCharBuffer.length + 1) + candidate + suffix);
+            $(document.activeElement).val($(document.activeElement).val().substring(0, document.activeElement.selectionStart - ime.pinyinCharBuffer.length + 1) + candidate + suffix);
 
-        document.activeElement.selectionStart = oldPosition - ime.pinyinCharBuffer.length + 2;
-        document.activeElement.selectionEnd = oldPosition - ime.pinyinCharBuffer.length + 2;
+            document.activeElement.selectionStart = oldPosition - ime.pinyinCharBuffer.length + 2;
+            document.activeElement.selectionEnd = oldPosition - ime.pinyinCharBuffer.length + 2;
 
-        ime.candidates = [];
-        ime.pinyinCharBuffer = [ime.pinyinCharBuffer.pop()];
+            ime.candidates = [];
+            ime.pinyinCharBuffer = [ime.pinyinCharBuffer.pop()];
+        }
     },
 
     getCandidates: function(target) {
@@ -99,6 +101,20 @@ var ime = {
 
         $(document).on("keydown", "input:not([type=password])", ime.doEvent);
         $(document).on("click", "input:not([type=password])", ime.doEvent);
+
+        $(document).on("keydown", "input:not([type=password])", function(e) {
+            if (e.keyCode == 32) {
+                $(e.target).val($(e.target).val().substring(0, document.activeElement.selectionStart - 1) + $(e.target).val().substring(document.activeElement.selectionStart));
+
+                ime.useCandidate(ime.candidates[0]);
+
+                // $(e.target).val($(e.target).val().substring(0, document.activeElement.selectionStart) + $(e.target).val().substring(document.activeElement.selectionStart));
+
+                ime.pinyinCharBuffer = [];
+
+                event.preventDefault();
+            }
+        });
 
         $(document).on("focus", "*:not(input)", ime.hide);
         $(document).on("click", "*:not(input)", ime.hide);

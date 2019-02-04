@@ -2,8 +2,10 @@ var osk = {
     animating: false,
     selectedInput: null,
     selectedInputStart: 0,
-
+    lang: lang.lang,
+    layout: null,
     keyboardLayout: [],
+    shifting: false,
 
     open: function(selectedInput = $("*:focus")) {
         if (!osk.animating) {
@@ -39,6 +41,7 @@ var osk = {
 
             osk.selectedInput = null;
             osk.selectedInputStart = null;
+            osk.selectedInputEnd = null;
 
             setTimeout(function() {
                 $("#osk").hide();
@@ -50,28 +53,64 @@ var osk = {
 
     click: function(char, other) {
         if (char != "") {
+            if (osk.selectedInputStart != osk.selectedInputEnd) {
+                osk.selectedInput.val(osk.selectedInput.val().substring(0, osk.selectedInputStart) + osk.selectedInput.val().substring(osk.selectedInputEnd));
+
+                osk.selectedInput.focus();
+
+                document.activeElement.selectionStart = osk.selectedInputStart;
+                document.activeElement.selectionEnd = osk.selectedInputStart;
+            }
+
             osk.selectedInput.val(osk.selectedInput.val().substring(0, osk.selectedInputStart) + char + osk.selectedInput.val().substring(osk.selectedInputStart));
 
             osk.selectedInput.focus();
             document.activeElement.selectionStart = osk.selectedInputStart + 1;
             document.activeElement.selectionEnd = osk.selectedInputStart + 1;
         } else if (other == "backspace") {
-            if (osk.selectedInputStart > 0) {
+            if (osk.selectedInputStart != osk.selectedInputEnd) {
+                osk.selectedInput.val(osk.selectedInput.val().substring(0, osk.selectedInputStart) + osk.selectedInput.val().substring(osk.selectedInputEnd));
+
+                osk.selectedInput.focus();
+
+                document.activeElement.selectionStart = osk.selectedInputStart;
+                document.activeElement.selectionEnd = osk.selectedInputStart;
+            } else if (osk.selectedInputStart > 0) {
                 osk.selectedInput.val(osk.selectedInput.val().substring(0, osk.selectedInputStart - 1) + osk.selectedInput.val().substring(osk.selectedInputStart));
 
                 osk.selectedInput.focus();
+
                 document.activeElement.selectionStart = osk.selectedInputStart - 1;
                 document.activeElement.selectionEnd = osk.selectedInputStart - 1;
             }
         }
+
+        osk.selectedInputStart = document.activeElement.selectionStart;
+        osk.selectedInputEnd = document.activeElement.selectionEnd;
     },
 
-    toggleShift: function() {},
+    toggleShift: function(set = null) {
+        if (set == null) {
+            osk.shifting = !osk.shifting;
+        } else {
+            osk.shifting = set;
+        }
+
+        osk.setKeyboardLayout(osk.lang, osk.layout, "normal", osk.shifting);
+
+        if (osk.shifting) {
+            $(".oskShift").addClass("on");
+        } else {
+            $(".oskShift").remvoeClass("on");
+        }
+    },
 
     switchModes: function() {},
 
     setKeyboardLayout: function(locale, layout, type, upper = false) {
         osk.keyboardLayout = osk.keyboardLayouts[locale][layout][type];
+
+        $("#osk").html("");
 
         for (var i = 0; i < osk.keyboardLayout.length; i++) {
             for (var j = 0; j < osk.keyboardLayout[i][upper ? "upper" : "lower"].length; j++) {
@@ -85,6 +124,8 @@ var osk = {
                         .addClass("oskButton")
                         .click(function(event) {
                             osk.click($(event.target).text());
+
+                            osk.toggleShift(false);
                         })
                         .appendTo("#osk")
                     ;
@@ -133,6 +174,7 @@ var osk = {
                         $("<button></button>")
                             .text("?123")
                             .addClass("oskButton")
+                            .addClass("oskSpecial")
                             .attr("data-readable", _("Switch modes"))
                             .click(function() {
                                 osk.switchModes();
@@ -165,7 +207,15 @@ var osk = {
     },
 
     init: function() {
-        osk.setKeyboardLayout("en-GB", "QWERTY", "normal");
+        if (osk.keyboardLayouts[lang.lang] != undefined) {
+            osk.lang = lang.lang;
+            osk.layout = Object.keys(osk.keyboardLayouts[lang.lang])[0];
+        } else {
+            osk.lang = "en-GB";
+            osk.layout = "QWERTY";
+        }
+
+        osk.setKeyboardLayout(osk.lang, osk.layout, "normal");
 
         $(document).on("click", "input", function(event) {
             if (tablet.inUse) {
@@ -183,6 +233,10 @@ var osk = {
 
         $("#osk").click(function(event) {
             event.stopPropagation();
+
+            osk.selectedInput.focus();
+            document.activeElement.selectionStart = osk.selectedInputStart;
+            document.activeElement.selectionEnd = osk.selectedInputEnd;
         });
 
         $("#osk").children().click(function(event) {
@@ -192,6 +246,7 @@ var osk = {
         setInterval(function() {
             if (document.activeElement.selectionStart != undefined) {
                 osk.selectedInputStart = document.activeElement.selectionStart;
+                osk.selectedInputEnd = document.activeElement.selectionEnd;
             }
         }, 10);
     }
