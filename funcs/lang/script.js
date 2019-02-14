@@ -142,15 +142,15 @@ function changeLang(langCode) {
 $(function() {
     setInterval(function() {
         $("*:not(script, style, meta, link, .noTranslate)").each(function() {
-            if ($(this).html()[0] == "@") {
+            if ($(this).html().trim()[0] == "@") {
                 if ($(this).html().substring(1).split("|").length == 2) {
                     $(this).html(lang.translate(
-                        $(this).html().substring(1).split("|")[0],
-                        $(this).html().substring(1).split("|")[1].split("\\")
+                        $(this).html().trim().substring(1).split("|")[0],
+                        $(this).html().trim().substring(1).split("|")[1].split("\\")
                     ));
                 } else {
                     $(this).html(lang.translate(
-                        $(this).html().substring(1).split("|")[0]
+                        $(this).html().trim().substring(1).split("|")[0]
                     ));
                 }
             }
