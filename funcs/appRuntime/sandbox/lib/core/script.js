@@ -16,8 +16,22 @@ var core;
         responseKey: ""
     };
 
+    if (lang.list["overrides"] == undefined) {
+        lang.list["overrides"] = {};
+    }
+
     $(function() {
         core.responseKey = generateID(16);
+
+        addEventListener("message", function(event) {
+            if (event.data.for == "subOSApp") {
+                if (event.data.load) {
+                    $("container").html(event.data.load);
+                } else if (event.data.icon) {
+                    $("#splashIcon").attr("src", event.data.icon);
+                }
+            }
+        });
         
         parent.postMessage({
             for: "subOS",
@@ -53,5 +67,13 @@ var core;
                 }, "*");
             }
         });
+
+        $(document).on("contextmenu", "*", function(e) {
+            e.preventDefault();
+        });
+
+        setTimeout(function() {
+            $("#splash").fadeOut();
+        }, 1000);
     });
 })();

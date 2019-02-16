@@ -49,8 +49,12 @@ var lang = {
             if (lang.lang != lang.defaultLang && lang.list[lang.lang] == undefined && !lang.sentWarning) {
                 lang.sentWarning = true;
 
-                if (getURLParameter("languageWarningMessage") != null) {
-                    alert(getURLParameter("languageWarningMessage"));
+                if (getURLParameter("languageWarningMessage") != null && getURLParameter("languageWarningButton") != null) {
+                    alert(getURLParameter("languageWarningMessage"), undefined, [{
+                        text: getURLParameter("languageWarningButton"),
+                        type: "normal",
+                        onclick: "closeAlert();"
+                    }]);
                 } else {
                     alert("Sorry! The language that you chose is unavailable.");
                 }

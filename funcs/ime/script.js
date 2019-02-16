@@ -103,16 +103,16 @@ var ime = {
         $(document).on("click", "input:not([type=password])", ime.doEvent);
 
         $(document).on("keydown", "input:not([type=password])", function(e) {
-            if (e.keyCode == 32) {
-                $(e.target).val($(e.target).val().substring(0, document.activeElement.selectionStart - 1) + $(e.target).val().substring(document.activeElement.selectionStart));
+            if (ime.inUse) {
+                if (e.keyCode == 32) {
+                    $(e.target).val($(e.target).val().substring(0, document.activeElement.selectionStart - 1) + $(e.target).val().substring(document.activeElement.selectionStart));
 
-                ime.useCandidate(ime.candidates[0]);
+                    ime.useCandidate(ime.candidates[0]);
 
-                // $(e.target).val($(e.target).val().substring(0, document.activeElement.selectionStart) + $(e.target).val().substring(document.activeElement.selectionStart));
+                    ime.pinyinCharBuffer = [];
 
-                ime.pinyinCharBuffer = [];
-
-                event.preventDefault();
+                    event.preventDefault();
+                }
             }
         });
 

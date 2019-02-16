@@ -1,0 +1,16 @@
+#splash {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #dddddd;
+}
+
+#splashIcon {
+    position: fixed;
+    top: calc(50vh - 50px);
+    left: calc(50vw - 50px);
+    width: 100px;
+    height: 100px;
+}

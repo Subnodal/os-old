@@ -1,19 +1,9 @@
 var appLauncher = {
     apps: [
         {
-            name: "Test App",
+            name: _("Calculator"),
             native: true,
-            nativePath: "nativeApps/test/index.html"
-        },
-        {
-            name: "Calculator",
-            native: true,
-            nativePath: "nativeApps/calculator/index.html"
-        },
-        {
-            name: "Notes",
-            native: true,
-            nativePath: "nativeApps/notes/index.html"
+            nativeHTML: systemApps["calculator"]
         }
     ],
 
@@ -43,7 +33,7 @@ var appLauncher = {
 
     launch: function(index) {
         if (appLauncher.apps[index].native) {
-            newWindow(appLauncher.apps[index].nativePath + "?lang=" + lang.lang + "&languageWarningMessage=" + _("Sorry! This app is unavailable in your language."), _(appLauncher.apps[index].name));
+            appRuntime.launchHTML(appLauncher.apps[index].nativeHTML, appLauncher.apps[index].name);
         }
     }
 };
