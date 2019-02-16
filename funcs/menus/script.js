@@ -36,13 +36,11 @@ var menus = {
         $("menu").fadeOut(500);
 
         if (!menus.cancel) {
-            setTimeout(function() {
-                if (menus.openedMenu != null) {
-                    if (sReader.reading) {sReader.speak(_("Menu closed"));}
-                }
+            if (menus.openedMenu != null) {
+                if (sReader.reading) {sReader.speak(_("Menu closed"));}
+            }
 
-                menus.openedMenu = null;
-            }, 500);
+            menus.openedMenu = null;
         }
     }
 };
