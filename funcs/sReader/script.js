@@ -221,7 +221,7 @@ $(function() {
                 var iPass = i;
 
                 $(document).on("mouseover", "h" + i + ":not([data-no-sreader])", function(event) {
-                    if (sReader.reading) {_("%-level heading: ", sReader.speak(levels[Number($(event.target).get(0).tagName[1]) - 1]) + event.target.innerHTML);}
+                    if (sReader.reading) {sReader.speak(_("%-level heading: ", levels[Number($(event.target).get(0).tagName[1]) - 1]) + event.target.innerHTML);}
                 });
             }
 
