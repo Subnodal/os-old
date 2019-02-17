@@ -187,3 +187,7 @@ div.cardButtons {
     height: 100px;
     border-radius: 100px;
 }
+
+#frameInput {
+    display: none;
+}

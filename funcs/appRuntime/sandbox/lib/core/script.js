@@ -38,7 +38,7 @@ var core;
             helloResponse: core.responseKey
         }, "*");
         
-        $(document).on("click", function() {
+        $(document).on("click", "*", function() {
             parent.postMessage({
                 for: "subOS",
                 bringToFront: true,

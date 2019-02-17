@@ -134,7 +134,7 @@ function newWindow(src, title = "Untitled App", icon = "media/defaultAccount.png
             $(this).css("background-color", "var(--uiColour)");
             $(this).siblings("window").css("background-color", "var(--uiDeselectedColour)");
 
-            $(".infoBar, .appBar, menu, #alertBackground, #alertBox, #sReader, #sReaderBlackout").css("z-index", zIndexLevel + 1);
+            $(".infoBar, .appBar, menu, #alertBackground, #alertBox, #sReader, #sReaderBlackout, #ime, #osk").css("z-index", zIndexLevel + 1);
 
             $(".appBarOpenAppButton[response-key-link='" + $(this).attr("response-key") + "']").children(".appBarOpenAppIcon").addClass("selected");
             $(".appBarOpenAppButton:not([response-key-link='" + $(this).attr("response-key") + "'])").children(".appBarOpenAppIcon").removeClass("selected");

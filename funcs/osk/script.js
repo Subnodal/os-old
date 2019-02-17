@@ -2,12 +2,14 @@ var osk = {
     animating: false,
     selectedInput: null,
     selectedInputStart: 0,
+    selectedInputEnd: 0,
     lang: lang.lang,
     layout: null,
     keyboardLayout: [],
     shifting: false,
+    throughFrame: null,
 
-    open: function(selectedInput = $("*:focus")) {
+    open: function(selectedInput = $("*:focus"), throughFrame = false) {
         if (!osk.animating) {
             osk.animating = true;
 
@@ -15,9 +17,19 @@ var osk = {
                 sReader.speak("On-screen keyboard opened");
             }
 
+            $("#frameInput").val("");
+            osk.selectedInputStart = 0;
+            osk.selectedInputEnd = 0;
+
             $("#osk").show();
 
-            osk.selectedInput = selectedInput;
+            if (throughFrame) {
+                osk.throughFrame = $(document.activeElement);
+                osk.selectedInput = $("#frameInput");
+            } else {
+                osk.throughFrame = null;
+                osk.selectedInput = selectedInput;
+            }
 
             setTimeout(function() {
                 $("#osk").css("top", "60vh");
@@ -38,10 +50,12 @@ var osk = {
             }
 
             $("#osk").css("top", "100vh");
+            $("#frameInput").val("");
 
             osk.selectedInput = null;
             osk.selectedInputStart = null;
             osk.selectedInputEnd = null;
+            osk.throughFrame = null;
 
             setTimeout(function() {
                 $("#osk").hide();
@@ -87,6 +101,13 @@ var osk = {
 
         osk.selectedInputStart = document.activeElement.selectionStart;
         osk.selectedInputEnd = document.activeElement.selectionEnd;
+
+        if (osk.throughFrame != null) {
+            osk.throughFrame[0].contentWindow.postMessage({
+                for: "subOSOSK",
+                set: $("#frameInput").val()
+            }, "*");
+        }
     },
 
     toggleShift: function(set = null) {
@@ -234,9 +255,18 @@ var osk = {
         $("#osk").click(function(event) {
             event.stopPropagation();
 
-            osk.selectedInput.focus();
+            if (osk.throughFrame) {osk.selectedInput.focus();}
+
             document.activeElement.selectionStart = osk.selectedInputStart;
             document.activeElement.selectionEnd = osk.selectedInputEnd;
+
+            if (osk.throughFrame != null) {
+                osk.throughFrame[0].contentWindow.postMessage({
+                    for: "subOSOSK",
+                    selectionStart: osk.selectedInputStart,
+                    selectionEnd: osk.selectedInputEnd
+                }, "*");
+            }
         });
 
         $("#osk").children().click(function(event) {
@@ -254,4 +284,19 @@ var osk = {
 
 $(function() {
     osk.init();
+
+    addEventListener("message", function(event) {
+        if (event.data.for == "subOSOSK") {
+            if (event.data.open && tablet.inUse) {
+                osk.open(undefined, true);
+            } else if (event.data.close) {
+                osk.close();
+            } else if (event.data.set != undefined) {
+                $("#frameInput").val(event.data.set);
+            } else if (event.data.selectionStart != undefined && event.data.selectionEnd != undefined) {
+                document.activeElement.selectionStart = event.data.selectionStart;
+                document.activeElement.selectionEnd = event.data.selectionEnd;
+            }
+        }
+    });
 });
