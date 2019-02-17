@@ -33,12 +33,21 @@ div.windowBar {
     cursor: default;
 }
 
+html[dir="rtl"] div.windowBar {
+    float: right;
+}
+
 div.windowButtons {
     width: 80px;
     height: 20px;
     float: left;
     text-align: right;
     user-select: none;
+}
+
+html[dir="rtl"] div.windowButtons {
+    float: right;
+    text-align: left;
 }
 
 button.windowButton {

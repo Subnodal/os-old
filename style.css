@@ -41,6 +41,10 @@ div.cardButtons {
     text-align: right;
 }
 
+html[dir="rtl"] div.cardButtons {
+    text-align: left;
+}
+
 .infoBar {
     position: fixed;
     top: 0;
@@ -64,6 +68,10 @@ div.cardButtons {
 .infoBarRight {
     float: right;
     height: 100%;
+}
+
+html[dir="rtl"] .infoBarRight {
+    float: left;
 }
 
 .infoBarRight > .infoButton:last-of-type {
@@ -98,11 +106,25 @@ div.cardButtons {
     overflow-y: hidden;
 }
 
+html[dir="rtl"] .appBarAppLauncherRTL {
+    margin-right: 10px;
+}
+
+html[dir="rtl"] .appBarNotificationsRTL {
+    left: 5px;
+    right: unset;
+}
+
 .appBarOpenApps {
     display: inline-block;
     padding-left: 10px;
     padding-right: 64px;
     min-width: calc(100vw - 150px);
+}
+
+html[dir="rtl"] .appBarOpenApps {
+    padding-left: 64px;
+    padding-right: 0;
 }
 
 .appBarOpenAppButton, .appBarOptionsButton {
