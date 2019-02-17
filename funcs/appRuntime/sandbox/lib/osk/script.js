@@ -62,6 +62,8 @@ $(function() {
                     .val(event.data.set)
                     .focus()
                 ;
+            } else if (event.data.focus) {
+                osk.selectedInput.focus();
             } else if (event.data.selectionStart != undefined && event.data.selectionEnd != undefined) {
                 document.activeElement.selectionStart = event.data.selectionStart;
                 document.activeElement.selectionEnd = event.data.selectionEnd;

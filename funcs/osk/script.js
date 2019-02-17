@@ -107,6 +107,13 @@ var osk = {
                 for: "subOSOSK",
                 set: $("#frameInput").val()
             }, "*");
+
+            osk.throughFrame[0].contentWindow.postMessage({
+                for: "subOSOSK",
+                focus: true,
+            }, "*");
+        } else {
+            osk.selectedInput.focus();
         }
     },
 
@@ -123,6 +130,13 @@ var osk = {
             $(".oskShift").addClass("on");
         } else {
             $(".oskShift").removeClass("on");
+        }
+
+        if (osk.throughFrame != null) {
+            osk.throughFrame[0].contentWindow.postMessage({
+                for: "subOSOSK",
+                focus: true
+            }, "*");
         }
     },
 
