@@ -62,6 +62,20 @@ $(function() {
                     .val(event.data.set)
                     .focus()
                 ;
+            } else if (event.data.key != undefined) {
+                var imeEvent = $.Event("keydown");
+                imeEvent.target = osk.selectedInput[0];
+
+                if (event.data.key != 32) {imeEvent.fromOSK = true;}
+                
+                imeEvent.keyCode = event.data.key;
+
+                ime.doEvent(imeEvent);
+                ime.registerFinal(imeEvent);
+
+                setTimeout(function() {
+                    if (ime.pinyinCharBuffer.length > 1 && ime.candidates.length > 0) {ime.show();}
+                });
             } else if (event.data.focus) {
                 osk.selectedInput.focus();
             } else if (event.data.selectionStart != undefined && event.data.selectionEnd != undefined) {

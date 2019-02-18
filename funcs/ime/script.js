@@ -36,9 +36,11 @@ var ime = {
         }
     },
 
-    useCandidate: function(candidate) {
+    useCandidate: function(candidate, fromOSK = false) {
         if (candidate != undefined) {
             var oldPosition = document.activeElement.selectionStart;
+
+            if (fromOSK) {document.activeElement.selectionStart--;}
             
             var suffix = $(document.activeElement).val().substring(document.activeElement.selectionStart);
 
@@ -52,10 +54,10 @@ var ime = {
         }
     },
 
-    getCandidates: function(target) {
+    getCandidates: function(target, fromOSK = false) {
         if (ime.maps.pinyin[ime.pinyinCharBuffer.join("").toLowerCase()] == undefined && ime.pinyinCharBuffer.length > 2) {
             if (ime.candidates != undefined && ime.candidates[0] != undefined) {
-                ime.useCandidate(ime.candidates[0]);
+                ime.useCandidate(ime.candidates[0], fromOSK);
             }
         } else {
             ime.candidates = ime.maps.pinyin[ime.pinyinCharBuffer.join("").toLowerCase()];
@@ -65,7 +67,7 @@ var ime = {
     doEvent: function(event) {
         if (ime.inUse) {
             ime.registerChar(event.keyCode, event);
-            ime.getCandidates($(event.target));
+            ime.getCandidates($(event.target), event.fromOSK == true);
 
             if (ime.candidates == undefined) {
                 ime.candidates = [];
@@ -75,8 +77,6 @@ var ime = {
                 $("#ime").text(ime.candidates.join(" "));
 
                 ime.show();
-
-                if (sReader.reading) {}
             } else {
                 ime.hide();
             }
@@ -96,25 +96,27 @@ var ime = {
         }
     },
 
+    registerFinal: function(event) {
+        if (ime.inUse) {
+            if (event.keyCode == 32) {
+                $(event.target).val($(event.target).val().substring(0, document.activeElement.selectionStart - (event.fromOSK == true ? 0 : 1)) + $(event.target).val().substring(document.activeElement.selectionStart));
+
+                ime.useCandidate(ime.candidates[0], event.fromOSK == true);
+
+                ime.pinyinCharBuffer = [];
+
+                event.preventDefault();
+            }
+        }
+    },
+
     init: function() {
         ime.hide();
 
         $(document).on("keydown", "input:not([type=password])", ime.doEvent);
         $(document).on("click", "input:not([type=password])", ime.doEvent);
 
-        $(document).on("keydown", "input:not([type=password])", function(e) {
-            if (ime.inUse) {
-                if (e.keyCode == 32) {
-                    $(e.target).val($(e.target).val().substring(0, document.activeElement.selectionStart - 1) + $(e.target).val().substring(document.activeElement.selectionStart));
-
-                    ime.useCandidate(ime.candidates[0]);
-
-                    ime.pinyinCharBuffer = [];
-
-                    event.preventDefault();
-                }
-            }
-        });
+        $(document).on("keydown", "input:not([type=password])", ime.registerFinal);
 
         $(document).on("focus", "*:not(input)", ime.hide);
         $(document).on("click", "*:not(input)", ime.hide);

@@ -66,6 +66,10 @@ var osk = {
     },
 
     click: function(char, other) {
+        var imeEvent = $.Event("keydown");
+        imeEvent.target = osk.selectedInput[0];
+        imeEvent.fromOSK = true;
+
         if (char != "") {
             if (osk.selectedInputStart != osk.selectedInputEnd) {
                 osk.selectedInput.val(osk.selectedInput.val().substring(0, osk.selectedInputStart) + osk.selectedInput.val().substring(osk.selectedInputEnd));
@@ -81,6 +85,8 @@ var osk = {
             osk.selectedInput.focus();
             document.activeElement.selectionStart = osk.selectedInputStart + 1;
             document.activeElement.selectionEnd = osk.selectedInputStart + 1;
+
+            imeEvent.keyCode = char.toUpperCase().charCodeAt(0);
         } else if (other == "backspace") {
             if (osk.selectedInputStart != osk.selectedInputEnd) {
                 osk.selectedInput.val(osk.selectedInput.val().substring(0, osk.selectedInputStart) + osk.selectedInput.val().substring(osk.selectedInputEnd));
@@ -97,15 +103,31 @@ var osk = {
                 document.activeElement.selectionStart = osk.selectedInputStart - 1;
                 document.activeElement.selectionEnd = osk.selectedInputStart - 1;
             }
+
+            imeEvent.keyCode = 8;
         }
 
         osk.selectedInputStart = document.activeElement.selectionStart;
         osk.selectedInputEnd = document.activeElement.selectionEnd;
 
         if (osk.throughFrame != null) {
+            if (ime.inUse && char == " ") {
+                osk.selectedInput.val(osk.selectedInput.val().substring(0, osk.selectedInputStart - 1) + osk.selectedInput.val().substring(osk.selectedInputEnd));
+
+                osk.selectedInput.focus();
+
+                document.activeElement.selectionStart = osk.selectedInputStart;
+                document.activeElement.selectionEnd = osk.selectedInputStart;
+            }
+            
             osk.throughFrame[0].contentWindow.postMessage({
                 for: "subOSOSK",
-                set: $("#frameInput").val()
+                set: $("#frameInput").val(),
+            }, "*");
+
+            osk.throughFrame[0].contentWindow.postMessage({
+                for: "subOSOSK",
+                key: imeEvent.keyCode,
             }, "*");
 
             osk.throughFrame[0].contentWindow.postMessage({
@@ -114,6 +136,17 @@ var osk = {
             }, "*");
         } else {
             osk.selectedInput.focus();
+        }
+
+        if (osk.throughFrame == null) {
+            if (char != " ") {
+                ime.doEvent(imeEvent);
+                ime.registerFinal(imeEvent);
+            } else if (ime.inUse) {
+                osk.selectedInput.val(osk.selectedInput.val().substring(0, osk.selectedInputStart - 1) + osk.selectedInput.val().substring(osk.selectedInputEnd));
+                imeEvent.fromOSK = false;
+                ime.registerFinal(imeEvent);
+            }
         }
     },
 
