@@ -1,6 +1,10 @@
 # os
 subOS, Subnodal's operating system built for the web. https://subnodal.com/os
 
+## Licence
+subOS is licensed by the [Subnodal Closed-Source Licence for subOS Front-End](LICENCE.md).
+You may not distribute subOS, as explained in the licence.
+
 ## Structure
 subOS is run from only one HTML file, [index.html](https://github.com/Subnodal/os/blob/master/index.html). index.html acts as the screen
 that is viewed in a browser. There is only one HTML file so that there isn't
@@ -86,7 +90,7 @@ If you want to set some HTML content using JS, construct it like the following:
 
     $(".myDiv").html(`
         <span>@You got the lucky number %!|` + luckyNumber + `</span> <a>Something else</a>
-    `)
+    `);
 
 ```
 
@@ -96,7 +100,7 @@ For more than one part:
 
     $(".myDiv").html(`
         <span>@You got the lucky number %! The number % was also another number.|` + luckyNumber + `,` + otherNumber + `</span> <a>Something else entirely</a>
-    `)
+    `);
 
 ```
 
