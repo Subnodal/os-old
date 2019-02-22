@@ -6,15 +6,18 @@ subOS is licensed by the [Subnodal Closed-Source Licence for subOS Front-End](LI
 You may not distribute subOS, as explained in the licence.
 
 ## Structure
-subOS is run from only one HTML file, [index.html](https://github.com/Subnodal/os/blob/master/index.html). index.html acts as the screen
-that is viewed in a browser. There is only one HTML file so that there isn't
-any excessive loading time between screens ─ you only have to load one big file
-(similar to booting a real computer) which can go into the browser cache for
-quicker loading later (if you're on the web version, the native version
-does not take as long to load as the file is stored locally).
+subOS is run from only one HTML file, [index.html](https://github.com/Subnodal/os/blob/master/index.html).
+index.html acts as the screen that is viewed in a browser. There is only one
+HTML file so that there isn't any excessive loading time between screens ─
+you only have to load one big file (similar to booting a real computer) which
+can go into the browser cache for quicker loading later (that's if you're on
+the web version, the native version does not take as long to load as the file
+is stored locally).
 
-To make it eaiser for development, the `<screen>` tag is defined (scripts at [funcs/screens](https://github.com/Subnodal/os/tree/master/funcs/screens)) so that there is a sense that there are multiple HTML files but
-really there isn't. There is also the benefit of screen transitions too.
+To make it eaiser for development, the `<screen>` tag is defined (scripts at
+[funcs/screens](https://github.com/Subnodal/os/tree/master/funcs/screens)) so
+that there is a sense that there are multiple HTML files but really there
+isn't. There is also the benefit of screen transitions too.
 
 ### Using the `<screen>` tag
 The `<screen>` tag requires a `name` attribute and a `data-readable` tag so
@@ -87,21 +90,17 @@ Don't forget the list as the second parameter above!
 If you want to set some HTML content using JS, construct it like the following:
 
 ```js
-
-    $(".myDiv").html(`
-        <span>@You got the lucky number %!|` + luckyNumber + `</span> <a>Something else</a>
-    `);
-
+$(".myDiv").html(`
+    <span>@You got the lucky number %!|` + luckyNumber + `</span> <a>Something else</a>
+`);
 ```
 
 For more than one part:
 
 ```js
-
-    $(".myDiv").html(`
-        <span>@You got the lucky number %! The number % was also another number.|` + luckyNumber + `,` + otherNumber + `</span> <a>Something else entirely</a>
-    `);
-
+$(".myDiv").html(`
+    <span>@You got the lucky number %! The number % was also another number.|` + luckyNumber + `,` + otherNumber + `</span> <a>Something else entirely</a>
+`);
 ```
 
 You should also use the `@` in the `data-readable` attribute too so that they
