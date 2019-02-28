@@ -1,9 +1,9 @@
 var appLauncher = {
     apps: [
         {
-            name: _("Calculator"),
+            name: _("Test App"),
             native: true,
-            nativeHTML: systemApps["calculator"]
+            nativeHTML: systemApps["testApp"]
         }
     ],
 
