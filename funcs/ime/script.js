@@ -4,7 +4,24 @@ var ime = {
     inUse: false,
     pinyinCharBuffer: [],
     candidates: [],
-    punctuationSwaps: {".": "。", ",": "，", "!": "！", "?": "？", "(": "（", ")": "）", "{": "｛", "}": "｝", "[": "【", "]": "】", "<": "《", ">": "》", ":": "：", ";": "；", "\"": "“", "'": "‘", ",": "、"},
+    punctuationKeys: {
+        "190,false": "。",    // .
+        "188,false": "，",    // ,
+        "49,true": "！",      // !
+        "191,true": "？",     // ?
+        "57,true": "（",      // (
+        "58,true": "）",      // )
+        "219,true": "｛",     // {
+        "221,true": "｝",     // }
+        "219,false": "【",    // [
+        "221,false": "】",    // ]
+        "188,true": "《",     // <
+        "190,true": "》",     // >
+        "186,true": "：",     // :
+        "186,false": "；",    // ;
+        "50,true": "“",      // "
+        "192,false": "‘"     // '
+    },
 
     show: function() {
         if (ime.inUse) {
@@ -98,14 +115,48 @@ var ime = {
 
     registerFinal: function(event) {
         if (ime.inUse) {
-            if (event.keyCode == 32) {
-                $(event.target).val($(event.target).val().substring(0, document.activeElement.selectionStart - (event.fromOSK == true ? 0 : 1)) + $(event.target).val().substring(document.activeElement.selectionStart));
+            if ((event.keyCode == 32 || [event.keyCode, event.shiftKey].toString() in ime.punctuationKeys) && ime.pinyinCharBuffer.length != 0) {
+                var oldPosition = document.activeElement.selectionStart;
+                var oldLength = $(event.target).val().length;
+                
+                $(event.target).val($(event.target).val().substring(0, document.activeElement.selectionStart - (event.fromOSK == true ? 0 : 1) - (document.activeElement.selectionStart >= $(event.target).val().length ? 0 : 1)) + $(event.target).val().substring(document.activeElement.selectionStart - (document.activeElement.selectionStart >= $(event.target).val().length ? 0 : 1)));
+
+                if (oldPosition < oldLength) {
+                    document.activeElement.selectionStart = oldPosition - 1;
+                    document.activeElement.selectionEnd = oldPosition - 1;
+                } else {
+                    document.activeElement.selectionStart = oldPosition;
+                    document.activeElement.selectionEnd = oldPosition;
+                }
 
                 ime.useCandidate(ime.candidates[0], event.fromOSK == true);
+                ime.hide();
 
                 ime.pinyinCharBuffer = [];
 
                 event.preventDefault();
+
+                if ([event.keyCode, event.shiftKey].toString() in ime.punctuationKeys) {
+                    var oldPosition = document.activeElement.selectionStart;
+                    var suffix = $(document.activeElement).val().substring(document.activeElement.selectionStart);
+
+                    $(document.activeElement).val($(document.activeElement).val().substring(0, document.activeElement.selectionStart) + ime.punctuationKeys[[event.keyCode, event.shiftKey].toString()] + suffix);
+
+                    document.activeElement.selectionStart = oldPosition + 1;
+                    document.activeElement.selectionEnd = oldPosition + 1;
+                }
+            } else if ([event.keyCode, event.shiftKey].toString() in ime.punctuationKeys) {
+                event.preventDefault();
+
+                if ([event.keyCode, event.shiftKey].toString() in ime.punctuationKeys) {
+                    var oldPosition = document.activeElement.selectionStart;
+                    var suffix = $(document.activeElement).val().substring(document.activeElement.selectionStart);
+
+                    $(document.activeElement).val($(document.activeElement).val().substring(0, document.activeElement.selectionStart) + ime.punctuationKeys[[event.keyCode, event.shiftKey].toString()] + suffix);
+
+                    document.activeElement.selectionStart = oldPosition + 1;
+                    document.activeElement.selectionEnd = oldPosition + 1;
+                }
             }
         }
     },
@@ -120,21 +171,6 @@ var ime = {
 
         $(document).on("focus", "*:not(input)", ime.hide);
         $(document).on("click", "*:not(input)", ime.hide);
-
-        setInterval(function() {
-            if (ime.inUse && $(document.activeElement).is("input:not([type=password])")) {
-                for (var i = 0; i < Object.keys(ime.punctuationSwaps).length; i++) {
-                    if (new RegExp("\\" + Object.keys(ime.punctuationSwaps)[i], "g").test($(document.activeElement).val())) {
-                        var oldPosition = document.activeElement.selectionStart;
-
-                        $(document.activeElement).val($(document.activeElement).val().replace(new RegExp("\\" + Object.keys(ime.punctuationSwaps)[i], "g"), ime.punctuationSwaps[Object.keys(ime.punctuationSwaps)[i]]));
-
-                        document.activeElement.selectionStart = oldPosition;
-                        document.activeElement.selectionEnd = oldPosition;
-                    }
-                }
-            }
-        });
     }
 };
 
