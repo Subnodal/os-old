@@ -148,15 +148,13 @@ var ime = {
             } else if ([event.keyCode, event.shiftKey].toString() in ime.punctuationKeys) {
                 event.preventDefault();
 
-                if ([event.keyCode, event.shiftKey].toString() in ime.punctuationKeys) {
-                    var oldPosition = document.activeElement.selectionStart;
-                    var suffix = $(document.activeElement).val().substring(document.activeElement.selectionStart);
+                var oldPosition = document.activeElement.selectionStart;
+                var suffix = $(document.activeElement).val().substring(document.activeElement.selectionStart);
 
-                    $(document.activeElement).val($(document.activeElement).val().substring(0, document.activeElement.selectionStart) + ime.punctuationKeys[[event.keyCode, event.shiftKey].toString()] + suffix);
+                $(document.activeElement).val($(document.activeElement).val().substring(0, document.activeElement.selectionStart) + ime.punctuationKeys[[event.keyCode, event.shiftKey].toString()] + suffix);
 
-                    document.activeElement.selectionStart = oldPosition + 1;
-                    document.activeElement.selectionEnd = oldPosition + 1;
-                }
+                document.activeElement.selectionStart = oldPosition + 1;
+                document.activeElement.selectionEnd = oldPosition + 1;
             }
         }
     },
