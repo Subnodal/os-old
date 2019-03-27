@@ -53,7 +53,7 @@ var ime = {
         }
     },
 
-    useCandidate: function(candidate, fromOSK = false) {
+    useCandidate: function(candidate, fromOSK = false, didOSKSkip = false) {
         if (candidate != undefined) {
             var oldPosition = document.activeElement.selectionStart;
 
@@ -61,10 +61,27 @@ var ime = {
             
             var suffix = $(document.activeElement).val().substring(document.activeElement.selectionStart);
 
-            $(document.activeElement).val($(document.activeElement).val().substring(0, document.activeElement.selectionStart - ime.pinyinCharBuffer.length + 1) + candidate + suffix);
+            $(document.activeElement).val($(document.activeElement).val().substring(0, document.activeElement.selectionStart - ime.pinyinCharBuffer.length + (didOSKSkip ? 0 : 1)) + candidate + suffix);
 
-            document.activeElement.selectionStart = oldPosition - ime.pinyinCharBuffer.length + 2;
-            document.activeElement.selectionEnd = oldPosition - ime.pinyinCharBuffer.length + 2;
+            var delayedPosition = oldPosition - ime.pinyinCharBuffer.length + 1;
+
+            if (!didOSKSkip) {
+                document.activeElement.selectionStart = oldPosition - ime.pinyinCharBuffer.length + 2;
+                document.activeElement.selectionEnd = oldPosition - ime.pinyinCharBuffer.length + 2;
+            } else {
+                setTimeout(function() {
+                    document.activeElement.selectionStart = delayedPosition;
+                    document.activeElement.selectionEnd = delayedPosition;
+
+                    if (osk.throughFrame != null) {
+                        osk.throughFrame[0].contentWindow.postMessage({
+                            for: "subOSOSK",
+                            selectionStart: delayedPosition,
+                            selectionEnd: delayedPosition
+                        }, "*");
+                    }
+                });
+            }
 
             ime.candidates = [];
             ime.pinyinCharBuffer = [ime.pinyinCharBuffer.pop()];
@@ -113,7 +130,7 @@ var ime = {
         }
     },
 
-    registerFinal: function(event) {
+    registerFinal: function(event, didOSKSkip = false) {
         if (ime.inUse) {
             if ((event.keyCode == 32 || [event.keyCode, event.shiftKey].toString() in ime.punctuationKeys) && ime.pinyinCharBuffer.length != 0) {
                 var oldPosition = document.activeElement.selectionStart;
@@ -129,7 +146,7 @@ var ime = {
                     document.activeElement.selectionEnd = oldPosition;
                 }
 
-                ime.useCandidate(ime.candidates[0], event.fromOSK == true);
+                ime.useCandidate(ime.candidates[0], event.fromOSK == true, didOSKSkip);
                 ime.hide();
 
                 ime.pinyinCharBuffer = [];

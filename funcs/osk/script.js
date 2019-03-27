@@ -143,9 +143,16 @@ var osk = {
                 ime.doEvent(imeEvent);
                 ime.registerFinal(imeEvent);
             } else if (ime.inUse) {
-                osk.selectedInput.val(osk.selectedInput.val().substring(0, osk.selectedInputStart - 1) + osk.selectedInput.val().substring(osk.selectedInputEnd));
+                var didOSKSkip = false;
+
+                if (document.activeElement.selectionStart >= $(osk.selectedInput).val().length) {
+                    osk.selectedInput.val(osk.selectedInput.val().substring(0, osk.selectedInputStart - 1) + osk.selectedInput.val().substring(osk.selectedInputEnd));
+                } else {
+                    didOSKSkip = true;
+                }
+                
                 imeEvent.fromOSK = false;
-                ime.registerFinal(imeEvent);
+                ime.registerFinal(imeEvent, didOSKSkip);
             }
         }
     },
