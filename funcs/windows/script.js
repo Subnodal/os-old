@@ -221,7 +221,7 @@ $(function() {
     });
 
     $(document.body).on("dblclick", ".windowBar", function() {
-        if ($(this).parent().width() == $(window).width()) {
+        if (Math.round($(this).parent().width()) == $(window).width()) {
             $(this).css({
                 "width": "calc(100% - 90px)",
                 "padding-left": "5px",
