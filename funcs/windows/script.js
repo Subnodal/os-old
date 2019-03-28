@@ -217,6 +217,7 @@ $(function() {
     $("windows").mousedown(function(event) {
         if (event.target == this) {
             $("window").css("background-color", "var(--uiDeselectedColour)");
+            $(".appBarOpenAppButton").children(".appBarOpenAppIcon").removeClass("selected");
         }
     });
 
