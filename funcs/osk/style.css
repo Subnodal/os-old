@@ -52,6 +52,10 @@
     text-align: left;
 }
 
+.oskSpecial, .oskExit {
+    height: calc(calc(40vh / 4) - 30px);
+}
+
 @media (max-width: 110vh) {
     .oskButton {
         min-width: calc(8vw - 10px);
