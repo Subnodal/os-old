@@ -481,7 +481,7 @@ $(function() {
             if (document.activeElement != document.body) {
                 if ($(document.activeElement).text() == "") {
                     if ($(document.activeElement).val() == "") {
-                        sReader.speak(_("Empty"), slow, spell);
+                        sReader.speak(_("Empty"));
                     } else {
                         sReader.speak($(document.activeElement).val(), slow, spell);
                     }
