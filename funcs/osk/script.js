@@ -8,14 +8,18 @@ var osk = {
     keyboardLayout: [],
     shifting: false,
     throughFrame: null,
+    wasUsed: false,
+    isOpen: false,
 
     open: function(selectedInput = $("*:focus"), throughFrame = false) {
         if (!osk.animating) {
             osk.animating = true;
-
-            if (sReader.reading) {
-                sReader.speak("On-screen keyboard opened");
+            
+            if (sReader.reading && !osk.isOpen) {
+                sReader.speak(_("On-screen keyboard opened"));
             }
+
+            osk.isOpen = true;
 
             $("#frameInput").val("");
             osk.selectedInputStart = 0;
@@ -45,9 +49,11 @@ var osk = {
         if (!osk.animating) {
             osk.animating = true;
 
-            if (sReader.reading) {
-                sReader.speak("On-screen keyboard closed");
+            if (sReader.reading && osk.isOpen) {
+                sReader.speak(_("On-screen keyboard closed"));
             }
+
+            osk.isOpen = false;
 
             $("#osk").css("top", "100vh");
             $("#frameInput").val("");
@@ -69,6 +75,10 @@ var osk = {
         var imeEvent = $.Event("keydown");
         imeEvent.target = osk.selectedInput[0];
         imeEvent.fromOSK = true;
+
+        osk.wasUsed = true;
+
+        if (sReader.reading) {sReader.playTone("enter");}
 
         if (char != "") {
             if (osk.selectedInputStart != osk.selectedInputEnd) {

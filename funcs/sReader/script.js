@@ -93,6 +93,37 @@ $(function() {
             }, 250);
         },
 
+        speakOSKKey: function(key) {
+            if (key == "") {
+                sReader.speak(_("Space"));
+            } else {
+                sReader.speak(key
+                    .toUpperCase()
+                    .replace(/\s/g, _("Space"))
+                    .replace(/!/g, _("Exclamation mark"))
+                    .replace(/\?/g, _("Question mark"))
+                    .replace(/\./g, _("Dot"))
+                    .replace(/"/g, _("Quote"))
+                    .replace(/'/g, _("Single quote"))
+                    .replace(/,/g, _("Comma"))
+                    .replace(/\//g, _("Slash"))
+                    .replace(/\\/g, _("Backslash"))
+                    .replace(/\|/g, _("Pipe"))
+                    .replace(/:/g, _("Colon"))
+                    .replace(/;/g, _("Semicolon"))
+                    .replace(/\(/g, _("Opening parenthesis"))
+                    .replace(/\)/g, _("Closing parenthesis"))
+                    .replace(/\[/g, _("Opening square bracket"))
+                    .replace(/\]/g, _("Closing square bracket"))
+                    .replace(/\{/g, _("Opening brace bracket"))
+                    .replace(/\}/g, _("Closing brace bracket"))
+                    .replace(/\</g, _("Less than"))
+                    .replace(/\>/g, _("Greater than"))
+                    .replace(/-/g, _("Dash"))
+                );
+            }
+        },
+
         playTone: function(name, pan = 0) {
             var panner = new Pizzicato.Effects.StereoPanner({
                 pan: pan
@@ -142,12 +173,16 @@ $(function() {
                     var code = (e.keyCode ? e.keyCode : e.which);
                     if (code == 9) {
                         if (sReader.reading) {
-                            sReader.playPanTone("button", $(event.target));
-
-                            if ($(event.target).attr("data-readable") == undefined) {
-                                sReader.speak($(event.target).text() + _(": Button"));
+                            if (!$(event.target).hasClass("oskButton")) {
+                                sReader.playPanTone("button", $(event.target));
+                                
+                                if ($(event.target).attr("data-readable") == undefined) {
+                                    sReader.speak($(event.target).text() + _(": Button"));
+                                } else {
+                                    sReader.speak($(event.target).attr("data-readable") + _(": Button"));
+                                }
                             } else {
-                                sReader.speak($(event.target).attr("data-readable") + _(": Button"));
+                                sReader.speakOSKKey($(event.target).text());
                             }
                         }
                     }
@@ -304,13 +339,19 @@ $(function() {
             });
 
             $(document).on("mouseover", "button:not([data-no-sreader]):not(.menuItem), a.button", function(event) {
-                if (sReader.reading) {
-                    sReader.playPanTone("button", $(event.target));
-                    
-                    if ($(this).attr("data-readable") == undefined) {
-                        sReader.speak(event.target.innerHTML + _(": Button"));
-                    } else {
-                        sReader.speak($(this).attr("data-readable") + _(": Button"));
+                if ($(event.target).is("button") || $(event.target).is("a.button") || $(event.target).attr("data-readable") != undefined) {
+                    if (sReader.reading) {                    
+                        if (!$(event.target).hasClass("oskButton")) {
+                            sReader.playPanTone("button", $(event.target));
+                            
+                            if ($(event.target).attr("data-readable") == undefined) {
+                                sReader.speak($(event.target).text() + _(": Button"));
+                            } else {
+                                sReader.speak($(event.target).attr("data-readable") + _(": Button"));
+                            }
+                        } else {
+                            sReader.speakOSKKey($(event.target).text());
+                        }
                     }
                 }
             });
@@ -348,29 +389,41 @@ $(function() {
             });
 
             $(document).on("focusin", "input", function(event) {
-                if (sReader.reading) {sReader.playPanTone("input", $(event.target));}
+                if (!osk.wasUsed) {
+                    if (sReader.reading) {sReader.playPanTone("input", $(event.target));}
 
-                if ($(this).attr("data-readable") == undefined) {
-                    if ($(this).attr("id") != undefined && $("label[for=" + $(this).attr("id") + "]").length > 0) {
-                        if (sReader.reading) {sReader.speak(_("Editing %: Text Input", $("label[for=" + $(this).attr("id") + "]:first").text()));}
-                    } else {
-                        if ($(this).attr("placeholder") != undefined) {
-                            if (sReader.reading) {sReader.speak(_("Editing %: Text Input", $(this).attr("placeholder")));}
+                    if ($(this).attr("data-readable") == undefined) {
+                        if ($(this).attr("id") != undefined && $("label[for=" + $(this).attr("id") + "]").length > 0) {
+                            if (sReader.reading) {sReader.speak(_("Editing %: Text Input", $("label[for=" + $(this).attr("id") + "]:first").text()));}
                         } else {
-                            if (sReader.reading) {sReader.speak("Editing: Text Input");}
+                            if ($(this).attr("placeholder") != undefined) {
+                                if (sReader.reading) {sReader.speak(_("Editing %: Text Input", $(this).attr("placeholder")));}
+                            } else {
+                                if (sReader.reading) {sReader.speak("Editing: Text Input");}
+                            }
                         }
+                    } else {
+                        if (sReader.reading) {sReader.speak(_("Editing %: Text Input", $(this).attr("data-readable")));}
                     }
                 } else {
-                    if (sReader.reading) {sReader.speak(_("Editing %: Text Input", $(this).attr("data-readable")));}
+                    setTimeout(function() {
+                        osk.wasUsed = false;
+                    });
                 }
             });
 
             $(document).on("focusout", "input", function(event) {
-                if ($(this).attr("data-readable") == undefined) {
-                    if (sReader.reading) {sReader.speak(_("Editing stopped"));}
-                } else {
-                    if (sReader.reading) {sReader.speak(_("Editing stopped"));}
-                }
+                var thisPassOn = this;
+
+                setTimeout(function() {
+                    if (!$(document.activeElement).hasClass("oskButton")) {
+                        if ($(thisPassOn).attr("data-readable") == undefined) {
+                            if (sReader.reading) {sReader.speak(_("Editing stopped"));}
+                        } else {
+                            if (sReader.reading) {sReader.speak(_("Editing stopped"));}
+                        }
+                    }
+                });
             });
 
             $(document).on("mouseover", "input", function(event) {

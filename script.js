@@ -144,6 +144,7 @@ $(function() {
                             <img
                                 src="` + (accounts[i].image != undefined ? accounts[i].image.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") : "media/defaultAccount.png") + `"
                                 onerror="this.src = 'media/defaultAccount.png';"
+                                data-readable="@Select %|` + accounts[i].name.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") + `"
                                 class="signInPersonalImage" data-account=` + i + `
                             />
                         </a>
