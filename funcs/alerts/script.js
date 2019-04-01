@@ -1,6 +1,7 @@
 function alert(content, title = "", buttons = [{text: _("OK"), type: "normal", onclick: "closeAlert();"}]) {
     $("#alertBox").html(`
         <div class="alertContent">
+            <div class="alertContentLandmark" tabindex="0"></div>
             ` + (title == "" ? "" : `<h1 class="normal noMargin">` + title.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/&/g, "&amp;") + `</h1>`) + `
             <p class="noMargin">` + content.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/&/g, "&amp;").replace(/\n/g, "<br>") + `</p>
         </div>
@@ -17,8 +18,7 @@ function alert(content, title = "", buttons = [{text: _("OK"), type: "normal", o
     }
 
     $("#alertBackground, #alertBox").fadeIn();
-
-    $("#alertContent").focus();
+    $(".alertContentLandmark").focus().remove();
 
     if (sReader.reading) {
         sReader.playTone("alert");
