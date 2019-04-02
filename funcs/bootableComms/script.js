@@ -69,6 +69,10 @@ $(function() {
             bc.init();
         } else {
             bc.generationKey = getURLParameter("bckey");
+
+            $("#bootEntry").fadeOut();
         }
+    } else {
+        $("#bootEntry").fadeOut();
     }
 });
