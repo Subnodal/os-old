@@ -574,7 +574,13 @@ $(function() {
             }
         } else if (e.keyCode == 81 && e.altKey) {
             if (sReader.reading) {
-                window.speechSynthesis.cancel();
+                if (getURLParameter("bootable") == "true") {
+                    // Use built-in speech instead
+                    bc.post("speakstop");
+                } else {
+                    // Just use the speechSynthesis API
+                    window.speechSynthesis.cancel();
+                }
             }
         } else if (e.ctrlKey && e.altKey) {
             if (sReader.reading) {
