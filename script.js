@@ -126,6 +126,8 @@ function connectToWiFi() {
             systemActions.wifiSetOpenConnection($("#WAPSSID").val());
         }
 
+        systemActions.wifiUpdate();
+
         $("#WAPSSID").val("");
         $("#WAPPassword").val("");
 
@@ -137,6 +139,7 @@ function connectToWiFi() {
 
 function disconnectFromWiFi() {
     systemActions.wifiDisconnect();
+    systemActions.wifiUpdate();
 
     alert("Please wait while the Wi-Fi disconnects.", "Wi-Fi is disconnecting");
 }
