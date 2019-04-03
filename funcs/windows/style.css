@@ -30,7 +30,7 @@ div.windowBar {
     float: left;
     color: white;
     user-select: none;
-    cursor: default;
+    cursor: var(--mouseDefault);
 }
 
 html[dir="rtl"] div.windowBar {
@@ -86,5 +86,5 @@ div.windowBody {
     height: 100%;
     border: none;
     pointer-events: auto;
-    cursor: auto;
+    cursor: var(--mouseDefault);
 }

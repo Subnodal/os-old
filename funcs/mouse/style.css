@@ -1,0 +1,28 @@
+:root {
+    --mouseDefault: url("../../media/cursors/default.png") 0 0, default;
+    --mousePointer: url("../../media/cursors/pointer.png") 6 2, pointer;
+    --mouseText: url("../../media/cursors/text.png") 8 12, text;
+    --mouseVerticalResize: url("../../media/cursors/verticalResize.png") 12 12, n-resize;
+    --mouseHorizontalResize: url("../../media/cursors/horizontalResize.png") 12 12, e-resize;
+    --mouseNESWResize: url("../../media/cursors/neswResize.png") 12 12, se-resize;
+    --mouseNWSEResize: url("../../media/cursors/nwseResize.png") 12 12, sw-resize;
+}
+
+* {
+    cursor: var(--mouseDefault);
+}
+
+a {
+    cursor: var(--mousePointer);
+}
+
+input:not([type="button"]), textarea {
+    cursor: var(--mouseText);
+}
+
+#mouseCursor {
+    position: absolute;
+    display: none;
+    width: 20px;
+    z-index: 99999;
+}

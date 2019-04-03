@@ -1,0 +1,43 @@
+.ui-state-disabled,
+.ui-autocomplete,
+.ui-spinner-button {
+    cursor: var(--mouseDefault)!important;
+}
+
+.ui-accordion .ui-accordion-header,
+.ui-menu .ui-menu-item, .ui-button,
+.ui-datepicker .ui-datepicker-buttonpane button,
+.ui-dialog .ui-dialog-buttonpane button,
+.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-active .ui-tabs-anchor {
+    cursor: var(--mousePointer)!important;
+}
+
+.ui-draggable .ui-dialog-titlebar {
+    cursor: var(--mouseMove)!important;
+}
+
+.ui-resizable-n,
+.ui-resizable-s {
+    cursor: var(--mouseVerticalResize)!important;
+}
+
+.ui-resizable-e,
+.ui-resizable-w {
+    cursor: var(--mouseHorizontalResize)!important;
+}
+
+.ui-resizable-se,
+.ui-resizable-nw {
+    cursor: var(--mouseNESWResize)!important;
+}
+
+.ui-resizable-sw,
+.ui-resizable-ne {
+    cursor: var(--mouseNWSEResize)!important;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-active .ui-tabs-anchor,
+.ui-tabs .ui-tabs-nav li.ui-state-disabled .ui-tabs-anchor,
+.ui-tabs .ui-tabs-nav li.ui-tabs-loading .ui-tabs-anchor {
+    cursor: var(--mouseText)!important;
+}

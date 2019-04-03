@@ -1,7 +1,7 @@
 * {
     font-family: "Overpass", "Roboto", sans-serif;
     outline: none;
-    cursor: default;
+    cursor: var(--mouseDefault);
     user-select: none;
 }
 
@@ -29,6 +29,7 @@ a:hover {
 a.hidden {
     color: unset;
     text-decoration: unset;
+    cursor: var(--mouseDefault);
 }
 
 a.hidden:hover {
@@ -60,7 +61,7 @@ button:hover {
 
 button:disabled {
     background-color: var(--coverTextColour);
-    cursor: default;
+    cursor: var(--mouseDefault);
 }
 
 button.flat {
@@ -83,7 +84,7 @@ input {
     background-color: var(--uiInputColour);
     color: var(--uiInputTextColour);
     transition: 0.5s;
-    cursor: text;
+    cursor: var(--mouseText);
     user-select: unset;
 }
 
