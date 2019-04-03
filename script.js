@@ -117,6 +117,52 @@ function signOut() {
     }, 500);
 }
 
+// Wi-Fi functins, currently temporary until we remove the tests
+function connectToWiFi() {
+    if ($("#WAPSSID").val() != "") {
+        if ($("#WAPPassword").val() != "") {
+            systemActions.wifiSetPassConnection($("#WAPSSID").val(), $("#WAPPassword").val());
+        } else {
+            systemActions.wifiSetOpenConnection($("#WAPSSID").val());
+        }
+
+        $("#WAPSSID").val("");
+        $("#WAPPassword").val("");
+
+        alert("Please wait while the Wi-Fi connects.", "Wi-Fi information submitted");
+    } else {
+        alert("Please provide an SSID.", "Incomplete information");
+    }
+}
+
+function disconnectFromWiFi() {
+    systemActions.wifiDisconnect();
+
+    alert("Please wait while the Wi-Fi disconnects.", "Wi-Fi is disconnecting");
+}
+
+function refreshSSIDs() {
+    systemActions.wifiGetSSID(function(data) {
+        $(".currentWAP").text(data);
+    });
+
+    systemActions.wifiGetWAPs(function(data) {
+        $(".availableWAPs").html("");
+
+        for (var i = 0; i < data.length; i++) {
+            $("<li>").text(data[i]).appendTo($(".availableWAPs"));
+        }
+    });
+}
+
+function goToWirelessSetupScreen() {
+    if (getURLParameter("bootable") == "true") {
+        screens.fade("wirelessSetup");
+    } else {
+        alert("Sorry, you can't change wireless settings in the web version of subOS.", "Could not go to wireless setup");
+    }
+}
+
 $(function() {
     if ($("body").width() < 500) {
         window.location.href = "notSupported.html";
@@ -176,4 +222,8 @@ $(function() {
             signIn();
         }
     });
+
+    if (getURLParameter("bootable") == "true") {
+        setInterval(refreshSSIDs, 5000);
+    }
 });

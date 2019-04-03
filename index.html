@@ -153,7 +153,7 @@
                         <label for="tryMeTest">Try me against subReader, OSK and IME!</label> <input id="tryMeTest" placeholder="Try me!">
                     </p>
                     <p data-no-sreader>
-                        <button onclick="screens.fade('wirelessSetup');">Wireless Setup</button>
+                        <button onclick="goToWirelessSetupScreen();">Wireless Setup</button>
                         <button onclick="screens.fade('signIn');">Sign In</button>
                     </p>
                     <h2>subReader</h2>
@@ -170,10 +170,16 @@
             </div>
             <main>
                 <section>
+                    <h1>Wireless Setup</h1>
+                    <p>Current WAP: <strong class="currentWAP">None</strong></p>
                     <p>Available WAPs:</p>
-                    <ul class="availableWaps"></ul>
+                    <ul class="availableWAPs">
+                        <em>No WAPs to show</em>
+                    </ul>
                     <input placeholder="WAP SSID" id="WAPSSID">
-                    <input placeholder="WAP Password" id="WAPPassword">
+                    <input type="password" placeholder="WAP Password" id="WAPPassword">
+                    <button onclick="connectToWiFi();">Connect</button>
+                    <button onclick="disconnectFromWiFi();">Disconnect</button>
                     <button onclick="screens.fade('tests');">Go back</button>
                 </section>
             </main>
