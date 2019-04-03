@@ -1,6 +1,7 @@
 ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
+    cursor: var(--mouseDefault)!important;
 }
 
 ::-webkit-scrollbar-button {
