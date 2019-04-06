@@ -19,7 +19,7 @@ can go into the browser cache for quicker loading later (that's if you're on
 the web version, the native version does not take as long to load as the file
 is stored locally).
 
-To make it eaiser for development, the `<screen>` tag is defined (scripts at
+To make it easier for development, the `<screen>` tag is defined (scripts at
 [funcs/screens](https://github.com/Subnodal/os/tree/master/funcs/screens)) so
 that there is a sense that there are multiple HTML files but really there
 isn't. There is also the benefit of screen transitions too.
