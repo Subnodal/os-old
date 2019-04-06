@@ -1,9 +1,14 @@
 # os
 subOS, Subnodal's operating system built for the web. https://subnodal.com/os
 
+Fun fact: subOS is now over 24,000 source lines of code (sloc) long!
+
 ## Licence
 subOS is licensed by the [Subnodal Closed-Source Licence for subOS Front-End](LICENCE.md).
 You may not distribute subOS, as explained in the licence.
+
+Please note: This is only the front-end of subOS, the back-end is completely
+closed-source and only accessible by Subnodal employees.
 
 ## Structure
 subOS is run from only one HTML file, [index.html](https://github.com/Subnodal/os/blob/master/index.html).
@@ -29,6 +34,21 @@ that subReader can tell the user that there was navigation:
 
 The `<screen>` tag should also have an info bar (`<div class="infoBar">`, you
 can copy it from another screen and change the buttons, but leave the time in).
+
+To transition to another screen in JavaScript, do either of the following:
+
+```js
+// Instantly change screen (generally deprecated; not as friendly)
+screens.show("myScreenName");
+
+// Fade into another screen with a time period of 500ms (friendlier)
+screens.fade("myScreenName");
+
+// Fade into another screen with a time period (generally deprecated, can be slow)
+screens.fade("myScreenName", 1000);
+```
+
+The magical functionality of screens are found at the script at [funcs/screens](https://github.com/Subnodal/os/tree/master/funcs/screens).
 
 ## Translating subOS
 subOS is proud to be multilingual and internationalised/internationalized
@@ -73,13 +93,13 @@ Now what about numbers?! Numbers **can't** be translated like this:
 _("You got the number " + luckyNumber + "! Congrats!")
 ```
 
-You have to do it like this:
+You have to do it like this (due to word orders, as well as number formatting):
 
 ```js
 _("You got the number %! Congrats!", luckyNumber)
 ```
 
-The `%` will be replaced with `luckyNumber` here. For even more numbers!
+The `%` will be replaced with `luckyNumber` here. For even more numbers:
 
 ```js
 _("You got the number %! The number % was also another number.", [luckyNumber, otherNumber])
