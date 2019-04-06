@@ -80,7 +80,7 @@ Your scripts are also easy to i18n. For all strings that you want to translate,
 wrap your string like this:
 
 ```js
-_("Your string will be save and sound here")
+_("Your string will be safe and sound here")
 ```
 
 The magic happens with the `_` function (it is actually called `_` in the
