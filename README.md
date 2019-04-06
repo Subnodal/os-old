@@ -41,10 +41,10 @@ To transition to another screen in JavaScript, do either of the following:
 // Instantly change screen (generally deprecated; not as friendly)
 screens.show("myScreenName");
 
-// Fade into another screen with a time period of 500ms (friendlier)
+// Fade into another screen with a time period of 500ms (friendliest)
 screens.fade("myScreenName");
 
-// Fade into another screen with a time period (generally deprecated, can be slow)
+// Fade into another screen with a time period (generally deprecated; can be slow)
 screens.fade("myScreenName", 1000);
 ```
 
