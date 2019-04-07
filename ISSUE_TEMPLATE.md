@@ -7,6 +7,11 @@
 * [ ] Other: [Insert problem scope here]
 * [ ] I have no idea
 
+<!-- What part of subOS are you using? Put an 'x' in the box that applies. -->
+* [ ] Using web version
+* [ ] Using bootable version on: [Put your device's model here]
+* [ ] I have no idea
+
 ## Short description
 <!-- What's happening? Describe it to us in a few sentences. -->
 
