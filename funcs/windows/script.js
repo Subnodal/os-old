@@ -150,7 +150,7 @@ function newWindow(src, title = "Untitled App", icon = "media/defaultAccount.png
     $("window:last").css("background-color", "var(--uiColour)");
     $("window:last").siblings("window").css("background-color", "var(--uiDeselectedColour)");
 
-    $(".infoBar, .appBar, menu, #alertBackground, #alertBox, #sReader, #sReaderBlackout").css("z-index", zIndexLevel + 1);
+    $(".infoBar, .appBar, menu, #alertBackground, #alertBox, #sReader, #sReaderBlackout, #mouseCursor").css("z-index", zIndexLevel + 1);
 
     $(".windowContent").click(function(event) {
         $(this).parent().parent().mousedown();
