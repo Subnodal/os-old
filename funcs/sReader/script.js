@@ -6,6 +6,7 @@ function getURLParameter(name) {
 
 $(function() {
     var doTabIndex = false;
+    var focusableControls = "* button, * a, * input";
 
     function getClosestWord(str, pos) {
         str = String(str);
@@ -168,7 +169,7 @@ $(function() {
 
             $("#sReaderContent").text("");
 
-            $(document).on("focus", "button:not([data-no-sreader]):not(.menuItem), a.button", function(event) {
+            $(document).on("focusin", "button:not([data-no-sreader]):not(.menuItem), a.button", function(event) {
                 $(window).one("keyup", function(e) {
                     var code = (e.keyCode ? e.keyCode : e.which);
                     if (code == 9) {
@@ -189,7 +190,7 @@ $(function() {
                 });
             });
 
-            $(document).on("focus", "a:not(.button, .readableButton)", function(event) {
+            $(document).on("focusin", "a:not(.button, .readableButton)", function(event) {
                 $(window).one("keyup", function(e) {
                     var code = (e.keyCode ? e.keyCode : e.which);
                     if (code == 9) {
@@ -206,7 +207,7 @@ $(function() {
                 });
             });
 
-            $(document).on("focus", "p:not([data-no-sreader])", function(event) {
+            $(document).on("focusin", "p:not([data-no-sreader])", function(event) {
                 $(window).one("keyup", function(e) {
                     var code = (e.keyCode ? e.keyCode : e.which);
                     if (code == 9) {
@@ -225,7 +226,7 @@ $(function() {
                 var levels = [_("First"), _("Second"), _("Third"), _("Fourth"), _("Fifth"), _("Sixth")];
                 var iPass = i;
 
-                $(document).on("focus", "h" + i + ":not([data-no-sreader])", function(event) {
+                $(document).on("focusin", "h" + i + ":not([data-no-sreader])", function(event) {
                     $(window).one("keyup", function(e) {
                         var code = (e.keyCode ? e.keyCode : e.which);
                         if (code == 9) {
@@ -260,7 +261,7 @@ $(function() {
                 });
             }
 
-            $(document).on("focus", ".readableButton", function(event) {
+            $(document).on("focusin", ".readableButton", function(event) {
                 $(window).one("keyup", function(e) {
                     var code = (e.keyCode ? e.keyCode : e.which);
                     if (code == 9) {
@@ -281,7 +282,7 @@ $(function() {
                 }
             });
 
-            $(document).on("focus", ".readableText", function(event) {
+            $(document).on("focusin", ".readableText", function(event) {
                 $(window).one("keyup", function(e) {
                     var code = (e.keyCode ? e.keyCode : e.which);
                     if (code == 9) {
@@ -294,7 +295,7 @@ $(function() {
                 if (sReader.reading) {sReader.speak($(this).attr("data-readable"));}
             });
 
-            $(document).on("focus", ".menuItem", function(event) {
+            $(document).on("focusin", ".menuItem", function(event) {
                 if (sReader.reading) {
                     sReader.playPanTone("button", $(document.activeElement));
 
@@ -318,7 +319,7 @@ $(function() {
                 }
             });
 
-            $(document).on("focus", ".menuArea", function(event) {
+            $(document).on("focusin", ".menuArea", function(event) {
                 if (sReader.reading) {
                     if ($(document.activeElement).attr("data-readable") == undefined) {
                         sReader.speak($(document.activeElement).text() + _(": Menu Information"));
@@ -567,6 +568,78 @@ $(function() {
         } else if (e.keyCode == 123 && e.altKey) {
             if (sReader.reading) {
                 sReader.switchBlackout();
+            }
+        } else if (e.keyCode == 188 && e.altKey && !e.shiftKey) {
+            if (sReader.reading) {
+                var thisTabIndex = -1;
+
+                for (var i = 0; i < $(":tabbable").length; i++) {
+                    if ($(":tabbable")[i] == document.activeElement) {
+                        thisTabIndex = i;
+                    }
+                }
+
+                if (thisTabIndex - 1 >= 0) {
+                    $($(":tabbable")[thisTabIndex - 1]).focus().trigger("focusin");
+                } else {
+                    $($(":tabbable")[$(":tabbable").length - 1]).focus().trigger("focusin");
+                }
+
+                $(document.activeElement).not("input").trigger("mouseover");
+            }
+        } else if (e.keyCode == 190 && e.altKey && !e.shiftKey) {
+            if (sReader.reading) {
+                var thisTabIndex = -1;
+
+                for (var i = 0; i < $(":tabbable").length; i++) {
+                    if ($(":tabbable")[i] == document.activeElement) {
+                        thisTabIndex = i;
+                    }
+                }
+                
+                if (thisTabIndex + 1 < $(":tabbable").length) {
+                    $($(":tabbable")[thisTabIndex + 1]).focus().trigger("focusin");
+                } else {
+                    $($(":tabbable")[0]).focus().trigger("focusin");
+                }
+
+                $(document.activeElement).not("input").trigger("mouseover");
+            }
+        } else if (e.keyCode == 188 && e.altKey && e.shiftKey) {
+            if (sReader.reading) {
+                var thisTabIndex = -1;
+
+                for (var i = 0; i < $(focusableControls).length; i++) {
+                    if ($(focusableControls)[i] == document.activeElement) {
+                        thisTabIndex = i;
+                    }
+                }
+
+                if (thisTabIndex - 1 >= 0) {
+                    $($(focusableControls)[thisTabIndex - 1]).focus().trigger("focusin");
+                } else {
+                    $($(focusableControls)[$(focusableControls).length - 1]).focus().trigger("focusin");
+                }
+
+                $(document.activeElement).not("input").trigger("mouseover");
+            }
+        } else if (e.keyCode == 190 && e.altKey && e.shiftKey) {
+            if (sReader.reading) {
+                var thisTabIndex = -1;
+
+                for (var i = 0; i < $(focusableControls).length; i++) {
+                    if ($(focusableControls)[i] == document.activeElement) {
+                        thisTabIndex = i;
+                    }
+                }
+                
+                if (thisTabIndex + 1 < $(focusableControls).length) {
+                    $($(focusableControls)[thisTabIndex + 1]).focus().trigger("focusin");
+                } else {
+                    $($(focusableControls)[0]).focus().trigger("focusin");
+                }
+
+                $(document.activeElement).not("input").trigger("mouseover");
             }
         } else if (e.keyCode == 83 && e.altKey) {
             if (sReader.reading) {

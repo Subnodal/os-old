@@ -2,13 +2,17 @@ var menus = {
     cancel: false,
     openedMenu: null,
 
-    show: function(menu, x, y, floatRight = false, floatBottom = false) {
+    show: function (menu, x, y, floatRight = false, floatBottom = false) {
+        if ($("html").attr("dir") == "rtl") {
+            floatRight = !floatRight;
+        }
+
         if (menus.openedMenu == menu) {
             menus.hideAll();
         } else {
             menus.cancel = true;
 
-            setTimeout(function() {
+            setTimeout(function () {
                 menus.openedMenu = menu;
 
                 $(menu).css({
@@ -20,10 +24,10 @@ var menus = {
 
                 $(menu).css(floatRight ? "right" : "left", x);
                 $(menu).css(floatBottom ? "bottom" : "top", y);
-                
+
                 $(menu).fadeIn();
 
-                if (sReader.reading) {sReader.speak(_("Menu opened"));}
+                if (sReader.reading) { sReader.speak(_("Menu opened")); }
 
                 $(menu).find(".menuItem:visible, .menuArea:visible").get(0).focus();
 
@@ -32,12 +36,12 @@ var menus = {
         }
     },
 
-    hideAll: function() {
+    hideAll: function () {
         $("menu").fadeOut(500);
 
         if (!menus.cancel) {
             if (menus.openedMenu != null) {
-                if (sReader.reading) {sReader.speak(_("Menu closed"));}
+                if (sReader.reading) { sReader.speak(_("Menu closed")); }
             }
 
             menus.openedMenu = null;
@@ -45,15 +49,15 @@ var menus = {
     }
 };
 
-$(function() {
-    $(document.body).keydown(function(e) {
+$(function () {
+    $(document.body).keydown(function (e) {
         if (e.keyCode == 27) {
             menus.hideAll();
         }
     });
 });
 
-$(document).click(function(event) {
+$(document).click(function (event) {
     if ((!$(event.target).is("menu") && !$(event.target).parents().is("menu")) || $(event.target).is(".menuItem:not(.disallowClose)")) {
         menus.hideAll();
     }

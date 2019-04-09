@@ -23,6 +23,10 @@ menu {
     box-sizing: border-box;
 }
 
+html[dir="rtl"] .menuItem, html[dir="rtl"] .menuArea {
+    text-align: right;
+}
+
 .menuItem.coloured, .menuArea.coloured {
     background-color: var(--uiColour);
     color: white;
