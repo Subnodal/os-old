@@ -84,7 +84,7 @@ wrap your string like this:
 _("Your string will be safe and sound here")
 ```
 
-The magic happens with the `_` function(it is actually called `_` in the
+The magic happens with the `_` function (it is actually called `_` in the
 code), an alias for `lang.translate`. Trust me, you don't want to write
 `lang.translate` every time you have to translate a string! Use `_` instead.
 
