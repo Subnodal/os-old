@@ -1,7 +1,8 @@
 # os
 subOS, Subnodal's operating system built for the web. https://subnodal.com/os
 
-Fun fact: subOS is now over 24,000 source lines of code (sloc) long!
+Fun fact: subOS is now over 24,000 source lines of code (sloc) long! With your
+contributions, we can make this number rise up and up!
 
 ## Licence
 subOS is licensed by the [Subnodal Closed-Source Licence for subOS Front-End](LICENCE.md).
