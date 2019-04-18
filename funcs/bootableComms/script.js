@@ -50,13 +50,13 @@ var bc = {
         if (paramsList == "") {
             $.ajax({
                 url: "http://0.0.0.0:5000/" + mode + "/" + bc.generationKey
-            }).done(function (data) {
+            }).done(function(data) {
                 callback(data);
             });
         } else {
             $.ajax({
                 url: "http://0.0.0.0:5000/" + mode + "/" + bc.generationKey + "/" + paramsList
-            }).done(function (data) {
+            }).done(function(data) {
                 callback(data);
             });  
         }

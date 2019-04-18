@@ -2,7 +2,7 @@ var menus = {
     cancel: false,
     openedMenu: null,
 
-    show: function (menu, x, y, floatRight = false, floatBottom = false) {
+    show: function(menu, x, y, floatRight = false, floatBottom = false) {
         if ($("html").attr("dir") == "rtl") {
             floatRight = !floatRight;
         }
@@ -12,7 +12,7 @@ var menus = {
         } else {
             menus.cancel = true;
 
-            setTimeout(function () {
+            setTimeout(function() {
                 menus.openedMenu = menu;
 
                 $(menu).css({
@@ -36,7 +36,7 @@ var menus = {
         }
     },
 
-    hideAll: function () {
+    hideAll: function() {
         $("menu").fadeOut(500);
 
         if (!menus.cancel) {
@@ -49,15 +49,15 @@ var menus = {
     }
 };
 
-$(function () {
-    $(document.body).keydown(function (e) {
+$(function() {
+    $(document.body).keydown(function(e) {
         if (e.keyCode == 27) {
             menus.hideAll();
         }
     });
 });
 
-$(document).click(function (event) {
+$(document).click(function(event) {
     if ((!$(event.target).is("menu") && !$(event.target).parents().is("menu")) || $(event.target).is(".menuItem:not(.disallowClose)")) {
         menus.hideAll();
     }
