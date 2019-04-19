@@ -1,5 +1,5 @@
 # Subnodal Closed-Source Licence for subOS Front-End
-Copyright &copy; Subnodal. All Rights Reserved.
+Copyright &copy; Subnodal Technologies. All Rights Reserved.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this material and associated documentation files (the 'material'), to use and
