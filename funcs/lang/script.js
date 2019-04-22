@@ -131,7 +131,7 @@ var lang = {
         var url = new URL(window.location.href);
         url.searchParams.set("lang", langCode);
 
-        window.location.href = url.href;
+        window.location.replace(url.href);
     }
 };
 

@@ -14,7 +14,7 @@ var bc = {
             var url = new URL(window.location.href);
             url.searchParams.set("bckey", bc.generationKey);
 
-            window.location.href = url.href;
+            window.location.replace(url.href);
         });
     },
 
