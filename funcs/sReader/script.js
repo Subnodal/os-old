@@ -417,12 +417,8 @@ $(function() {
                 var thisPassOn = this;
 
                 setTimeout(function() {
-                    if (!$(document.activeElement).hasClass("oskButton")) {
-                        if ($(thisPassOn).attr("data-readable") == undefined) {
-                            if (sReader.reading) {sReader.speak(_("Editing stopped"));}
-                        } else {
-                            if (sReader.reading) {sReader.speak(_("Editing stopped"));}
-                        }
+                    if (!$(document.activeElement).hasClass("oskButton") && !$(document.activeElement).is("input")) {
+                        if (sReader.reading) {sReader.speak(_("Editing stopped"));}
                     }
                 });
             });

@@ -15,9 +15,7 @@ var osk = {
         if (!osk.animating) {
             osk.animating = true;
             
-            if (sReader.reading && !osk.isOpen) {
-                sReader.speak(_("On-screen keyboard opened"));
-            }
+            if (sReader.reading && !osk.isOpen) {sReader.speak(_("On-screen keyboard opened"));}
 
             osk.isOpen = true;
 
@@ -121,7 +119,7 @@ var osk = {
         osk.selectedInputEnd = document.activeElement.selectionEnd;
 
         if (osk.throughFrame != null) {
-            if (ime.inUse && char == " ") {
+            if (ime.inUse && char == " " && ime.candidates != []) {
                 osk.selectedInput.val(osk.selectedInput.val().substring(0, osk.selectedInputStart - 1) + osk.selectedInput.val().substring(osk.selectedInputEnd));
 
                 osk.selectedInput.focus();
@@ -152,7 +150,7 @@ var osk = {
             if (char != " ") {
                 ime.doEvent(imeEvent);
                 ime.registerFinal(imeEvent);
-            } else if (ime.inUse) {
+            } else if (ime.inUse && ime.pinyinCharBuffer.length != 0 && ime.candidates.length != 0) {
                 var didOSKSkip = false;
 
                 if (document.activeElement.selectionStart >= $(osk.selectedInput).val().length) {
@@ -163,6 +161,8 @@ var osk = {
                 
                 imeEvent.fromOSK = false;
                 ime.registerFinal(imeEvent, didOSKSkip);
+            } else {
+                ime.pinyinCharBuffer = [];
             }
         }
     },
@@ -307,6 +307,10 @@ var osk = {
                 osk.open();
             }
 
+            ime.pinyinCharBuffer = [];
+
+            ime.hide();
+
             event.stopPropagation();
         });
         
@@ -314,6 +318,10 @@ var osk = {
             if (tablet.inUse) {
                 osk.close();
             }
+
+            ime.pinyinCharBuffer = [];
+
+            ime.hide();
         });
 
         $("#osk").click(function(event) {

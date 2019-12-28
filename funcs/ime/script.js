@@ -27,16 +27,12 @@ var ime = {
         if (ime.inUse) {
             $("#ime").show();
 
-            if (sReader.reading && !ime.shown) {sReader.speak("Pinyin editor shown");}
-
             ime.shown = true;
         }
     },
 
     hide: function() {
         $("#ime").hide();
-        
-        if (sReader.reading && ime.shown && ime.inUse) {sReader.speak("Pinyin editor hidden");}
 
         ime.shown = false;
     },
@@ -85,6 +81,8 @@ var ime = {
 
             ime.candidates = [];
             ime.pinyinCharBuffer = [ime.pinyinCharBuffer.pop()];
+
+            if (sReader.reading) {sReader.speak(candidate);}
         }
     },
 
@@ -132,7 +130,7 @@ var ime = {
 
     registerFinal: function(event, didOSKSkip = false) {
         if (ime.inUse) {
-            if ((event.keyCode == 32 || [event.keyCode, event.shiftKey].toString() in ime.punctuationKeys) && ime.pinyinCharBuffer.length != 0) {
+            if ((event.keyCode == 32 || [event.keyCode, event.shiftKey].toString() in ime.punctuationKeys) && ime.pinyinCharBuffer.length != 0 && ime.candidates.length != 0) {
                 var oldPosition = document.activeElement.selectionStart;
                 var oldLength = $(event.target).val().length;
                 
@@ -172,6 +170,8 @@ var ime = {
 
                 document.activeElement.selectionStart = oldPosition + 1;
                 document.activeElement.selectionEnd = oldPosition + 1;
+
+                ime.pinyinCharBuffer = [];
             }
         }
     },
