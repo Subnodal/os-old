@@ -7,6 +7,7 @@ function getURLParameter(name) {
 $(function() {
     var doTabIndex = false;
     var focusableControls = "* button, * a, * input";
+    var lastExploredElement = document.body;
 
     function getClosestWord(str, pos) {
         str = String(str);
@@ -193,7 +194,11 @@ $(function() {
                                     sReader.speak($(event.target).attr("data-readable") + _(": Button"));
                                 }
                             } else {
-                                sReader.speakOSKKey($(event.target).text());
+                                if ($(event.target).attr("data-readable") == undefined) {
+                                    sReader.speakOSKKey($(event.target).text());
+                                } else {
+                                    sReader.speak($(event.target).attr("data-readable"));
+                                }
                             }
                         }
                     }
@@ -361,10 +366,28 @@ $(function() {
                                 sReader.speak($(event.target).attr("data-readable") + _(": Button"));
                             }
                         } else {
-                            sReader.speakOSKKey($(event.target).text());
+                            if ($(event.target).attr("data-readable") == undefined) {
+                                sReader.speakOSKKey($(event.target).text());
+                            } else {
+                                sReader.speak($(event.target).attr("data-readable"));
+                            }
                         }
                     }
                 }
+            });
+
+            $(document).on("touchmove", "*", function(event) {
+                var currentExploredElement = document.elementFromPoint(event.touches[0].clientX, event.touches[0].clientY);
+
+                if (currentExploredElement != lastExploredElement) {
+                    sReader.stop();
+
+                    $(document.elementFromPoint(event.touches[0].clientX, event.touches[0].clientY)).trigger("mouseover");
+
+                    lastExploredElement = currentExploredElement;
+                }
+
+
             });
 
             $(document).on("keypress", "button, a", function(event) {

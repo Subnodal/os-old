@@ -256,13 +256,17 @@ var osk = {
                                 osk.toggleShift();
 
                                 if (sReader.reading) {
-                                    sReader.stop();
+                                    setTimeout(function() {
+                                        sReader.stop();
+                                    }, 500);
 
-                                    if (osk.shifting) {
-                                        sReader.speak(_("Shift is on"));
-                                    } else {
-                                        sReader.speak(_("Shift is off"));
-                                    }
+                                    setTimeout(function() {
+                                        if (osk.shifting) {
+                                            sReader.speak(_("Shift is on"));
+                                        } else {
+                                            sReader.speak(_("Shift is off"));
+                                        }
+                                    }, 600);
                                 }
                             })
                             .appendTo("#osk")

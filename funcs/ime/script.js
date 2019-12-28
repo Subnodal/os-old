@@ -108,7 +108,9 @@ var ime = {
             if (ime.pinyinCharBuffer.length > 0 && ime.candidates.length > 0) {
                 $("#ime").text(ime.candidates.join(" "));
 
-                ime.show();
+                setTimeout(function() {
+                    ime.show();
+                });
             } else {
                 ime.hide();
             }
@@ -145,7 +147,10 @@ var ime = {
                 }
 
                 ime.useCandidate(ime.candidates[0], event.fromOSK == true, didOSKSkip);
-                ime.hide();
+
+                setTimeout(function() {
+                    ime.hide();
+                });
 
                 ime.pinyinCharBuffer = [];
 
