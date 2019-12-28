@@ -188,6 +188,8 @@ var osk = {
                 focus: true
             }, "*");
         }
+
+        osk.selectedInput.focus();
     },
 
     switchModes: function() {},
@@ -222,7 +224,7 @@ var osk = {
                             .attr("data-readable", _("Space"))
                             .click(function() {
                                 osk.click(" ");
-                            })
+                            })  
                             .appendTo("#osk")
                         ;
                     } else if (osk.keyboardLayout[i][upper ? "upper" : "lower"][j].backspace) {
@@ -252,6 +254,16 @@ var osk = {
                             .attr("data-readable", _("Shift"))
                             .click(function() {
                                 osk.toggleShift();
+
+                                if (sReader.reading) {
+                                    sReader.stop();
+
+                                    if (osk.shifting) {
+                                        sReader.speak(_("Shift is on"));
+                                    } else {
+                                        sReader.speak(_("Shift is off"));
+                                    }
+                                }
                             })
                             .appendTo("#osk")
                         ;

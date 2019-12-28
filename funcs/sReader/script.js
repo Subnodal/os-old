@@ -125,6 +125,16 @@ $(function() {
             }
         },
 
+        stop: function() {
+            if (getURLParameter("bootable") == "true") {
+                // Use built-in speech instead
+                bc.post("speakstop");
+            } else {
+                // Just use the speechSynthesis API
+                window.speechSynthesis.cancel();
+            }
+        },
+
         playTone: function(name, pan = 0) {
             var panner = new Pizzicato.Effects.StereoPanner({
                 pan: pan
@@ -414,8 +424,6 @@ $(function() {
             });
 
             $(document).on("focusout", "input", function(event) {
-                var thisPassOn = this;
-
                 setTimeout(function() {
                     if (!$(document.activeElement).hasClass("oskButton") && !$(document.activeElement).is("input")) {
                         if (sReader.reading) {sReader.speak(_("Editing stopped"));}
