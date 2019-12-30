@@ -169,6 +169,19 @@ var osk = {
                 ime.pinyinCharBuffer = [];
             }
         }
+
+        if (osk.throughFrame) {osk.selectedInput.focus();}
+
+        document.activeElement.selectionStart = osk.selectedInputStart;
+        document.activeElement.selectionEnd = osk.selectedInputEnd;
+
+        if (osk.throughFrame != null) {
+            osk.throughFrame[0].contentWindow.postMessage({
+                for: "subOSOSK",
+                selectionStart: osk.selectedInputStart,
+                selectionEnd: osk.selectedInputEnd
+            }, "*");
+        }
     },
 
     toggleShift: function(set = null) {
@@ -366,24 +379,7 @@ var osk = {
             ime.hide();
         });
 
-        $("#osk").click(function(event) {
-            event.stopPropagation();
-
-            if (osk.throughFrame) {osk.selectedInput.focus();}
-
-            document.activeElement.selectionStart = osk.selectedInputStart;
-            document.activeElement.selectionEnd = osk.selectedInputEnd;
-
-            if (osk.throughFrame != null) {
-                osk.throughFrame[0].contentWindow.postMessage({
-                    for: "subOSOSK",
-                    selectionStart: osk.selectedInputStart,
-                    selectionEnd: osk.selectedInputEnd
-                }, "*");
-            }
-        });
-
-        $("#osk").children().click(function(event) {
+        $("#osk, #osk *").click(function(event) {
             event.stopPropagation();
         });
 
