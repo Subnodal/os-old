@@ -1,13 +1,20 @@
-var sReader;
+var sReader = {};
 
 function getURLParameter(name) {
     return decodeURIComponent((new RegExp("[?|&]" + name + "=" + "([^&;]+?)(&|#|;|$)").exec(location.search) || [null, ""])[1].replace(/\+/g, "%20")) || null;
 }
 
+sReader._lang = lang;
+
 $(function() {
     var doTabIndex = false;
     var focusableControls = "* button, * a, * input";
     var lastExploredElement = document.body;
+    var sReaderLang = {...sReader._lang};
+
+    _ = function(string, replacements = []) {
+        return sReaderLang.translate(string, replacements);
+    }
 
     function getClosestWord(str, pos) {
         str = String(str);
@@ -165,9 +172,17 @@ $(function() {
 
                 doTabIndex = false;
             }
+
+            $("window").find("iframe").each(function() {
+                $(this)[0].contentWindow.postMessage({
+                    for: "subOSSReader",
+                    cssState: state
+                }, "*");
+            });
         },
 
         init: function() {
+
             $("*").unbind();
 
             if (sReader.reading) {
@@ -386,8 +401,6 @@ $(function() {
 
                     lastExploredElement = currentExploredElement;
                 }
-
-
             });
 
             $(document).on("keypress", "button, a", function(event) {
@@ -433,7 +446,7 @@ $(function() {
                             if ($(this).attr("placeholder") != undefined) {
                                 if (sReader.reading) {sReader.speak(_("Editing %: Text Input", $(this).attr("placeholder")));}
                             } else {
-                                if (sReader.reading) {sReader.speak("Editing: Text Input");}
+                                if (sReader.reading) {sReader.speak(_("Editing: Text Input"));}
                             }
                         }
                     } else {
@@ -583,7 +596,9 @@ $(function() {
         }
     }
 
-    sReader.init();
+    if (!window.location.href.split("?")[0].endsWith("/sandbox/index.html")) {
+        sReader.init();
+    }
 
     $(document.body).keydown(function(e) {
         if (e.keyCode == 123) {
@@ -707,9 +722,33 @@ $(function() {
 
     setInterval(function() {
         if (doTabIndex) {
-        $("h1:not([data-no-sreader]), h2:not([data-no-sreader]), h3:not([data-no-sreader]), h4:not([data-no-sreader]), h5:not([data-no-sreader]), h6:not([data-no-sreader]), p:not([data-no-sreader]), .readableText, .readableButton, .menuItem, .menuArea").attr("tabindex", "0");
+            $("h1:not([data-no-sreader]), h2:not([data-no-sreader]), h3:not([data-no-sreader]), h4:not([data-no-sreader]), h5:not([data-no-sreader]), h6:not([data-no-sreader]), p:not([data-no-sreader]), .readableText, .readableButton, .menuItem, .menuArea").attr("tabindex", "0");
         } else {
             $("h1:not([data-no-sreader]), h2:not([data-no-sreader]), h3:not([data-no-sreader]), h4:not([data-no-sreader]), h5:not([data-no-sreader]), h6:not([data-no-sreader]), p:not([data-no-sreader]), .readableText, .readableButton, .menuItem, .menuArea").removeAttr("tabindex");
         }
     }, 10);
+
+    addEventListener("message", function(event) {
+        if (event.data.for == "subOSSReader") {
+            if (sReader.reading) {
+                if (event.data.langInterface != undefined) {
+                    lang.list = event.data.langInterface;
+
+                    _ = function(string, replacements = []) {
+                        return lang.translate(string, replacements);
+                    };
+
+                    sReader.init();
+                } else if (event.data.speak != undefined) {
+                    sReader.speak(...event.data.speak);
+                } else if (event.data.speakOSKKey != undefined) {
+                    sReader.speakOSKKey(...event.data.speakOSKKey);
+                } else if (event.data.stop != undefined) {
+                    sReader.stop(...event.data.stop);
+                } else if (event.data.playTone != undefined) {
+                    sReader.playTone(...event.data.playTone);
+                }
+            }
+        }
+    });
 });

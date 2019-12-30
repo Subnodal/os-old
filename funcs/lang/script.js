@@ -49,15 +49,17 @@ var lang = {
             if (lang.lang != lang.defaultLang && lang.list[lang.lang] == undefined && !lang.sentWarning) {
                 lang.sentWarning = true;
 
-                if (getURLParameter("languageWarningMessage") != null && getURLParameter("languageWarningButton") != null) {
-                    alert(getURLParameter("languageWarningMessage"), undefined, [{
-                        text: getURLParameter("languageWarningButton"),
-                        type: "normal",
-                        onclick: "closeAlert();"
-                    }]);
-                } else {
-                    alert("Sorry! The language that you chose is unavailable.");
-                }
+                setTimeout(function() {
+                    if (getURLParameter("languageWarningMessage") != null && getURLParameter("languageWarningButton") != null) {
+                        alert(getURLParameter("languageWarningMessage"), undefined, [{
+                            text: getURLParameter("languageWarningButton"),
+                            type: "normal",
+                            onclick: "closeAlert();"
+                        }]);
+                    } else {
+                        alert("Sorry! The language that you chose is unavailable.");
+                    } 
+                }, 1000);
             }
 
             if (lang.list["overrides"][string]) {

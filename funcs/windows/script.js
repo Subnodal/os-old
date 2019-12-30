@@ -177,6 +177,16 @@ function newWindow(src, title = "Untitled App", icon = "media/defaultAccount.png
             for: "subOS",
             hello: true
         }, "*");
+
+        $("window:last").find("iframe")[0].contentWindow.postMessage({
+            for: "subOSSReader",
+            cssState: sReader.reading
+        }, "*");
+
+        $("window:last").find("iframe")[0].contentWindow.postMessage({
+            for: "subOSSReader",
+            langInterface: lang.list
+        }, "*");
     });
 
     $("window:last").find(".windowButton").get(2).focus();

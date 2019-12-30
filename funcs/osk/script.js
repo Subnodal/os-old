@@ -134,17 +134,17 @@ var osk = {
             
             osk.throughFrame[0].contentWindow.postMessage({
                 for: "subOSOSK",
-                set: $("#frameInput").val(),
+                set: $("#frameInput").val()
             }, "*");
 
             osk.throughFrame[0].contentWindow.postMessage({
                 for: "subOSOSK",
-                key: imeEvent.keyCode,
+                key: imeEvent.keyCode
             }, "*");
 
             osk.throughFrame[0].contentWindow.postMessage({
                 for: "subOSOSK",
-                focus: true,
+                focus: true
             }, "*");
         } else {
             osk.selectedInput.focus();
