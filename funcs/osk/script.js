@@ -7,6 +7,7 @@ var osk = {
     layout: null,
     keyboardLayout: [],
     shifting: false,
+    usingSpecialMode: null,
     throughFrame: null,
     wasUsed: false,
     isOpen: false,
@@ -23,8 +24,6 @@ var osk = {
             osk.selectedInputStart = 0;
             osk.selectedInputEnd = 0;
 
-            $("#osk").show();
-
             if (throughFrame) {
                 osk.throughFrame = $(document.activeElement);
                 osk.selectedInput = $("#frameInput");
@@ -32,6 +31,11 @@ var osk = {
                 osk.throughFrame = null;
                 osk.selectedInput = selectedInput;
             }
+
+            osk.toggleShift(false);
+            osk.toggleSpecial(false);
+
+            $("#osk").show();
 
             setTimeout(function() {
                 $("#osk").css("top", "60vh");
@@ -174,13 +178,7 @@ var osk = {
             osk.shifting = set;
         }
 
-        osk.setKeyboardLayout(osk.lang, osk.layout, "normal", osk.shifting);
-
-        if (osk.shifting) {
-            $(".oskShift").addClass("on");
-        } else {
-            $(".oskShift").removeClass("on");
-        }
+        osk.setKeyboardLayout(osk.lang, osk.layout, osk.usingSpecialMode ? "special" : "normal", osk.shifting);
 
         if (osk.throughFrame != null) {
             osk.throughFrame[0].contentWindow.postMessage({
@@ -192,7 +190,24 @@ var osk = {
         osk.selectedInput.focus();
     },
 
-    switchModes: function() {},
+    toggleSpecial: function(set = null) {
+        if (set == null) {
+            osk.usingSpecialMode = !osk.usingSpecialMode;
+        } else {
+            osk.usingSpecialMode = set;
+        }
+
+        osk.setKeyboardLayout(osk.lang, osk.layout, osk.usingSpecialMode ? "special" : "normal", osk.shifting);
+
+        if (osk.throughFrame != null) {
+            osk.throughFrame[0].contentWindow.postMessage({
+                for: "subOSOSK",
+                focus: true
+            }, "*");
+        }
+
+        osk.selectedInput.focus();
+    },
 
     setKeyboardLayout: function(locale, layout, type, upper = false) {
         osk.keyboardLayout = osk.keyboardLayouts[locale][layout][type];
@@ -202,17 +217,16 @@ var osk = {
         for (var i = 0; i < osk.keyboardLayout.length; i++) {
             for (var j = 0; j < osk.keyboardLayout[i][upper ? "upper" : "lower"].length; j++) {
                 if (typeof(osk.keyboardLayout[i][upper ? "upper" : "lower"][j]) == "string") {
-                    var upperPassOn = upper;
-                    var iPassOn = i;
-                    var jPassOn = j;
-
                     $("<button></button>")
                         .text(osk.keyboardLayout[i][upper ? "upper" : "lower"][j])
                         .addClass("oskButton")
+                        .addClass("noTranslate")
                         .click(function(event) {
                             osk.click($(event.target).text());
 
-                            osk.toggleShift(false);
+                            if (!osk.usingSpecialMode) {
+                                osk.toggleShift(false);
+                            }
                         })
                         .appendTo("#osk")
                     ;
@@ -278,7 +292,7 @@ var osk = {
                             .addClass("oskSpecial")
                             .attr("data-readable", _("Switch modes"))
                             .click(function() {
-                                osk.switchModes();
+                                osk.toggleSpecial();
                             })
                             .appendTo("#osk")
                         ;
@@ -304,6 +318,18 @@ var osk = {
             }
 
             $("<br>").appendTo("#osk");
+        }
+
+        if (osk.shifting) {
+            $(".oskShift").addClass("on");
+        } else {
+            $(".oskShift").removeClass("on");
+        }
+
+        if (osk.usingSpecialMode) {
+            $(".oskSpecial").addClass("on");
+        } else {
+            $(".oskSpecial").removeClass("on");
         }
     },
 

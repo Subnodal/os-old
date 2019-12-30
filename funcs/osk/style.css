@@ -43,7 +43,7 @@
     width: calc(calc(calc(40vh / 4) - 8px) * 2);
 }
 
-.oskShift.on {
+.oskShift.on, .oskSpecial.on {
     background-color: rgba(0, 0, 0, 0.1)!important;
 }
 
