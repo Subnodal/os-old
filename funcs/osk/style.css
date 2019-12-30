@@ -17,6 +17,7 @@
     background-color: transparent;
     color: var(--textColour);
     font-size: 20px;
+    vertical-align: middle;
 }
 
 .oskButton:hover {
@@ -29,7 +30,7 @@
 
 .oskSpace {
     width: calc(calc(calc(40vh / 4) - 8px) * 8);
-    height: calc(calc(40vh / 4) - 28px);
+    height: calc(calc(40vh / 4) - 30px);
     margin: 10px;
     background-color: rgba(0, 0, 0, 0.1)!important;
 }
