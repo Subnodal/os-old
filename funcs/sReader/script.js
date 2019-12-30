@@ -606,10 +606,24 @@ $(function() {
         }
 
         if (e.keyCode == 123 && e.ctrlKey) {
-            sReader.switchState();
+            if (window.location.href.split("?")[0].endsWith("/sandbox/index.html")) {
+                parent.postMessage({
+                    for: "subOSSReader",
+                    switchState: true
+                }, "*");
+            } else {
+                sReader.switchState();
+            }
         } else if (e.keyCode == 123 && e.altKey) {
             if (sReader.reading) {
-                sReader.switchBlackout();
+                if (window.location.href.split("?")[0].endsWith("/sandbox/index.html")) {
+                    parent.postMessage({
+                        for: "subOSSReader",
+                        switchBlackout: true
+                    }, "*");
+                } else {
+                    sReader.switchBlackout();
+                }
             }
         } else if (e.keyCode == 188 && e.altKey && !e.shiftKey) {
             if (sReader.reading) {
@@ -747,6 +761,10 @@ $(function() {
                     sReader.stop(...event.data.stop);
                 } else if (event.data.playTone != undefined) {
                     sReader.playTone(...event.data.playTone);
+                } else if (event.data.switchState != undefined) {
+                    sReader.switchState();
+                } else if (event.data.switchBlackout != undefined) {
+                    sReader.switchBlackout();
                 }
             }
         }
