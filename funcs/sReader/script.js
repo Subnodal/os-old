@@ -30,6 +30,8 @@ $(function() {
     }
 
     sReader = {
+        _inputEntryDebounceTimeout: null,
+
         reading: false,
         blackout: false,
         skipNextButton: false,
@@ -436,27 +438,33 @@ $(function() {
             });
 
             $(document).on("focusin", "input", function(event) {
-                if (!osk.wasUsed) {
-                    if (sReader.reading) {sReader.playPanTone("input", $(event.target));}
+                if (sReader._inputEntryDebounceTimeout != null) {
+                    clearTimeout(sReader._inputEntryDebounceTimeout);
+                }
 
-                    if ($(this).attr("data-readable") == undefined) {
-                        if ($(this).attr("id") != undefined && $("label[for=" + $(this).attr("id") + "]").length > 0) {
-                            if (sReader.reading) {sReader.speak(_("Editing %: Text Input", $("label[for=" + $(this).attr("id") + "]:first").text()));}
-                        } else {
-                            if ($(this).attr("placeholder") != undefined) {
-                                if (sReader.reading) {sReader.speak(_("Editing %: Text Input", $(this).attr("placeholder")));}
+                sReader._inputEntryDebounceTimeout = setTimeout(function() {
+                    if (!osk.wasUsed) {
+                        if (sReader.reading) {sReader.playPanTone("input", $(event.target));}
+
+                        if ($(this).attr("data-readable") == undefined) {
+                            if ($(this).attr("id") != undefined && $("label[for=" + $(this).attr("id") + "]").length > 0) {
+                                if (sReader.reading) {sReader.speak(_("Editing %: Text Input", $("label[for=" + $(this).attr("id") + "]:first").text()));}
                             } else {
-                                if (sReader.reading) {sReader.speak(_("Editing: Text Input"));}
+                                if ($(this).attr("placeholder") != undefined) {
+                                    if (sReader.reading) {sReader.speak(_("Editing %: Text Input", $(this).attr("placeholder")));}
+                                } else {
+                                    if (sReader.reading) {sReader.speak(_("Editing: Text Input"));}
+                                }
                             }
+                        } else {
+                            if (sReader.reading) {sReader.speak(_("Editing %: Text Input", $(this).attr("data-readable")));}
                         }
                     } else {
-                        if (sReader.reading) {sReader.speak(_("Editing %: Text Input", $(this).attr("data-readable")));}
+                        setTimeout(function() {
+                            osk.wasUsed = false;
+                        });
                     }
-                } else {
-                    setTimeout(function() {
-                        osk.wasUsed = false;
-                    });
-                }
+                }, 100);
             });
 
             $(document).on("focusout", "input", function(event) {
@@ -593,6 +601,128 @@ $(function() {
             } else {
                 sReader.changeBlackout(true);
             }
+        },
+
+        _handleKeypress: function(event) {
+            if (event.keyCode == 123) {
+                event.preventDefault();
+            }
+    
+            if (event.keyCode == 123 && event.ctrlKey) {
+                if (window.location.href.split("?")[0].endsWith("/sandbox/index.html")) {
+                    parent.postMessage({
+                        for: "subOSSReader",
+                        switchState: true
+                    }, "*");
+                } else {
+                    sReader.switchState();
+                }
+            } else if (event.keyCode == 123 && event.altKey) {
+                if (sReader.reading) {
+                    if (window.location.href.split("?")[0].endsWith("/sandbox/index.html")) {
+                        parent.postMessage({
+                            for: "subOSSReader",
+                            switchBlackout: true
+                        }, "*");
+                    } else {
+                        sReader.switchBlackout();
+                    }
+                }
+            } else if (event.keyCode == 188 && event.altKey && !event.shiftKey) {
+                if (sReader.reading) {
+                    var thisTabIndex = -1;
+    
+                    for (var i = 0; i < $(":tabbable").length; i++) {
+                        if ($(":tabbable")[i] == document.activeElement) {
+                            thisTabIndex = i;
+                        }
+                    }
+    
+                    if (thisTabIndex - 1 >= 0) {
+                        $($(":tabbable")[thisTabIndex - 1]).focus().trigger("focusin");
+                    } else {
+                        $($(":tabbable")[$(":tabbable").length - 1]).focus().trigger("focusin");
+                    }
+    
+                    $(document.activeElement).not("input").trigger("mouseover");
+                }
+            } else if (event.keyCode == 190 && event.altKey && !event.shiftKey) {
+                if (sReader.reading) {
+                    var thisTabIndex = -1;
+    
+                    for (var i = 0; i < $(":tabbable").length; i++) {
+                        if ($(":tabbable")[i] == document.activeElement) {
+                            thisTabIndex = i;
+                        }
+                    }
+                    
+                    if (thisTabIndex + 1 < $(":tabbable").length) {
+                        $($(":tabbable")[thisTabIndex + 1]).focus().trigger("focusin");
+                    } else {
+                        $($(":tabbable")[0]).focus().trigger("focusin");
+                    }
+    
+                    $(document.activeElement).not("input").trigger("mouseover");
+                }
+            } else if (event.keyCode == 188 && event.altKey && event.shiftKey) {
+                if (sReader.reading) {
+                    var thisTabIndex = -1;
+    
+                    for (var i = 0; i < $(focusableControls).length; i++) {
+                        if ($(focusableControls)[i] == document.activeElement) {
+                            thisTabIndex = i;
+                        }
+                    }
+    
+                    if (thisTabIndex - 1 >= 0) {
+                        $($(focusableControls)[thisTabIndex - 1]).focus().trigger("focusin");
+                    } else {
+                        $($(focusableControls)[$(focusableControls).length - 1]).focus().trigger("focusin");
+                    }
+    
+                    $(document.activeElement).not("input").trigger("mouseover");
+                }
+            } else if (event.keyCode == 190 && event.altKey && event.shiftKey) {
+                if (sReader.reading) {
+                    var thisTabIndex = -1;
+    
+                    for (var i = 0; i < $(focusableControls).length; i++) {
+                        if ($(focusableControls)[i] == document.activeElement) {
+                            thisTabIndex = i;
+                        }
+                    }
+                    
+                    if (thisTabIndex + 1 < $(focusableControls).length) {
+                        $($(focusableControls)[thisTabIndex + 1]).focus().trigger("focusin");
+                    } else {
+                        $($(focusableControls)[0]).focus().trigger("focusin");
+                    }
+    
+                    $(document.activeElement).not("input").trigger("mouseover");
+                }
+            } else if (event.keyCode == 83 && event.altKey) {
+                if (sReader.reading) {
+                    sReader.reRead(true, true);
+                }
+            } else if (event.keyCode == 81 && event.altKey) {
+                if (sReader.reading) {
+                    if (getURLParameter("bootable") == "true") {
+                        // Use built-in speech instead
+                        bc.post("speakstop");
+                    } else {
+                        // Just use the speechSynthesis API
+                        window.speechSynthesis.cancel();
+                    }
+                }
+            } else if (event.ctrlKey && event.altKey) {
+                if (sReader.reading) {
+                    if (event.shiftKey) {
+                        sReader.reRead(true);
+                    } else {
+                        sReader.reRead();
+                    }
+                }
+            }
         }
     }
 
@@ -600,127 +730,7 @@ $(function() {
         sReader.init();
     }
 
-    $(document.body).keydown(function(e) {
-        if (e.keyCode == 123) {
-            e.preventDefault();
-        }
-
-        if (e.keyCode == 123 && e.ctrlKey) {
-            if (window.location.href.split("?")[0].endsWith("/sandbox/index.html")) {
-                parent.postMessage({
-                    for: "subOSSReader",
-                    switchState: true
-                }, "*");
-            } else {
-                sReader.switchState();
-            }
-        } else if (e.keyCode == 123 && e.altKey) {
-            if (sReader.reading) {
-                if (window.location.href.split("?")[0].endsWith("/sandbox/index.html")) {
-                    parent.postMessage({
-                        for: "subOSSReader",
-                        switchBlackout: true
-                    }, "*");
-                } else {
-                    sReader.switchBlackout();
-                }
-            }
-        } else if (e.keyCode == 188 && e.altKey && !e.shiftKey) {
-            if (sReader.reading) {
-                var thisTabIndex = -1;
-
-                for (var i = 0; i < $(":tabbable").length; i++) {
-                    if ($(":tabbable")[i] == document.activeElement) {
-                        thisTabIndex = i;
-                    }
-                }
-
-                if (thisTabIndex - 1 >= 0) {
-                    $($(":tabbable")[thisTabIndex - 1]).focus().trigger("focusin");
-                } else {
-                    $($(":tabbable")[$(":tabbable").length - 1]).focus().trigger("focusin");
-                }
-
-                $(document.activeElement).not("input").trigger("mouseover");
-            }
-        } else if (e.keyCode == 190 && e.altKey && !e.shiftKey) {
-            if (sReader.reading) {
-                var thisTabIndex = -1;
-
-                for (var i = 0; i < $(":tabbable").length; i++) {
-                    if ($(":tabbable")[i] == document.activeElement) {
-                        thisTabIndex = i;
-                    }
-                }
-                
-                if (thisTabIndex + 1 < $(":tabbable").length) {
-                    $($(":tabbable")[thisTabIndex + 1]).focus().trigger("focusin");
-                } else {
-                    $($(":tabbable")[0]).focus().trigger("focusin");
-                }
-
-                $(document.activeElement).not("input").trigger("mouseover");
-            }
-        } else if (e.keyCode == 188 && e.altKey && e.shiftKey) {
-            if (sReader.reading) {
-                var thisTabIndex = -1;
-
-                for (var i = 0; i < $(focusableControls).length; i++) {
-                    if ($(focusableControls)[i] == document.activeElement) {
-                        thisTabIndex = i;
-                    }
-                }
-
-                if (thisTabIndex - 1 >= 0) {
-                    $($(focusableControls)[thisTabIndex - 1]).focus().trigger("focusin");
-                } else {
-                    $($(focusableControls)[$(focusableControls).length - 1]).focus().trigger("focusin");
-                }
-
-                $(document.activeElement).not("input").trigger("mouseover");
-            }
-        } else if (e.keyCode == 190 && e.altKey && e.shiftKey) {
-            if (sReader.reading) {
-                var thisTabIndex = -1;
-
-                for (var i = 0; i < $(focusableControls).length; i++) {
-                    if ($(focusableControls)[i] == document.activeElement) {
-                        thisTabIndex = i;
-                    }
-                }
-                
-                if (thisTabIndex + 1 < $(focusableControls).length) {
-                    $($(focusableControls)[thisTabIndex + 1]).focus().trigger("focusin");
-                } else {
-                    $($(focusableControls)[0]).focus().trigger("focusin");
-                }
-
-                $(document.activeElement).not("input").trigger("mouseover");
-            }
-        } else if (e.keyCode == 83 && e.altKey) {
-            if (sReader.reading) {
-                sReader.reRead(true, true);
-            }
-        } else if (e.keyCode == 81 && e.altKey) {
-            if (sReader.reading) {
-                if (getURLParameter("bootable") == "true") {
-                    // Use built-in speech instead
-                    bc.post("speakstop");
-                } else {
-                    // Just use the speechSynthesis API
-                    window.speechSynthesis.cancel();
-                }
-            }
-        } else if (e.ctrlKey && e.altKey) {
-            if (sReader.reading) {
-                if (e.shiftKey) {
-                    sReader.reRead(true);
-                } else {
-                    sReader.reRead();
-                }
-            }
-        }
-    });
+    $(document.body).keydown(sReader._handleKeypress);
 
     $(document).on("keypress", "input", function(e) {
         if (e.keyCode == 37) {
@@ -761,11 +771,13 @@ $(function() {
                     sReader.stop(...event.data.stop);
                 } else if (event.data.playTone != undefined) {
                     sReader.playTone(...event.data.playTone);
-                } else if (event.data.switchState != undefined) {
-                    sReader.switchState();
-                } else if (event.data.switchBlackout != undefined) {
-                    sReader.switchBlackout();
                 }
+            }
+
+            if (event.data.switchState != undefined) {
+                sReader.switchState();
+            } else if (event.data.switchBlackout != undefined) {
+                sReader.switchBlackout();
             }
         }
     });

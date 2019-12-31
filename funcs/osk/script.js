@@ -86,7 +86,7 @@ var osk = {
             if (osk.selectedInputStart != osk.selectedInputEnd) {
                 osk.selectedInput.val(osk.selectedInput.val().substring(0, osk.selectedInputStart) + osk.selectedInput.val().substring(osk.selectedInputEnd));
 
-                osk.selectedInput.focus();
+                $(osk.selectedInput).focus();
 
                 document.activeElement.selectionStart = osk.selectedInputStart;
                 document.activeElement.selectionEnd = osk.selectedInputStart;
@@ -94,7 +94,7 @@ var osk = {
 
             osk.selectedInput.val(osk.selectedInput.val().substring(0, osk.selectedInputStart) + char + osk.selectedInput.val().substring(osk.selectedInputStart));
 
-            osk.selectedInput.focus();
+            $(osk.selectedInput).focus();
             document.activeElement.selectionStart = osk.selectedInputStart + 1;
             document.activeElement.selectionEnd = osk.selectedInputStart + 1;
 
@@ -103,14 +103,14 @@ var osk = {
             if (osk.selectedInputStart != osk.selectedInputEnd) {
                 osk.selectedInput.val(osk.selectedInput.val().substring(0, osk.selectedInputStart) + osk.selectedInput.val().substring(osk.selectedInputEnd));
 
-                osk.selectedInput.focus();
+                $(osk.selectedInput).focus();
 
                 document.activeElement.selectionStart = osk.selectedInputStart;
                 document.activeElement.selectionEnd = osk.selectedInputStart;
             } else if (osk.selectedInputStart > 0) {
                 osk.selectedInput.val(osk.selectedInput.val().substring(0, osk.selectedInputStart - 1) + osk.selectedInput.val().substring(osk.selectedInputStart));
 
-                osk.selectedInput.focus();
+                $(osk.selectedInput).focus();
 
                 document.activeElement.selectionStart = osk.selectedInputStart - 1;
                 document.activeElement.selectionEnd = osk.selectedInputStart - 1;
@@ -126,7 +126,7 @@ var osk = {
             if (ime.inUse && char == " " && ime.candidates != []) {
                 osk.selectedInput.val(osk.selectedInput.val().substring(0, osk.selectedInputStart - 1) + osk.selectedInput.val().substring(osk.selectedInputEnd));
 
-                osk.selectedInput.focus();
+                $(osk.selectedInput).focus();
 
                 document.activeElement.selectionStart = osk.selectedInputStart;
                 document.activeElement.selectionEnd = osk.selectedInputStart;
@@ -147,7 +147,7 @@ var osk = {
                 focus: true
             }, "*");
         } else {
-            osk.selectedInput.focus();
+            $(osk.selectedInput).focus();
         }
 
         if (osk.throughFrame == null) {
@@ -170,7 +170,7 @@ var osk = {
             }
         }
 
-        if (osk.throughFrame) {osk.selectedInput.focus();}
+        if (osk.throughFrame) {$(osk.selectedInput).focus();}
 
         document.activeElement.selectionStart = osk.selectedInputStart;
         document.activeElement.selectionEnd = osk.selectedInputEnd;
@@ -200,7 +200,7 @@ var osk = {
             }, "*");
         }
 
-        osk.selectedInput.focus();
+        $(osk.selectedInput).focus();
     },
 
     toggleSpecial: function(set = null) {
@@ -219,7 +219,7 @@ var osk = {
             }, "*");
         }
 
-        osk.selectedInput.focus();
+        $(osk.selectedInput).focus();
     },
 
     setKeyboardLayout: function(locale, layout, type, upper = false) {

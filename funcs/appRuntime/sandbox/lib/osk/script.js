@@ -1,6 +1,7 @@
 var osk = {
     selectedInput: null,
     isOpen: false,
+    wasUsed: false,
 
     open: function(selectedInput = $("*:focus")) {
         osk.selectedInput = selectedInput;
@@ -76,6 +77,8 @@ $(function() {
                 setTimeout(function() {
                     if (ime.pinyinCharBuffer.length > 1 && ime.candidates.length > 0) {ime.show();}
                 });
+
+                osk.wasUsed = true;
             } else if (event.data.focus) {
                 osk.selectedInput.focus();
             } else if (event.data.selectionStart != undefined && event.data.selectionEnd != undefined) {

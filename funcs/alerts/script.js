@@ -1,4 +1,8 @@
+var _preAlertFocus = document.body;
+
 function alert(content, title = "", buttons = [{text: _("OK"), type: "normal", onclick: "closeAlert();"}]) {
+    _preAlertFocus = document.activeElement;
+
     $("#alertBox").html(`
         <div class="alertContent">
             <div class="alertContentLandmark" tabindex="0"></div>
@@ -33,4 +37,6 @@ function closeAlert() {
     $("#alertBackground, #alertBox").fadeOut();
 
     if (sReader.reading) {sReader.speak(_("Alert closed"));}
+
+    $(_preAlertFocus).focus().trigger("mouseover");
 }

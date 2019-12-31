@@ -46,30 +46,34 @@ var core;
             }, "*");
         });
 
-        $(document.body).keydown(function(e) {
-            if (e.keyCode == 73 && e.altKey) {
+        $(document).on("contextmenu", "*", function(e) {
+            e.preventDefault();
+        });
+
+        $(document).on("keydown", "*", function(event) {
+            if (event.keyCode == 73 && event.altKey) {
                 parent.postMessage({
                     for: "subOS",
                     pressWindowButton: 0,
                     responseKey: core.responseKey
                 }, "*");
-            } else if (e.keyCode == 79 && e.altKey) {
+            } else if (event.keyCode == 79 && event.altKey) {
                 parent.postMessage({
                     for: "subOS",
                     pressWindowButton: 1,
                     responseKey: core.responseKey
                 }, "*");
-            } else if (e.keyCode == 80 && e.altKey) {
+            } else if (event.keyCode == 80 && event.altKey) {
                 parent.postMessage({
                     for: "subOS",
                     pressWindowButton: 2,
                     responseKey: core.responseKey
                 }, "*");
             }
-        });
 
-        $(document).on("contextmenu", "*", function(e) {
-            e.preventDefault();
+            sReader._handleKeypress(event);
+    
+            event.stopPropagation();
         });
 
         setTimeout(function() {
