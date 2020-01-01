@@ -19,7 +19,7 @@ lang.list["zh-CN"] = {
     "Username": "用户名",
     "Password": "密码",
     "Help": "救命",
-    "Sign In": "登入",
+    "Sign in": "登入",
     "desktop": "桌面",
     "My account": "我的帐户",
     "User": "用户",

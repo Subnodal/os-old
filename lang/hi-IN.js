@@ -19,7 +19,7 @@ lang.list["hi-IN"] = {
     "Username": "उपयोगकर्ता नाम",
     "Password": "पारण शब्द",
     "Help": "मदद",
-    "Sign In": "दाखिल करना",
+    "Sign in": "दाखिल करना",
     "desktop": "डेस्कटॉप",
     "My account": "मेरा खाता",
     "User": "उपयोगकर्ता",

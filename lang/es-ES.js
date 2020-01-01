@@ -19,7 +19,7 @@ lang.list["es-ES"] = {
     "Username": "Nombre de usuario",
     "Password": "Contraseña",
     "Help": "Ayuda",
-    "Sign In": "Registrarse",
+    "Sign in": "Registrarse",
     "desktop": "escritorio",
     "My account": "Mi cuenta",
     "User": "Usuario",

@@ -19,7 +19,7 @@ lang.list["en-AU"] = {
     "Username": "Username",
     "Password": "Password",
     "Help": "Help",
-    "Sign In": "Sign In",
+    "Sign in": "Sign in",
     "desktop": "desktop",
     "My account": "My account",
     "User": "User",
