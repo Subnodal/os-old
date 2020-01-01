@@ -296,18 +296,24 @@ $(function() {
         if (e.keyCode == 73 && e.altKey) {
             $("window").each(function() {
                 if ($(this).css("z-index") == zIndexLevel) {
+                    sReader.skipNextButton = true;
+
                     $(this).find(".windowButton").get(0).click();
                 }
             });
         } else if (e.keyCode == 79 && e.altKey) {
             $("window").each(function() {
                 if ($(this).css("z-index") == zIndexLevel) {
+                    sReader.skipNextButton = true;
+
                     $(this).find(".windowButton").get(1).click();
                 }
             });
         } else if (e.keyCode == 80 && e.altKey) {
             $("window").each(function() {
                 if ($(this).css("z-index") == zIndexLevel) {
+                    sReader.skipNextButton = true;
+
                     $(this).find(".windowButton").get(2).click();
                 }
             });
@@ -326,6 +332,8 @@ addEventListener("message", function(event) {
     } else if (event.data.for == "subOS" && event.data.bringToFront && event.data.responseKey) {
         $("window[response-key='" + event.data.responseKey + "']").mousedown();
     } else if (event.data.for == "subOS" && event.data.pressWindowButton != undefined && event.data.responseKey) {
+        sReader.skipNextButton = true;
+
         $("window[response-key='" + event.data.responseKey + "']").find(".windowButton").get(event.data.pressWindowButton).click();
     }
 }, false);
