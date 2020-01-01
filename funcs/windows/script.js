@@ -180,13 +180,15 @@ function newWindow(src, title = "Untitled App", icon = "media/defaultAccount.png
 
         $("window:last").find("iframe")[0].contentWindow.postMessage({
             for: "subOSSReader",
-            cssState: sReader.reading
-        }, "*");
-
-        $("window:last").find("iframe")[0].contentWindow.postMessage({
-            for: "subOSSReader",
             langInterface: lang.list
         }, "*");
+
+        setTimeout(function() {
+            $("window:last").find("iframe")[0].contentWindow.postMessage({
+                for: "subOSSReader",
+                cssState: sReader.reading
+            }, "*");
+        }, 100);
     });
 
     $("window:last").find(".windowButton").get(2).focus();

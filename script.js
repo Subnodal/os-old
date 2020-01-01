@@ -226,6 +226,11 @@ $(function() {
         }
     });
 
+    $(".appBarOpenApps").sortable({
+        axis: "x",
+        scroll: false
+    });
+
     if (getURLParameter("bootable") == "true") {
         setInterval(refreshSSIDs, 5000);
     }
